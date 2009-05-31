@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,9 +12,12 @@
    height="480px"
    id="svg12"
    sodipodi:version="0.32"
-   inkscape:version="0.46+devel"
-   sodipodi:docname="ruby.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:version="0.46"
+   sodipodi:docname="rails3.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+   inkscape:export-xdpi="60"
+   inkscape:export-ydpi="60">
   <defs
      id="defs14">
     <inkscape:perspective
@@ -35,12 +37,12 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.4708333"
      inkscape:cx="214.27762"
-     inkscape:cy="240"
+     inkscape:cy="348.78187"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="978"
+     inkscape:window-width="1274"
+     inkscape:window-height="724"
      inkscape:window-x="0"
      inkscape:window-y="25" />
   <metadata
@@ -61,7 +63,7 @@
      inkscape:groupmode="layer">
     <text
        xml:space="preserve"
-       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Titania MF;-inkscape-font-specification:Titania MF"
+       style="font-size:72;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
        x="44.192635"
        y="111.69319"
        id="text2018"
@@ -69,8 +71,7 @@
          sodipodi:role="line"
          id="tspan2020"
          x="44.192635"
-         y="111.69319"
-         dx="0 -1.3597734">WB</tspan></text>
+         y="111.69319">WB</tspan></text>
     <g
        style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Titania MF;-inkscape-font-specification:Titania MF"
        id="text2022"
@@ -81,7 +82,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#d40000;font-family:Titania MF;-inkscape-font-specification:Titania MF"
+       style="font-size:72px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#d40000;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
        x="176.09065"
        y="111.69319"
        id="text2026"
@@ -90,6 +91,6 @@
          id="tspan2028"
          x="176.09065"
          y="111.69319"
-         dx="0 0 0 -4.0793204">Ruby</tspan></text>
+         dx="-5.4390941 -4.0793204 1.3597734 1.3597734 1.3597734 -3.3994339">Rails3</tspan></text>
   </g>
 </svg>

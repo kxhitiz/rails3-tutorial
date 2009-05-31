@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/stylesheets/uv.css" type="text/css" media="screen, projection" charset="utf-8">
     <link rel="stylesheet" href="/stylesheets/rails3.css" type="text/css" media="screen,projection" charset="utf-8">
 
-    <title><%= @title || "WB/Rails3 %></title>
+    <title><%= @title || "WB/Rails3" %></title>
   </head>
   <body>
     <div class="span-21" id="header">
