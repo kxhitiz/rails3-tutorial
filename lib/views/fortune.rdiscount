@@ -1,0 +1,579 @@
+# Fortunka w Ruby on Rails
+
+Zaczynamy od wygenerowania szkieletu aplikacji:
+
+    rails fortune
+
+Generator rails utworzył wiele katalogów. Po co? 
+
+    cd fortune
+
+I juz mozemy przetestować szkielet aplikacji.
+Uruchamiamy cienkiego:
+
+    script/server thin -p 3000
+
+i oglądamy stronę testową:
+
+    http://localhost:3000
+
+Plikowi ze stroną, którą oglądamy zmieniamy nazwę 
+na `welcome.html`:
+
+    cd public
+    mv index.html welcome.html
+
+Teraz strona ta dosŧepna jest pod takim url:
+
+    http://localhost:3000/welcome.html
+
+A stronę główną aplikacji wykonamy za chwilę.
+
+
+## Generujemy rusztowanie dla modelu Education
+
+Zaczynamy od nauczenia Rails, że liczba mnoga od 
+*education* to *education*.
+
+**Oj będą problemy!**
+
+W pliku *inflections.rb* dopisujemy regułę:
+
+    :::ruby
+    # Add new inflection rules using the following format 
+    # (all these examples are active by default):
+    ActiveSupport::Inflector.inflections do |inflect|
+    #   inflect.plural /^(ox)$/i, '\1en'
+    #   inflect.singular /^(ox)en/i, '\1'
+    #   inflect.irregular 'person', 'people'
+    #   inflect.uncountable %w( fish sheep )
+      inflect.uncountable %w( education )
+    end
+
+Teraz podejrzymy jakie generatory są zainstalowane w systemie:
+
+    ./script/generate
+      
+    Installed Generators
+    ... scaffold ...
+      
+    ./script/generate scaffold
+      
+    Description:
+      Scaffolds an entire resource, from model and migration to controller and
+      views, along with a full test suite. The resource is ready to use as a
+      starting point for your RESTful, resource-oriented application.
+ 
+Model *Education* wygenerujemy tak:
+
+    ./script/generate scaffold Education author:string quotation:text
+
+Polecenie:
+
+    ./script/generate scaffold Computer ..
+
+utworzy następujące pliki:
+
+<table class="span-20" summary="Scaffold">
+  <colgroup>
+    <col class="table1"/>
+    <col class="table2"/>
+  </colgroup>
+  <caption><em>Domyślne rusztowanie</em></caption>
+  <thead>
+   <tr>
+    <th class="span-9">Plik</th>
+    <th class="span-11">Po co?</th>
+   </tr>
+  </thead>
+
+<tbody>
+ <tr>
+ <td>app/models/post.rb</td>
+ <td>The Computer model</td>
+ </tr>
+
+ <tr>
+ <td>db/migrate/......._create_computers.rb</td>
+ <td>Migration to create the computers table in your database</td>
+ </tr>
+
+ <tr>
+ <td>app/controllers/computers_controller.rb</td>
+ <td>The Computers controller</td>
+ </tr>
+
+ <tr>
+ <td>app/views/computers/index.html.erb</td>
+ <td>A view to display an index of all computers</td>
+ </tr>
+
+ <tr>
+ <td>app/views/computers/show.html.erb</td>
+ <td>A view to display a single post</td>
+ </tr>
+
+ <tr>
+ <td>app/views/computers/new.html.erb</td>
+ <td>A view to create a new post</td>
+ </tr>
+
+ <tr>
+ <td>app/views/computers/edit.html.erb</td>
+ <td>A view to edit an existing post</td>
+ </tr>
+
+ <tr>
+ <td>app/views/layouts/computers.html.erb</td>
+ <td>A view to control the overall look and feel of the other computers views</td>
+ </tr>
+
+ <tr>
+ <td>public/stylesheets/scaffold.css</td>
+ <td>Cascading style sheet to make the scaffolded views look better</td>
+ </tr>
+
+ <tr>
+ <td>app/helpers/computers_helper.rb</td>
+ <td>Helper functions to be used from the computers views</td>
+ </tr>
+
+ <tr>
+ <td>config/routes.rb</td>
+ <td>Edited to include routing information for computers</td>
+ </tr>
+
+<!--
+
+ <tr>
+ <td>test/functional/computers_controller_test.rb</td>
+ <td>Functional testing harness for the computers controller</td>
+ </tr>
+
+ <tr>
+ <td>test/fixtures/computers.yml</td>
+ <td>Dummy computers for use in testing</td>
+ </tr>
+
+ <tr>
+ <td>test/unit/post_test.rb</td>
+ <td>Unit testing harness for the computers model</td>
+ </tr>
+
+ <tr>
+ <td>test/unit/helpers/computers_helper_test.rb </td>
+ <td>Unit testing harness for the computers helper</td>
+ </tr>
+
+-->
+
+</tbody>
+</table>
+
+
+Migrujemy:
+
+    rake db:create
+    rake db:migrate
+
+Podglądamy routing:
+
+    rake routes
+
+Stronę z listą cytatów podmontowujemy jako stronę główną witrynki.
+W tym celu w pliku *routes.rb* edytujemy wiersz z `map.root`:
+
+    :::ruby
+    # You can have the root of your site routed with map.root --
+    # just remember to delete public/index.html.
+    map.root :controller => "education"
+
+Wyniki naszej pracy możemy podejrzeć tutaj:
+
+    http://localhost:3000
+
+Ale po kliknięciu na 'NEW' dostajemy *weird error*.
+Generator wygenerował błędny kod? Poprawiamy generator
+zamieniając w widokach, `education_path` na `education_index_path`,
+przykład:
+
+    :::ruby
+    link_to 'Back', education_index_path
+
+I jeszcze raz podglądamy routing:
+
+    rake routes
+
+Jeśli nie zmienialibyśmy liczby mnogiej, to w wygenerowanych 
+widokach byłoby tak:
+
+    :::ruby
+    link_to 'Back', educations
+
+i nie byłoby problemów, a tak mamy wygenerowany 
+link z `education` i rails oczekuje jakiegoś `id` 
+(dlaczego?, konwencja REST).
+
+
+## A co z polskimi literkami?
+
+Komunikaty o błędach też powinny być po polsku.
+Jak to zrobić? Zaglądamy do katalogu *locales* po 
+wskazówki:
+
+    :::ruby
+    # Sample localization file for English. 
+    # Add more files in this directory for other locales.
+    # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale 
+    # for starting points.
+
+Obejrzenie, krótkiego 
+[screecastu R. Batesa](http://railscasts.com/episodes/138-i18n) 
+też ma sens.
+
+W pliku *environment.rb* odkomentowujemy i edytujemy wiersz
+z `config.i18n.default_locale`:
+
+      # The default locale is :en and all translations 
+      # from config/locales/*.rb,yml are auto loaded.
+      # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+      config.i18n.default_locale = :pl
+    end
+
+## Suszymy kod: refaktoryzacja widoków
+
+Wspólny kod z plików *new.html.erb* oraz *edit.html.erb*
+przenosimy do pliku *_form.htm.erb*. Zamiast tego kodu
+wstawiamy w pliku *new.html.erb*:
+
+    <%= render :partial => "form", 
+          :locals => { :f => f, :button_label => 'Create' } %>
+
+a w pliku *edit.html.erb*:
+
+    <%= render :partial => "form", 
+          :locals => { :f => f, :button_label => 'Update' } %>
+
+
+## Suszymy kod: refaktoryzacja kontrolera za pomocą filtrów
+
+Jeden wiersz powatarza się cztery razy w różnych akcjach:
+
+    :::ruby
+    class EducationController < ApplicationController
+      ...
+      def show
+        @education = Education.find(params[:id])
+      ... 
+      def edit
+        @education = Education.find(params[:id])
+      ...
+      def update
+        @education = Education.find(params[:id])
+      ... 
+      def destroy
+        @education = Education.find(params[:id])
+      ...
+
+Usuwamy powtarzający się wiersz z akcji/metod i modyfikujemy
+kod kontrolera w następujący sposób:
+
+    :::ruby
+    class EducationController < ApplicationController 
+      before_filter :find_education, :only => [:show, :edit, :update, :destroy] 
+      ...
+      private 
+      def find_education
+        @education = Education.find(params[:id])  
+      end 
+    end 
+
+## Dodajemy nową kolumnę do tabelki: *source*
+
+Zaczynamy od rozpoznania terenu:
+
+    script/generate migration
+
+Po lekturze decydujemy się na taką nazwę migracji:
+
+    script/generate migration AddSourceToEducation source:string
+
+Wygenerowanego pliku, nie musimy poprawiać:
+
+    :::ruby
+    class AddSourceToEducation < ActiveRecord::Migration
+      def self.up
+        add_column :education, :source, :string
+      end
+    
+      def self.down
+        remove_column :education, :source
+      end
+    end
+
+Migrujemy:
+
+    rake db:migrate
+
+Teraz poprawiamy wygenerowane widoki, dodając nową kolumnę.
+
+Uruchamiamy aplikację i edytujemy wpis:
+
+    Oscar Wilde, "The Critic as Artist"
+
+przerzucając nazwę książki do kolumny *Source*.
+
+
+## Generujemy rusztowanie dla modelu Frazes (Komunał)
+
+Teraz uwzględniamy nową kolumnę.
+
+    ./script/generate scaffold Platitude author:string source:string quotation:text
+
+Sprawdzamy jak to działa wpisując kilka komunałów.
+
+Wykonujemy jeszcze raz te same kroki co przy modelu *Education*.
+Teraz do partial mozemy wrzucić więcej kodu:
+nie ma problemu z liczbą pojedynczą i mnogą.
+
+
+## Problemy, problemy: znowu czeka nas suszenie kodu
+
+> Given sufficient time, what you put off doing 
+> today will get done by itself.
+
+Powinniśmy mieć jeden model: *Quotation* z dodatkowym
+atrybutem *category*. Co robić?
+
+Na razie skorzystamy z takiego frazesu:
+
+## Dodajemy Basic HTTP Authentication
+
+W tabelce *educations* jest trochę fajnych cytatów.
+Nie chcemy aby ktoś nam grzebał w tabelkach.
+
+    :::ruby
+    class EducationController < ApplicationController
+      # USERNAME, PASSWORD = "wbzyl", "sekret"
+      # logger.info("Digest::SHA1: #{Digest::SHA1.hexdigest('sekret')}")
+      USERNAME, PASSWORD = "wbzyl", "a1b9892611956aa13a5ab9ccf01f49662583f2d2"
+      before_filter :authenticate, :only => [:new, :edit, :destroy]
+      ...
+    private
+      def authenticate
+        authenticate_or_request_with_http_basic do |username, password| 
+        #username == USERNAME && password == PASSWORD
+        username == USERNAME && (Digest::SHA1.hexdigest(password) == PASSWORD)
+      end
+    end        
+
+Klasyka z railscasts [HTTP Basic 
+Authentication](http://railscasts.com/episodes/82-http-basic-authentication/).
+
+
+## Digest HTTP Authentication
+
+> For those that may now know the difference, basic authentication only
+> base 64 encodes the authenticating username and password (making it
+> easily decoded) whereas digest authentication sends an MD5 hash of
+> your username and password. To simplify, digest is more secure than
+> basic.
+
+W tabelce * platitudes* też jest trochę fajnych cytatów.
+Dla odmiany zabezpieczymy cały kontroler za pomocą digest authentication.
+
+    :::ruby
+    class PlatitudesController < ApplicationController
+      USERS = { "wbzyl" => "sekret" }
+      before_filter :authenticate   
+      ...
+      def authenticate
+        authenticate_or_request_with_http_digest do |username|
+          USERS[username]
+        end
+      end
+    end
+
+## Paginacja
+
+Skorzystamy z gemu
+[will_paginate](http://github.com/mislav/will_paginate/)
+
+W pliku *environment.rb* dopisujemy:
+
+    :::ruby 
+    Rails::Initializer.run do |config|
+      config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', 
+        :source => 'http://gems.github.com'
+    end
+
+i po kończącym blok end dopisujemy:
+
+    :::ruby
+    end
+    require "will_paginate" 
+
+Następnie sprawdzamy czy gem jest już zainstalowany w odpowiedniej wersji:
+
+    rake gems
+
+Jeśli nie to wykonujemy polecenie:
+
+    rake gems:install
+
+Tyle o instalacji.
+
+W kodzie metody `index` kontrolera *Education* wymieniamy wiersz:
+
+    :::ruby
+    @education = Education.all
+
+na
+
+    :::ruby
+    @education = Education.paginate :page => params[:page], :per_page => 5,
+        :order => 'updated_at DESC'
+
+W widoku *index* dopisujemy:
+
+    <%= will_paginate @education %>
+
+No jeszcze należy wystylizować element:
+
+    :::html
+    <div class="pagination">
+
+Tworzymy plik *application.css* gdzie wpisujemy:
+
+    :::css
+    .pagination {
+      margin-top: 1em;
+    }
+
+Nowy plik stylu dopisujemy w layoucie kontrolera.
+
+
+## Dodajemy obrazki korzystając z gemu  Paperclip
+
+Do każdego cytatu będzie można dodać obrazek ze zdjęciem 
+autora cytatu lub czegokolwiek.
+
+Tutaj znalazłem krótke howto:
+[The Ruby On Rails Paperclip Plugin Tutorial - Easy Image 
+Attachments](http://burm.net/2008/10/07/the-ruby-on-rails-paperclip-plugin-tutorial-easy-image-attachments/)
+
+Jak zwykle sprawdzamy czy gem jest już zainstalowany:
+
+    gem list
+
+Jeśli nie to instalujemy go tak:
+
+    gem sources -a http://gems.github.com
+    sudo gem install thoughtbot-paperclip
+
+albo, lepiej, w pliku *environment.rb* dopisujemy:
+
+    :::ruby 
+    Rails::Initializer.run do |config|
+      config.gem 'thoughtbot-paperclip', :version => '~> 2.2.8', :lib => 'paperclip', 
+        :source => 'http://gems.github.com'
+    end
+
+i teraz wykonujemy
+
+    sudo rake gems:install
+
+OK. Chcemy mieć attaczmęt w modelu *Education*. Nazwiemy go *photo*.
+
+Generujemy migrację:
+
+    script/generate migration AddPhotosToEducation \
+      photo_file_name:string photo_content_type:string photo_file_size:integer
+
+Migrujemy:
+
+    rake db:migrate
+
+W modelu *Education* wpisujemy:
+
+    # paperclip
+    has_attached_file :photo, :styles => {
+      :thumb=> "100x100#",
+      :small  => "150x150>",
+    }  
+
+W formularzach umieszczonych w widokach dopisujemy:
+`html => { :multipart => true }`:
+
+    # edit.html.erb 
+    <% form_for(@education, :html => { :multipart => true }) do |f| %>
+    # new.html.erb 
+    <% form_for(@education, :url => education_index_path, 
+           :html => { :multipart => true }) do |f| %>
+
+W widoku częściowym (partial) *_form.html.erb* dopisujemy:
+
+    :::html
+    <p>
+      <%= f.label 'Photo' %><br />
+      <%= f.file_field :photo %>
+    </p>
+
+W widoku *index.html.erb* dopisujemy:
+
+    <% if education.photo.exists? %>
+    <td><%= image_tag education.photo.url(:thumb) %></td>
+    <% else %>
+    <td>[no photo]</td>
+    <% end %>
+
+W widoku *show.html.erb* dopisujemy:
+
+    <% if @education.photo.exists? %>
+    <p><%= image_tag @education.photo.url(:small) %></p>
+    <% else %>
+    <p> There are no photo's attached, upload one.</p>
+    <% end %>
+
+## Tytuły stron (bardzo ważne)
+
+W pliku z metodami pomocniczymi dla całej aplikacji wpisujemy:
+
+    :::ruby
+    module ApplicationHelper
+      def title(title)
+        content_for(:title) { title }
+      end
+    end
+
+W layoutach podmieniamy wygenerowany tytuł
+
+    <title>Education: <%= controller.action_name %></title>
+
+na
+
+    <title><%= yield(:title) || "WB_Quotations" -%></title>
+
+A w każdym z widoków, który ma mieć jakiś tytuł wpisujemy:
+
+    <% title 'WB_RAILS – Aktywne bazy danych' -%>
+
+
+
+## Udoskonalenia
+
+1. Utworzyć nową stronę główną aplikacji.
+   Umieścić na niej po jednym losowym cytacie
+   z każdej kategorii oraz linki do stron
+   z indeksami kategorii.
+2. Otagowujemy obrazki: [Acts As Taggable on Steroids Ruby On Rails Plugin With 
+   Paginate](http://burm.net/2008/10/08/acts-as-taggable-on-steroids-ruby-on-rails-plugin-with-paginate/)
+
+
+
+## Różne
+
+Skorzystać z wtyczki: 
+Bryan Helmkamp,
+[rack-bug](http://github.com/brynary/rack-bug/) —
+debugging toolbar for Rack applications implemented as middleware.

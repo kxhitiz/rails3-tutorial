@@ -1,0 +1,70 @@
+# Rozkład jazdy
+
+* Wykład 1
+* Wykład 2
+* Wykład 3
+* Wykład 4
+
+## Kilka uwag o przykładach
+
+Zaczynamy od przerobienia *Fortunki* na aplikację Rails.
+Fortunka to aplikacja z jednym modelem.
+
+Aplikacje z dwoma modelami.
+
+1. Blog
+2. Todo
+3. Hurtownia
+
+Autorem tych przykładów jest Ryan Bates.
+Przykłady te są wykorzystywane
+w jego [screencastach](http://railscasts.com/).
+Kod przykładów oraz kod screencastów znajdują
+się na serwerze [Github](http://github.com/ryanb).
+
+## TODO
+
+Więcej przykładów:
+
+1. z jednym modelem: *Tatry + Google maps*.
+2. z więcej niż dwoma modelami *Ale Kino*.
+3. wyszukiwanie w bazie: Xapian +
+   [Xapit gem](http://github.com/ryanb/xapit).
+
+Najważniejsze gemy/wtyczki w przykładach:
+
+1. Mislav Marohnić, gem
+   [will_paginate](http://github.com/mislav/will_paginate/)
+
+2. Ben Johnsos, [Authlogic](http://github.com/binarylogic/authlogic/).
+   A clean, simple, and unobtrusive ruby authentication solution.
+
+2. Rick Olson, plugin
+   [Restful Authentication Generator](http://github.com/technoweenie/restful-authentication/)
+   - [articles](http://ruby.about.com/lr/restful_authentication/384407/3/)
+
+3. Jon Yurek, gem 
+   [paperclip](http://github.com/thoughtbot/paperclip/),
+
+   - [strona domowa gemu](http://www.thoughtbot.com/projects/paperclip)
+
+4. Mike Perham, plugin
+   [Exception Notifier](http://github.com/rails/exception_notification/)
+
+5. Rick Olson, plugin
+   [Attachment Fu](http://github.com/technoweenie/attachment_fu/) 
+   facilitates file uploads in Ruby on Rails.
+
+6. Jeremy Kemper, plugin
+   [Acts As List](http://github.com/rails/acts_as_list/)
+   provides the capabilities for sorting and reordering a number of
+   objects in a list.
+
+
+## Różne
+
+1. [JavaScript and CSS Asset Compression 
+   for Production Rails Apps](http://github.com/sbecker/asset_packager/)
+2. [Real HTTP Caching for Ruby Web Apps](http://github.com/rtomayko/rack-cache/)
+3. Generatory.
+   [*A collection of useful Rails generator scripts*](http://github.com/ryanb/nifty-generators/)

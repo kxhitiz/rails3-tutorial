@@ -1,0 +1,358 @@
+# Aplikacja: Blog
+
+Aplikacja jest wykorzystywana w screencastach
+R. Batesa. Repozytorium do ściągnięcia z Githuba:
+
+    git://github.com/ryanb/railscasts-episodes.git
+    cd railscasts-episodes/templates/blog
+
+Katalog: *app*:
+
+    |-- app
+    |   |-- controllers
+    |   |   |-- application_controller.rb
+    |   |   |-- articles_controller.rb
+    |   |   `-- comments_controller.rb
+    |   |-- helpers
+    |   |   |-- application_helper.rb
+    |   |   |-- articles_helper.rb
+    |   |   |-- comments_helper.rb
+    |   |   `-- layout_helper.rb
+    |   |-- models
+    |   |   |-- article.rb
+    |   |   `-- comment.rb
+    |   `-- views
+    |       |-- articles
+    |       |   |-- _form.html.erb
+    |       |   |-- edit.html.erb
+    |       |   |-- index.html.erb
+    |       |   |-- new.html.erb
+    |       |   `-- show.html.erb
+    |       |-- comments
+    |       |   |-- _form.html.erb
+    |       |   |-- edit.html.erb
+    |       |   `-- new.html.erb
+    |       `-- layouts
+    |           `-- application.html.erb
+    |-- config
+    |   |-- boot.rb
+    |   |-- database.yml
+    |   |-- environment.rb
+    |   |-- environments
+    |   |   |-- development.rb
+    |   |   |-- production.rb
+    |   |   `-- test.rb
+    |   |-- initializers
+    |   |   |-- inflections.rb
+    |   |   |-- mime_types.rb
+    |   |   `-- new_rails_defaults.rb
+    |   `-- routes.rb
+    |-- db
+    |   |-- migrate
+    |   |   |-- 20080719200447_create_articles.rb
+    |   |   `-- 20080719201435_create_comments.rb
+    |   `-- schema.rb
+    |-- lib
+    |   `-- tasks
+    |       `-- application.rake
+    |-- public
+    |   |-- 404.html
+    |   |-- 422.html
+    |   |-- 500.html
+    .
+    .    
+    26 directories, 70 files
+
+Tak jak w wypadku aplikacji TODO powinniśmy zacząć od przyjrzenia
+się migracjom. Ale prościej będzie obejrzeć plik *schema.rb*:
+
+    :::ruby
+    # This file is auto-generated from the current state of the database.
+    # Note that this schema.rb definition is the authoritative source for
+    # your database schema. If you need to create the application database
+    # on another system, you should be using db:schema:load, not running
+    # all the migrations from scratch. The latter is a flawed and
+    # unsustainable approach (the more migrations you'll amass, the slower
+    # it'll run and the greater likelihood for issues).  It's strongly
+    # recommended to check this file into your version control system.
+    
+    ActiveRecord::Schema.define(:version => 20080719201435) do
+    
+      create_table "articles", :force => true do |t|
+        t.string   "name"
+        t.text     "content"
+        t.string   "author_name"
+        t.datetime "created_at"
+        t.datetime "updated_at"
+      end
+    
+      create_table "comments", :force => true do |t|
+        t.integer  "article_id"
+        t.string   "author_name"
+        t.string   "site_url"
+        t.text     "content"
+        t.datetime "created_at"
+        t.datetime "updated_at"
+      end
+    
+    end
+
+I definicjom modeli:
+
+    :::ruby
+    class Article < ActiveRecord::Base
+      has_many :comments, :dependent => :destroy
+      validates_presence_of :name, :content
+    end
+    
+    class Comment < ActiveRecord::Base
+      belongs_to :article
+      validates_presence_of :author_name, :content
+    end
+
+Teraz kolej na routing:
+
+    :::ruby
+    ActionController::Routing::Routes.draw do |map|
+      map.resources :articles, :comments
+      map.root :articles
+    end
+
+Teraz już możemy się przyjrzeć aplikacji:
+
+    rake db:create
+    rake db:migrate
+
+Jeszcze dla przypomnienia:
+
+    rake routes
+
+i uruchamiamy aplikację:
+
+    script/server thin -p 3000
+
+
+## Kontrolery
+
+Kontroler *ArticlesController*:
+
+    :::ruby
+    class ArticlesController < ApplicationController
+      def index
+        @articles = Article.find(:all)
+      end
+      
+      # Ważne: 
+      #   w widoku show.html.erb możemy edytować komentarze 
+      #   do oglądanego artykułu
+      def show
+        @article = Article.find(params[:id])
+        @comment = Comment.new(:article => @article)
+      end
+      
+      def new
+        @article = Article.new
+      end
+      
+      def create
+        @article = Article.new(params[:article])
+        if @article.save
+          flash[:notice] = "Successfully created article."
+          redirect_to @article
+        else
+          render :action => 'new'
+        end
+      end
+      
+      def edit
+        @article = Article.find(params[:id])
+      end
+      
+      def update
+        @article = Article.find(params[:id])
+        if @article.update_attributes(params[:article])
+          flash[:notice] = "Successfully updated article."
+          redirect_to @article
+        else
+          render :action => 'edit'
+        end
+      end
+      
+      def destroy
+        @article = Article.find(params[:id])
+        @article.destroy
+        flash[:notice] = "Successfully destroyed article."
+        redirect_to articles_url
+      end
+    end
+    
+Kontroler *CommentsController*. 
+Ten kontroler nie ma akcji *index* oraz *show*. 
+Dlaczego? Jeśli nie znasz odpowiedzi, oznacza to, że 
+za krótko „bawiłeś” się aplikacją.
+    
+    :::ruby
+    class CommentsController < ApplicationController
+      # Metoda new nie jest używana w aplikacji. 
+      # Prawda to czy fałsz?
+      def new
+        @comment = Comment.new
+      end
+
+      # Jak powiązać komentarz z artykułem?      
+      # Zakładamy, że do metody został przekazany jakoś id artykułu.
+      # Jak? 
+      def create
+        @comment = Comment.new(params[:comment])
+        if @comment.save
+          flash[:notice] = "Successfully created comment."
+          redirect_to article_url(@comment.article_id)
+        else
+          render :action => 'new'
+        end
+      end
+      
+      def edit
+        @comment = Comment.find(params[:id])
+      end
+      
+      # A jak tutaj jest przekazywany id artykułu?
+      def update
+        @comment = Comment.find(params[:id])
+        if @comment.update_attributes(params[:comment])
+          flash[:notice] = "Successfully updated comment."
+          redirect_to article_url(@comment.article_id)
+        else
+          render :action => 'edit'
+        end
+      end
+      
+      # Metoda destroy nie jest używana w aplikacji.
+      # Prawda to czy fałsz?
+      def destroy
+        @comment = Comment.find(params[:id])
+        @comment.destroy
+        flash[:notice] = "Successfully destroyed comment."
+        redirect_to article_url(@comment.article_id)
+      end
+    end
+   
+## Widoki dla kontrolera *ArticlesController*
+
+
+Widok *index.html.erb*:
+
+    :::xml
+    <% title "Articles" %>
+    
+    <div id="articles">
+    <% for article in @articles %>
+      <h2>
+        <%= link_to h(article.name), article %>
+        <span class="comments">(<%= pluralize(article.comments.size, 'comment') %>)</span>
+      </h2>
+      <div class="author">from <%=h article.author_name %> 
+        on <%= article.created_at.strftime('%b %d, %Y') %></div>
+      <div class="content"><%= simple_format(article.content) %></div>
+    <% end %>
+    </div>
+
+Widok częściowy *_form.html.erb*:
+
+    :::xml
+    <%= error_messages_for :article %>
+    <% form_for @article do |f| %>
+      <p>
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :content %><br />
+        <%= f.text_area :content %>
+      </p>
+      <p>
+        <%= f.label :author_name %><br />
+        <%= f.text_field :author_name %>
+      </p>
+      <p><%= f.submit "Submit" %></p>
+    <% end %>
+
+Widok *show.html.erb*:
+
+    :::xml
+    <% title @article.name %>
+    
+    <p class="author"><em>from <%=h @article.author_name %></em></p>
+    
+    <%=simple_format @article.content %>
+    
+    <p><%= link_to "Back to Articles", articles_path %></p>
+    
+    <% unless @article.comments.empty? %>
+      <h2><%= pluralize(@article.comments.size, 'comment') %></h2>
+    
+      <div id="comments">
+      <% for comment in @article.comments %>
+        <div class="comment">
+          <strong><%= link_to_unless comment.site_url.blank?, 
+                        h(comment.author_name), h(comment.site_url) %></strong>
+          <em>on <%= comment.created_at.strftime('%b %d, %Y at %H:%M') %></em>
+          <%=simple_format comment.content %>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+    
+    <h3>Add your comment:</h3>
+    <%= render :partial => 'comments/form' %>
+
+Widok częściowy *comments/_form.html.erb*:
+
+    :::xml
+    <%= error_messages_for :comment %>
+    <% form_for @comment do |f| %>
+      <%= f.hidden_field :article_id %>
+      <p>
+        <%= f.label :author_name, 'Name' %><br />
+        <%= f.text_field :author_name %>
+      </p>
+      <p>
+        <%= f.label :site_url, 'Website URL' %><br />
+        <%= f.text_field :site_url %>
+      </p>
+      <p>
+        <%= f.label :content, 'Comment' %><br />
+        <%= f.text_area :content, :rows => '12', :cols => 35 %>
+      </p>
+      <p><%= f.submit "Submit" %></p>
+    <% end %>
+
+Widok *edit.html.erb*:
+
+    :::xml
+    <% title "Edit Article" %>
+    
+    <%= render :partial => 'form' %>
+    
+    <p>
+      <%= link_to "Show", @article %> |
+      <%= link_to "View All", articles_path %>
+    </p>
+
+I na koniec, widok *new.html.erb*:
+
+    :::xml
+    <% title "New Article" %>
+    
+    <%= render :partial => 'form' %>
+    
+    <p><%= link_to "Back to List", articles_path %></p>
+
+
+## Co jeszcze zostało do omówienia?
+
+Gdzie można znaleźć definicję metody *simple_format*.
+
+Jakie ciekawe metody zawiera *layout_helper.html.erb*?
+
+Jakie pliki powinniśmy jeszcze obejrzeć?

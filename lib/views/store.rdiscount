@@ -1,0 +1,97 @@
+# Aplikacja: Store
+
+Aplikacja jest wykorzystywana w screencastach
+R. Batesa. Repozytorium do ściągnięcia z Githuba:
+
+    git://github.com/ryanb/railscasts-episodes.git
+    cd railscasts-episodes/templates/store
+
+Katalog: *app*:
+
+    |-- app
+    |   |-- controllers
+    |   |   |-- application_controller.rb
+    |   |   |-- categories_controller.rb
+    |   |   `-- products_controller.rb
+    |   |-- helpers
+    |   |   |-- application_helper.rb
+    |   |   |-- categories_helper.rb
+    |   |   |-- layout_helper.rb
+    |   |   `-- products_helper.rb
+    |   |-- models
+    |   |   |-- category.rb
+    |   |   `-- product.rb
+    |   `-- views
+    |       |-- categories
+    |       |   |-- _form.html.erb
+    |       |   |-- edit.html.erb
+    |       |   |-- index.html.erb
+    |       |   |-- new.html.erb
+    |       |   `-- show.html.erb
+    |       |-- layouts
+    |       |   `-- application.html.erb
+    |       `-- products
+    |           |-- _form.html.erb
+    |           |-- edit.html.erb
+    |           |-- index.html.erb
+    |           |-- new.html.erb
+    |           `-- show.html.erb
+    |-- config
+    .
+    .
+    |-- db
+    |   |-- development.sqlite3
+    |   |-- migrate
+    |   |   |-- 20080621194238_create_categories.rb
+    |   |   `-- 20080621194423_create_products.rb
+    |   `-- schema.rb
+    .
+    .
+    `-- vendor
+        `-- plugins
+    
+    28 directories, 73 files
+
+Tak jak w wypadku aplikacji *Blog*,
+aplikację *Store* zaczniemy analizować
+od pliku *schema.rb*. 
+Następnie obejrzymy plik *routes.rb*.
+
+Schemat bazy:
+
+    :::ruby
+    ActiveRecord::Schema.define(:version => 20080621194423) do
+    
+      create_table "categories", :force => true do |t|
+        t.string   "name"
+        t.datetime "created_at"
+        t.datetime "updated_at"
+      end
+    
+      create_table "products", :force => true do |t|
+        t.integer  "category_id"
+        t.string   "name"
+        t.decimal  "price"
+        t.text     "description"
+        t.datetime "created_at"
+        t.datetime "updated_at"
+      end
+    
+    end
+
+Routing:
+
+    :::ruby
+    ActionController::Routing::Routes.draw do |map|
+      map.resources :products
+      map.resources :categories
+      map.root :products
+    end
+
+Czy aplikacja *Store* chowa jakieś niespodzianki? TAK.
+
+
+No to idziemy na poszukiwania:
+
+    rake db:migrate
+    script/server thin -p 3000

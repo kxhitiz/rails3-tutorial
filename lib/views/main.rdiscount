@@ -1,4 +1,4 @@
-# Samouczek do Rails3
+# Samouczek do Rails 3
 
 <blockquote>
   <img src="/images/the_thinker.jpg" alt="[The Thinker]">
@@ -7,32 +7,22 @@
   <p class="author">— John von Neumann</p>
 </blockquote>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-tempor laoreet vulputate. Mauris sagittis consequat sem eu
-ullamcorper. Praesent mi magna, dignissim sit amet feugiat nec,
-vehicula vitae lacus. Mauris sed mi sit amet lectus feugiat
-laoreet. Vestibulum vitae ipsum iaculis nulla dapibus euismod. In eu
-viverra turpis. Donec purus justo, commodo quis commodo quis, ultrices.
+1. [Zaczynamy](/intro)
+1. [Hello Fortune](/fortune)
+1. [Aplikacja: Todo](/todo)
+1. [Aplikacja: Blog](/blog)
+1. [Aplikacja: Store](/store)
+1. [Autentykacja i autoryzacja](/authentication)
+1. [Caching](/caching)
+1. [Ćwiczenia](/exercises)
 
-## Mauris porttitor condimentum auctor
+## Dokumentacja
 
-Pellentesque ornare tincidunt nisi eget tincidunt. Aenean tempor
-auctor neque, at consequat nunc porta ut. Nam placerat tortor a lorem
-mattis id tristique nunc congue. Nullam eleifend nisl at ipsum egestas
-malesuada aliquet nulla lacinia. Donec eleifend lectus eget orci
-fermentum at venenatis lectus consectetur. Nam porta felis eget quam
-porttitor accumsan. 
+Na początek zaczynamy od przestudiownaia
+[Rails Guides](http://guides.rubyonrails.org/):
 
-    :::ruby
-    ENV['RAILS_ENV'] ||= 'production'
-    ENV['NO_RELOAD'] ||= '1'
-    
-    $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
-    require 'action_controller'
-    require 'action_controller/new_base' if ENV['NEW']
-    require 'benchmark'
-    
-    class Runner
-      def initialize(app)
-        @app = app
-      end
+1. [Getting Started with Rails](http://guides.rubyonrails.org/getting_started.html)
+2. [Active Record Query Interface](http://guides.rubyonrails.org/active_record_querying.html)
+3. [Rails Form helpers](http://guides.rubyonrails.org/form_helpers.html)
+4. Dalej już według własnego uznania, 
+   wybieramy kolejny *Przewodnik* do przestudiowania

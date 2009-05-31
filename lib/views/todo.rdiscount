@@ -1,0 +1,240 @@
+# Aplikacja: Todo
+
+Aplikacja jest wykorzystywana w screencastach
+R. Batesa. Repozytorium do ściągnięcia z Githuba:
+
+    git://github.com/ryanb/railscasts-episodes.git
+    cd railscasts-episodes/templates/todo
+
+Katalog: *app*:
+
+    |-- controllers
+    |   |-- application_controller.rb
+    |   |-- projects_controller.rb
+    |   `-- tasks_controller.rb
+    |-- helpers
+    |   |-- application_helper.rb
+    |   |-- layout_helper.rb
+    |   |-- projects_helper.rb
+    |   `-- tasks_helper.rb
+    |-- models
+    |   |-- project.rb
+    |   `-- task.rb
+    `-- views
+        |-- layouts
+        |   `-- application.html.erb
+        |-- projects
+        |   |-- _form.html.erb
+        |   |-- edit.html.erb
+        |   |-- index.html.erb
+        |   |-- new.html.erb
+        |   `-- show.html.erb
+        `-- tasks
+            |-- _form.html.erb
+            |-- edit.html.erb
+            `-- new.html.erb
+
+Migracje:
+
+    :::ruby
+    class CreateProjects < ActiveRecord::Migration
+      def self.up
+        create_table :projects do |t|
+          t.string :name
+          t.timestamps
+        end
+      end
+      
+      def self.down
+        drop_table :projects
+      end
+    end
+    
+    class CreateTasks < ActiveRecord::Migration
+      def self.up
+        create_table :tasks do |t|
+          t.integer :project_id
+          t.string :name
+          t.boolean :complete
+          t.timestamps
+        end
+      end
+      
+      def self.down
+        drop_table :tasks
+      end
+    end
+
+Modele:
+
+    :::ruby
+    class Project < ActiveRecord::Base
+      has_many :tasks
+    end
+    
+    class Task < ActiveRecord::Base
+      belongs_to :project
+    end
+
+Routing:
+
+    :::ruby
+    ActionController::Routing::Routes.draw do |map|
+      map.resources :projects, :tasks
+      map.root :projects
+    end
+
+Kontroler *Project*:
+
+    :::ruby
+    class ProjectsController < ApplicationController
+      def index
+        @projects = Project.find(:all)
+      end
+      
+      def show
+        @project = Project.find(params[:id])
+      end
+      
+      def new
+        @project = Project.new
+      end
+      
+      def create
+        @project = Project.new(params[:project])
+        if @project.save
+          flash[:notice] = "Successfully created project."
+          redirect_to @project
+        else
+          render :action => 'new'
+        end
+      end
+      
+      def edit
+        @project = Project.find(params[:id])
+      end
+      
+      def update
+        @project = Project.find(params[:id])
+        if @project.update_attributes(params[:project])
+          flash[:notice] = "Successfully updated project."
+          redirect_to @project
+        else
+          render :action => 'edit'
+        end
+      end
+      
+      def destroy
+        @project = Project.find(params[:id])
+        @project.destroy
+        flash[:notice] = "Successfully destroyed project."
+        redirect_to projects_url
+      end
+    end
+
+Kontroler *Task*:
+
+    :::ruby
+    class TasksController < ApplicationController
+      def new
+        @task = Task.new(:project_id => params[:project_id])
+      end
+      
+      def create
+        @task = Task.new(params[:task])
+        if @task.save
+          flash[:notice] = "Successfully created task."
+          redirect_to @task.project
+        else
+          render :action => 'new'
+        end
+      end
+      
+      def edit
+        @task = Task.find(params[:id])
+      end
+      
+      def update
+        @task = Task.find(params[:id])
+        if @task.update_attributes(params[:task])
+          flash[:notice] = "Successfully updated task."
+          redirect_to @task.project
+        else
+          render :action => 'edit'
+        end
+      end
+      
+      def destroy
+        @task = Task.find(params[:id])
+        @task.destroy
+        flash[:notice] = "Successfully destroyed task."
+        redirect_to @task.project
+      end
+    end
+
+## Widoki dla kontrolera *Projects*
+
+Widok *index.html.erb*
+
+    <% title "Projects" %>
+    
+    <table>
+      <tr>
+        <th>Name</th>
+      </tr>
+      <% for project in @projects %>
+        <tr>
+          <td><%= link_to h(project.name), project %></td>
+          <td><%= link_to "Edit", edit_project_path(project) %></td>
+          <td><%= link_to "Destroy", project, :confirm => 'Are you sure?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+    
+    <p><%= link_to "New Project", new_project_path %></p>
+
+Widok: *show.html.erb*:
+
+    <% title @project.name %>
+    
+    <h2>Tasks</h2>
+    <ul>
+      <% for task in @project.tasks %>
+        <li>
+          <%=h task.name %>
+          (<%= link_to "Edit", edit_task_path(task) %> |
+          <%= link_to "Destroy", task, :confirm => "Are you sure?", :method => :delete %>)
+        </li>
+      <% end %>
+    </ul>
+    
+    <p>
+      <!-- kluczowy wiersz kodu -->
+      <%= link_to "New Task", new_task_path(:project_id => @project) %> |
+      <%= link_to "View All Projects", projects_path %>
+    </p>
+
+Reszta widoków jest standardowa.
+
+
+## Widoki dla kontrolera *Tasks*
+
+Implemetujemy tylko widoki: *edit.html.erb* i *new.html.erb*.
+Więcej widoków nie potrzebujemy.
+
+Najciekawszy, ze wzgledu na *hidden_filed* jest widok częściowy
+*_form.html.erb* dla widoków *edit.html.erb* i *new.html.erb*:
+
+    <%= error_messages_for :task %>
+    <% form_for @task do |f| %>
+      <%= f.hidden_field :project_id %>
+      <p>
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.check_box :complete %> <!-- niewykorzystane -->
+        <%= f.label :complete %>
+      </p>
+      <p><%= f.submit "Submit" %></p>
+    <% end %>
