@@ -1,0 +1,130 @@
+html {
+  background-color: #E3E6F7; 
+  margin: 24px auto 24px 44px; 
+}
+
+body {
+  font-family: "DejaVu Sans", "PakTypeNaqsh", "Trebuchet MS", sans-serif ;
+  line-height: 28px;
+}
+
+#header {
+  padding-top: 24px;
+  padding-bottom: 0px;
+  background-color: #FCE5C0;
+  border: solid #888;
+  border-width: 1px 1px 0px 1px;
+}
+
+#links {
+  float: right;
+}
+
+#links a {
+  text-decoration: none;
+  color: #A00;
+}
+
+.container {
+  border: 1px solid #888;
+  background-color: #FEF9F0;
+}
+
+a[href^="http:"], a[href^="mailto:"], a[href^="http:"]:visited, 
+a[href$=".pdf"], a[href$=".doc"], a[href$=".xls"], a[href$=".rss"], 
+a[href$=".rdf"], a[href^="aim:"] {
+  padding:2px 16px 2px 0;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 220%;
+  font-family: "STIXGeneral", "PakTypeNaqsh", serif;
+  color: #A00;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: #FFE9FD;
+  width: 869px;
+  margin-left: -44px;
+  padding-left: 44px;
+}
+
+blockquote {
+  font: normal 14/1.5 "DejaVu Sans", PakTypeNaqsh, sans-serif;
+  width: 297px;
+  margin-top: 6px;
+  margin-left: 528px;
+  padding: 18px 22px 0 22px;
+  position: absolute;
+  background: rgb(252, 229, 192);
+  -moz-border-radius: 4px;  
+  color: #800;
+}
+
+blockquote img {
+  margin: 0 auto 12px auto;
+  display: block;
+}
+
+blockquote p.author {
+  margin-top: -1em;
+  padding-right: 44px;
+  color: #800;
+  font-style: italic;
+  text-align: right;
+}
+
+h2 {
+  font-size: 140%;
+  padding-bottom: 6px;
+  border-bottom: 2px dashed #0B030C;
+}
+
+h2, h3 {
+  color: #0B030C;
+}
+
+pre.dawn {
+  margin-left: -50px;
+  padding: 8px 0 8px 39px;
+  border-left: 11px solid rgb(237,0,86);
+}
+
+pre code, li pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+code {
+  margin: 0 2px;
+  padding: 0.06em 0.125em;
+  border: 1px solid #403B33;
+}
+
+caption {
+  text-align: right;
+}
+
+pre, code {
+  font-family: "DejaVu Sans Mono", PakTypeNaqsh, monospace; 
+}
+
+/*
+
+thead th {
+  background-color: #ADD8C7;
+}
+li ul {
+  margin-bottom: 1.5em;
+}
+
+.table1 {
+  background-color: #EB7C7C;
+}
+
+.table2 {
+  background-color: #ECB39F;
+}
+
+*/

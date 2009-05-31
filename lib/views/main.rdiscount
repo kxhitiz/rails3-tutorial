@@ -1,0 +1,38 @@
+# Samouczek do Rails3
+
+<blockquote>
+  <img src="/images/the_thinker.jpg" alt="[The Thinker]">
+  <p>There's no sense in being precise when you don't even know what
+     you're talking about.</p>
+  <p class="author">— John von Neumann</p>
+</blockquote>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+tempor laoreet vulputate. Mauris sagittis consequat sem eu
+ullamcorper. Praesent mi magna, dignissim sit amet feugiat nec,
+vehicula vitae lacus. Mauris sed mi sit amet lectus feugiat
+laoreet. Vestibulum vitae ipsum iaculis nulla dapibus euismod. In eu
+viverra turpis. Donec purus justo, commodo quis commodo quis, ultrices.
+
+## Mauris porttitor condimentum auctor
+
+Pellentesque ornare tincidunt nisi eget tincidunt. Aenean tempor
+auctor neque, at consequat nunc porta ut. Nam placerat tortor a lorem
+mattis id tristique nunc congue. Nullam eleifend nisl at ipsum egestas
+malesuada aliquet nulla lacinia. Donec eleifend lectus eget orci
+fermentum at venenatis lectus consectetur. Nam porta felis eget quam
+porttitor accumsan. 
+
+    :::ruby
+    ENV['RAILS_ENV'] ||= 'production'
+    ENV['NO_RELOAD'] ||= '1'
+    
+    $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+    require 'action_controller'
+    require 'action_controller/new_base' if ENV['NEW']
+    require 'benchmark'
+    
+    class Runner
+      def initialize(app)
+        @app = app
+      end

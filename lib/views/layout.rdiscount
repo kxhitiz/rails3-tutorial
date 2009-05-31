@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection" charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print, projection" charset="utf-8">
+    <!--[if IE]>
+      <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
+    <link rel="stylesheet" href="/stylesheets/uv.css" type="text/css" media="screen, projection" charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/rails3.css" type="text/css" media="screen,projection" charset="utf-8">
+
+    <title><%= @title || "WB/Rails3 %></title>
+  </head>
+  <body>
+    <div class="span-21" id="header">
+      <div class="push-1 span-7">
+        <a href="/"><img src="/images/rails3.png" alt="wb/ruby logo" /></a>
+      </div>
+      <div class="span-13 last">
+        <div class="append-1" id="links">
+          <a href="http://wbzyl.ug.edu.pl/">home</a>
+          <a href="http://wbzyl.ug.edu.pl/galeria">galeria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="span-21 container"><!-- showgrid -->
+      <div class="push-1 span-12" id="content">
+      
+        <%= yield %>          
+        
+      </div>
+      <div class="span-8 last">
+      </div>
+    </div>
+
+  </body>
+</html>
