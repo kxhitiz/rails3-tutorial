@@ -5,7 +5,6 @@ $:.unshift('lib') unless $:.include?('lib')
 #STDOUT.reopen(log)
 #STDERR.reopen(log)
 
-gem 'wbzyl-rails3-tutorial'
 require 'rails3-tutorial'
 
 gem 'wbzyl-rack-codehighlighter'
@@ -13,6 +12,7 @@ require 'rack/codehighlighter'
 
 gem 'ultraviolet'
 require 'uv'
+
 
 use Rack::ShowExceptions
 use Rack::Lint
