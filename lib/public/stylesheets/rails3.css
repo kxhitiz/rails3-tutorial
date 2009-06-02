@@ -1,4 +1,8 @@
 html {
+  /* http://www.hicksdesign.co.uk/journal/forcing-scrollbars-now-even-better */
+  height: 100%; 
+  margin-bottom: 1px;
+
   background-color: #E3E6F7; 
   margin: 24px auto 24px 44px; 
 }
