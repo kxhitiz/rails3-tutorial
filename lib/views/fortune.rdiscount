@@ -74,7 +74,7 @@ Polecenie:
 
 utworzy następujące pliki:
 
-<table class="span-20" summary="Scaffold">
+<table class="span-19" summary="Scaffold">
   <colgroup>
     <col class="table1"/>
     <col class="table2"/>
@@ -82,7 +82,7 @@ utworzy następujące pliki:
   <caption><em>Domyślne rusztowanie</em></caption>
   <thead>
    <tr>
-    <th class="span-9">Plik</th>
+    <th class="span-8">Plik</th>
     <th class="span-11">Po co?</th>
    </tr>
   </thead>
@@ -505,6 +505,7 @@ W modelu *Education* wpisujemy:
 W formularzach umieszczonych w widokach dopisujemy:
 `html => { :multipart => true }`:
 
+    :::html_rails
     # edit.html.erb 
     <% form_for(@education, :html => { :multipart => true }) do |f| %>
     # new.html.erb 
@@ -513,7 +514,7 @@ W formularzach umieszczonych w widokach dopisujemy:
 
 W widoku częściowym (partial) *_form.html.erb* dopisujemy:
 
-    :::html
+    :::html_rails
     <p>
       <%= f.label 'Photo' %><br />
       <%= f.file_field :photo %>
@@ -521,6 +522,7 @@ W widoku częściowym (partial) *_form.html.erb* dopisujemy:
 
 W widoku *index.html.erb* dopisujemy:
 
+    :::html_rails
     <% if education.photo.exists? %>
     <td><%= image_tag education.photo.url(:thumb) %></td>
     <% else %>
@@ -529,11 +531,25 @@ W widoku *index.html.erb* dopisujemy:
 
 W widoku *show.html.erb* dopisujemy:
 
+    :::html_rails
     <% if @education.photo.exists? %>
     <p><%= image_tag @education.photo.url(:small) %></p>
     <% else %>
     <p> There are no photo's attached, upload one.</p>
     <% end %>
+
+
+## Dodajemy middleware: Rack::HtmlTidy
+
+Jak walidować HTML stron wygenerowanych przez Rails?
+Wchodzenie na stronę [W3C Markup Validation Service](http://validator.w3.org/)
+i ręczne wklejanie adresów jest uciążliwe i męczące.
+Może zainstalować jakiś dodatek do Firefoxa? Może…
+
+A może tak „prześwietlić” wygenerowaną stronę
+HTML Tidy? Jak to zrobić opisałem na
+[github.com](http://github.com/wbzyl/rack-htmltidy/).
+
 
 ## Tytuły stron (bardzo ważne)
 
@@ -548,16 +564,18 @@ W pliku z metodami pomocniczymi dla całej aplikacji wpisujemy:
 
 W layoutach podmieniamy wygenerowany tytuł
 
+    :::html_rails
     <title>Education: <%= controller.action_name %></title>
 
 na
 
+    :::html_rails
     <title><%= yield(:title) || "WB_Quotations" -%></title>
 
-A w każdym z widoków, który ma mieć jakiś tytuł wpisujemy:
+W widokach definiujemy tytuł wpisując:
 
+    :::html_rails
     <% title 'WB_RAILS – Aktywne bazy danych' -%>
-
 
 
 ## Udoskonalenia
@@ -568,7 +586,6 @@ A w każdym z widoków, który ma mieć jakiś tytuł wpisujemy:
    z indeksami kategorii.
 2. Otagowujemy obrazki: [Acts As Taggable on Steroids Ruby On Rails Plugin With 
    Paginate](http://burm.net/2008/10/08/acts-as-taggable-on-steroids-ruby-on-rails-plugin-with-paginate/)
-
 
 
 ## Różne

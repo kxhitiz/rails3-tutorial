@@ -6,12 +6,21 @@ gem 'rdiscount'
 gem 'sinatra'
 gem 'wbzyl-sinatra-rdiscount'
 
+gem 'emk-sinatra-url-for'
+gem 'wbzyl-sinatra-static-assets'
+
 require 'rdiscount'
 require 'sinatra/base'
 require 'sinatra/rdiscount'
 
+require 'sinatra/url_for'
+require 'sinatra/static_assets'
+
 module WB
   class Rails3Tutorial < Sinatra::Base
+    helpers Sinatra::UrlForHelper
+    helpers Sinatra::StaticAssets
+
     # disable overriding public and views dirs
     set :app_file, __FILE__
     set :static, true  

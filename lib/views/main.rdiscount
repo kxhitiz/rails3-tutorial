@@ -1,20 +1,20 @@
 # Samouczek do Rails 3
 
 <blockquote>
-  <img src="/images/the_thinker.jpg" alt="[The Thinker]">
+  {%= image_tag "/images/the_thinker.jpg", :alt => "[The Thinker]" %}
   <p>There's no sense in being precise when you don't even know what
      you're talking about.</p>
   <p class="author">— John von Neumann</p>
 </blockquote>
 
-1. [Zaczynamy](/intro)
-1. [Hello Fortune](/fortune)
-1. [Aplikacja: Todo](/todo)
-1. [Aplikacja: Blog](/blog)
-1. [Aplikacja: Store](/store)
-1. [Autentykacja i autoryzacja](/authentication)
-1. [Caching](/caching)
-1. [Ćwiczenia](/exercises)
+1. {%= link_to "Zaczynamy", "/intro" %}
+1. {%= link_to "Hello Fortune", "/fortune" %}
+1. {%= link_to "Aplikacja: Todo", "/todo" %}
+1. {%= link_to "Aplikacja: Blog", "/blog" %}
+1. {%= link_to "Aplikacja: Store", "/store" %}
+1. {%= link_to "Autentykacja i autoryzacja", "/authentication" %}
+1. {%= link_to "Caching", "/caching" %}
+1. {%= link_to "Ćwiczenia", "/exercises" %}
 
 ## Dokumentacja
 

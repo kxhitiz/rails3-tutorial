@@ -2,20 +2,19 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection" charset="utf-8">
-    <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print, projection" charset="utf-8">
+
+    <%= stylesheet_link_tag "/stylesheets/screen.css", "/stylesheets/uv.css", "/stylesheets/rails3.css" %>
+    <%= stylesheet_link_tag "/stylesheets/print.css", :media => "print" %>
     <!--[if IE]>
-      <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+      <%= stylesheet_link_tag "css/blueprint/ie.css" %>
     <![endif]-->
-    <link rel="stylesheet" href="/stylesheets/uv.css" type="text/css" media="screen, projection" charset="utf-8">
-    <link rel="stylesheet" href="/stylesheets/rails3.css" type="text/css" media="screen,projection" charset="utf-8">
 
     <title><%= @title || "WB/Rails3" %></title>
   </head>
   <body>
     <div class="span-21" id="header">
       <div class="push-1 span-7">
-        <a href="/"><img src="/images/rails3.png" alt="wb/ruby logo" /></a>
+        <a href="/"><%= image_tag "/images/rails3.png", :alt => "[WB/Ruby logo]" %></a>
       </div>
       <div class="span-13 last">
         <div class="append-1" id="links">

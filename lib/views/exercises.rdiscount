@@ -1,0 +1,13 @@
+# Ćwiczenia
+
+1\. [A code snippet tool, intended for localhost usage](http://github.com/navyrain/navysnip/)
+
+Add the following:
+
+* Command line submission script
+* Doubleclick to select all
+* Submit-to-pastie button
+* Search
+* Add Rails-ish parsers to SHJS (erb, haml, sass)
+* Tweak the PRE CSS or do something clever with wrapping 
+  to make long lines display nicely
