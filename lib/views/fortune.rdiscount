@@ -246,11 +246,13 @@ Wspólny kod z plików *new.html.erb* oraz *edit.html.erb*
 przenosimy do pliku *_form.htm.erb*. Zamiast tego kodu
 wstawiamy w pliku *new.html.erb*:
 
+    :::html_rails
     <%= render :partial => "form", 
           :locals => { :f => f, :button_label => 'Create' } %>
 
 a w pliku *edit.html.erb*:
 
+    :::html_rails
     <%= render :partial => "form", 
           :locals => { :f => f, :button_label => 'Update' } %>
 
@@ -436,6 +438,7 @@ na
 
 W widoku *index* dopisujemy:
 
+    :::html_rails
     <%= will_paginate @education %>
 
 No jeszcze należy wystylizować element:
@@ -496,6 +499,7 @@ Migrujemy:
 
 W modelu *Education* wpisujemy:
 
+    :::ruby
     # paperclip
     has_attached_file :photo, :styles => {
       :thumb=> "100x100#",

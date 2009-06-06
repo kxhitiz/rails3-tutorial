@@ -8,5 +8,5 @@ require 'uv'
 
 use Rack::ShowExceptions
 #use Rack::Lint
-use Rack::Codehighlighter, :ultraviolet
+use Rack::Codehighlighter, :ultraviolet, :element => 'pre>code'
 run WB::Rails3Tutorial.new
