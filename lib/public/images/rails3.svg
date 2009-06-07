@@ -35,9 +35,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4708333"
-     inkscape:cx="214.27762"
-     inkscape:cy="348.78187"
+     inkscape:zoom="1.0479167"
+     inkscape:cx="320"
+     inkscape:cy="240"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
@@ -63,34 +63,32 @@
      inkscape:groupmode="layer">
     <text
        xml:space="preserve"
-       style="font-size:72;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       style="font-size:56;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#800000;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
        x="44.192635"
        y="111.69319"
        id="text2018"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="60"
+       inkscape:export-ydpi="60"><tspan
          sodipodi:role="line"
          id="tspan2020"
          x="44.192635"
          y="111.69319">WB</tspan></text>
-    <g
-       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Titania MF;-inkscape-font-specification:Titania MF"
-       id="text2022"
-       transform="matrix(0.96592583,-0.25881904,0.25881904,0.96592583,-72.353339,57.906836)">
-      <path
-         d="m 237.90989,69.02862 c -3e-5,0.144047 -0.096,0.384047 -0.288,0.72 l -29.088,47.016 c -0.192,0.384 -0.408,0.576 -0.648,0.576 -0.24,0 -0.432,-0.072 -0.576,-0.216 l -1.944,-1.368 c -0.288,-0.192 -0.432,-0.384 -0.432,-0.576 0,-0.144 0.144,-0.456 0.432,-0.936 l 28.872,-46.584 c 0.19197,-0.383951 0.38397,-0.575951 0.576,-0.576 0.19197,4.9e-5 0.40797,0.07205 0.648,0.216 l 2.16,1.224 c 0.19197,0.09605 0.28797,0.264048 0.288,0.504"
-         id="path2910" />
-    </g>
     <text
        xml:space="preserve"
-       style="font-size:72px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#d40000;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
-       x="176.09065"
+       style="font-size:56px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#d40000;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
+       x="174.18211"
        y="111.69319"
        id="text2026"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="60"
+       inkscape:export-ydpi="60"><tspan
          sodipodi:role="line"
          id="tspan2028"
-         x="176.09065"
+         x="174.18211"
          y="111.69319"
-         dx="-5.4390941 -4.0793204 1.3597734 1.3597734 1.3597734 -3.3994339">Rails3</tspan></text>
+         dx="0 -1.9085487">Rails3</tspan></text>
   </g>
 </svg>
