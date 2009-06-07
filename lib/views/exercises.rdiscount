@@ -11,3 +11,13 @@ Add the following:
 * Add Rails-ish parsers to SHJS (erb, haml, sass)
 * Tweak the PRE CSS or do something clever with wrapping 
   to make long lines display nicely
+
+2\. [Extremely Simple Photo Album in 
+  Rails](http://rubyplus.org/episodes/92-Extremely-Simple-Photo-Album-in-Rails.html)
+
+* You can extend this album so that the photo upload does not tie up
+  the Mongrel process by using Background DRB, Merb etc.
+* Add the feature where users can only add/edit photos to their album.
+* When a photo is added instead of displaying the album index page,
+  display the album show page so that users can continue uploading
+  photos.
