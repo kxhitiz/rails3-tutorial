@@ -42,8 +42,8 @@ a[href$=".rdf"], a[href^="aim:"] {
 
 h1 {
   font-weight: bold;
-  font-size: 220%;
-  font-family: "STIXGeneral", "PakTypeNaqsh", serif;
+  font-size: 160%;
+  font-family: "DejaVu Sans", "PakTypeNaqsh", serif;
   color: #A00;
   padding-top: 16px;
   padding-bottom: 16px;

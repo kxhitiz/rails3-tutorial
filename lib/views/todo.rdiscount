@@ -176,6 +176,7 @@ Kontroler *Task*:
 
 Widok *index.html.erb*
 
+    :::html_rails
     <% title "Projects" %>
     
     <table>
@@ -195,6 +196,7 @@ Widok *index.html.erb*
 
 Widok: *show.html.erb*:
 
+    :::html_rails
     <% title @project.name %>
     
     <h2>Tasks</h2>
@@ -225,6 +227,7 @@ Więcej widoków nie potrzebujemy.
 Najciekawszy, ze wzgledu na *hidden_filed* jest widok częściowy
 *_form.html.erb* dla widoków *edit.html.erb* i *new.html.erb*:
 
+    :::html_rails
     <%= error_messages_for :task %>
     <% form_for @task do |f| %>
       <%= f.hidden_field :project_id %>
