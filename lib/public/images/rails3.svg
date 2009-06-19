@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -12,7 +13,7 @@
    height="480px"
    id="svg12"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.46+devel"
    sodipodi:docname="rails3.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
@@ -27,6 +28,18 @@
        inkscape:vp_z="640 : 240 : 1"
        inkscape:persp3d-origin="320 : 160 : 1"
        id="perspective20" />
+    <filter
+       inkscape:collect="always"
+       id="filter1993"
+       x="-0.017739582"
+       width="1.0354792"
+       y="-0.12493929"
+       height="1.2498786">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="3.1804207"
+         id="feGaussianBlur1995" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -35,16 +48,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4708333"
-     inkscape:cx="214.27762"
-     inkscape:cy="348.78187"
+     inkscape:zoom="1.3104167"
+     inkscape:cx="269.63434"
+     inkscape:cy="240"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
      inkscape:window-width="1274"
-     inkscape:window-height="724"
+     inkscape:window-height="856"
      inkscape:window-x="0"
-     inkscape:window-y="25" />
+     inkscape:window-y="26" />
   <metadata
      id="metadata17">
     <rdf:RDF>
@@ -53,7 +66,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -61,36 +74,64 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
+    <path
+       style="fill:#b3b3b3;filter:url(#filter1993)"
+       d="m 54.46408,63.853537 -16.6875,60.500003 139.3125,0.3125 0.0313,-0.0625 274.125,0.34375 16.8125,-60.437503 -274.25,-0.3125 0,-0.0313 -139.34375,-0.3125 z"
+       id="rect1952"
+       transform="matrix(1.0119253,0,-0.04045145,1.1698927,-5.7888803,-14.130143)"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ff2a2a;opacity:1"
+       id="rect1128"
+       width="139.33203"
+       height="62.759216"
+       x="63.815636"
+       y="63.714947"
+       transform="matrix(0.99999741,0.00227603,-0.26634175,0.96387866,0,0)"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
-       style="font-size:72;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
-       x="44.192635"
-       y="111.69319"
+       style="font-size:55.75608825999999851px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#550000;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
+       x="44.000149"
+       y="111.74413"
        id="text2018"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       transform="scale(1.0043746,0.99564441)"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan2020"
-         x="44.192635"
-         y="111.69319">WB</tspan></text>
-    <g
-       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Titania MF;-inkscape-font-specification:Titania MF"
-       id="text2022"
-       transform="matrix(0.96592583,-0.25881904,0.25881904,0.96592583,-72.353339,57.906836)">
-      <path
-         d="m 237.90989,69.02862 c -3e-5,0.144047 -0.096,0.384047 -0.288,0.72 l -29.088,47.016 c -0.192,0.384 -0.408,0.576 -0.648,0.576 -0.24,0 -0.432,-0.072 -0.576,-0.216 l -1.944,-1.368 c -0.288,-0.192 -0.432,-0.384 -0.432,-0.576 0,-0.144 0.144,-0.456 0.432,-0.936 l 28.872,-46.584 c 0.19197,-0.383951 0.38397,-0.575951 0.576,-0.576 0.19197,4.9e-5 0.40797,0.07205 0.648,0.216 l 2.16,1.224 c 0.19197,0.09605 0.28797,0.264048 0.288,0.504"
-         id="path2910" />
-    </g>
+         x="44.000149"
+         y="111.74413">WB</tspan></text>
+    <rect
+       transform="matrix(0.99999933,0.00115489,-0.26775542,0.96348691,0,0)"
+       y="64.0168"
+       x="203.33073"
+       height="62.701874"
+       width="274.22739"
+       id="rect1130"
+       style="fill:#550000;opacity:1"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
-       style="font-size:72px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#d40000;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       style="font-size:56px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff2a2a;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
        x="176.09065"
        y="111.69319"
        id="text2026"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan2028"
          x="176.09065"
-         y="111.69319"
-         dx="-5.4390941 -4.0793204 1.3597734 1.3597734 1.3597734 -3.3994339">Rails3</tspan></text>
+         y="111.69319">Rails3</tspan></text>
   </g>
 </svg>
