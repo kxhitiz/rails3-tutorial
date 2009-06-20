@@ -30,15 +30,11 @@
        id="perspective20" />
     <filter
        inkscape:collect="always"
-       id="filter1993"
-       x="-0.017739582"
-       width="1.0354792"
-       y="-0.12493929"
-       height="1.2498786">
+       id="filter907">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="3.1804207"
-         id="feGaussianBlur1995" />
+         stdDeviation="2.1352503"
+         id="feGaussianBlur909" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -48,16 +44,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.3104167"
-     inkscape:cx="269.63434"
-     inkscape:cy="240"
+     inkscape:zoom="1.6492294"
+     inkscape:cx="245.17987"
+     inkscape:cy="386.74424"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
      inkscape:window-width="1274"
      inkscape:window-height="856"
      inkscape:window-x="0"
-     inkscape:window-y="26" />
+     inkscape:window-y="46" />
   <metadata
      id="metadata17">
     <rdf:RDF>
@@ -66,7 +62,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -74,14 +70,6 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <path
-       style="fill:#b3b3b3;filter:url(#filter1993)"
-       d="m 54.46408,63.853537 -16.6875,60.500003 139.3125,0.3125 0.0313,-0.0625 274.125,0.34375 16.8125,-60.437503 -274.25,-0.3125 0,-0.0313 -139.34375,-0.3125 z"
-       id="rect1952"
-       transform="matrix(1.0119253,0,-0.04045145,1.1698927,-5.7888803,-14.130143)"
-       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <rect
        style="fill:#ff2a2a;opacity:1"
        id="rect1128"
@@ -95,19 +83,19 @@
        inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
-       style="font-size:55.75608825999999851px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#550000;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
-       x="44.000149"
-       y="111.74413"
+       style="font-size:55.75608826px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#550000;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
+       x="42.792744"
+       y="112.35313"
        id="text2018"
        sodipodi:linespacing="125%"
-       transform="scale(1.0043746,0.99564441)"
+       transform="scale(1.0043746,0.99564445)"
        inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/rails3.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan2020"
-         x="44.000149"
-         y="111.74413">WB</tspan></text>
+         x="42.792744"
+         y="112.35313">WB</tspan></text>
     <rect
        transform="matrix(0.99999933,0.00115489,-0.26775542,0.96348691,0,0)"
        y="64.0168"
@@ -122,7 +110,7 @@
     <text
        xml:space="preserve"
        style="font-size:56px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff2a2a;font-family:Cyklop;-inkscape-font-specification:Cyklop Italic"
-       x="176.09065"
+       x="178.51601"
        y="111.69319"
        id="text2026"
        sodipodi:linespacing="125%"
@@ -131,7 +119,7 @@
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan2028"
-         x="176.09065"
+         x="178.51601"
          y="111.69319">Rails3</tspan></text>
   </g>
 </svg>

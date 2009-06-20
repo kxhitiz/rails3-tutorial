@@ -1,0 +1,203 @@
+# Leniwce z o.o.
+
+To klon Pastie napisany w Rails 3 + ActiveRecord
+
+Czym jest „pastie”? Oto przykłady:
+
+* [pastie](http://pastie.org/)
+* [pastebin](http://pastebin.com/)
+
+Jak stworzyć klona pastie w Sinatrze + Datamapper
+opisał Nick Plante, [Clone Pastie with Sinatra & DataMapper 
+0.9](http://blog.zerosum.org/2008/7/2/clone-pastie-with-sinatra-datamapper-redux).
+
+Tak wygląda strona główna *pastie.org*:
+
+{%= image_tag "/images/pastie.png", :alt => "[http://pastie.org]" %}
+
+## Opis funkcjonalności aplikacji
+
+Fragmenty kodu będziemy wklejać na stronie głównej strony:
+
+    http://leniwce.org:3000/
+
+Po kliknięciu przycisku „Wklej” wklejony kod zostanie
+zapisany w tabelce a my zostaniemy przekierowani na stronę
+z ładnie podkolorowanym kodem, np.
+
+    http://leniwce.org:3000/128
+
+Od tej chwili, po wsze czasy, będzie on dostepny pod tym adresem.
+
+Następna wersja aplikacji będzie miała na każdej stronie
+formularz umożliwiający wyszukiwanie fragmentów kodu
+zawierającą podaną frazę.
+
+
+## Generujemy rusztowanie aplikacji
+
+Fragmenty kodu będziemy zapisywać w tabelce *wlepki*.
+Strona główna będzie dostępna z:
+
+        http://localhost:3000/wlepki/
+
+Wklejone fragmenty kodu będą dostępne z:
+
+    http://localhost:3000/:id
+
+Będziemy korzystać z SQLite + ActiveRecord:
+
+    rails wlepka
+
+Zaczynamy od nauczenia Railsów liczby mnogiej słowa *wlepka*.
+Wpisujemy do pliku *initializers.rb*:
+
+    :::ruby
+    ActiveSupport::Inflector.inflections do |inflect|
+      inflect.irregular 'wlepka', 'wlepki'  
+    end
+
+Dopiero teraz generujemy model:
+
+    script/generate model wlepka lang:string body:text
+
+i migrujemy:
+
+    rake db:migrate
+
+Tworzymy routing:
+
+    :::ruby
+    ActionController::Routing::Routes.draw do |map|
+      map.root :controller => "wlepki", :action => "index"
+      # w tej kolejności:
+      map.connect ':action/:id', :controller => "wlepki"
+      map.connect ':id', :controller => "wlepki", :action => "show"
+    end
+
+
+## Generujemy kontroler i dwa widoki
+
+W zgodzie z konwencją nazwa kontrolera jest liczbą mnogą
+od *wlepka*:
+
+    script/generate controller wlepki index show
+
+Strona główna, czyli widok *index.html.erb*:
+
+    :::html_rails
+    <h1>Wlepki</h1>
+    
+    <% form_for :wlepka, :url => { :action => "create" }  do |f| %>
+      <%= f.error_messages %>
+    
+      <p>
+        <%= f.label :lang, "język" %> 
+        <%= f.text_field :lang %>
+      </p>
+      <p>
+        <%= f.label :body, "kod" %><br />
+        <%= f.text_area :body, :cols => 20, :rows => 80 %>
+      </p>
+      <p>
+        <%= f.submit 'Wklej' %>
+      </p>
+    <% end %>
+
+Kontroller *wlepki_controller.rb*:
+
+    :::ruby
+    class WlepkiController < ApplicationController
+      
+      def index
+        @wlepka = Wlepka.new
+      end
+    
+      def show
+        @wlepka = Wlepka.find(params[:id])
+      end
+      
+      def create
+        @wlepka = Wlepka.new(params[:wlepka])
+    
+        if @wlepka.save
+          flash[:notice] = 'Zapisano wlepkę w bazie.'
+          redirect_to(:action => "show", :id => @wlepka.id) 
+        else
+          render :action => "index"
+        end
+      end
+  
+    end
+
+Widok *show.html.erb*:
+
+    :::html_rails
+    <h1>Wlepka: <%= @wlepka.lang %></h1>
+    <%= @wlepka.body %>
+    <%= link_to 'Nowa wlepka', :action => "index" %>
+
+
+## Dodajemy kolorowanie składni
+
+Poprawiamy kontroller:
+
+    :::ruby
+    class WlepkiController < ApplicationController
+      def show
+        @wlepka = Wlepka.find(params[:id])
+        @wlepka.body = ::Uv.parse(@wlepka.body, 'xhtml', @wlepka.lang, false, "dawn")  
+      end
+
+oraz *environment.rb*:
+
+    :::ruby
+    require 'uv'
+    Rails::Initializer.run do |config|
+      config.gem 'ultraviolet' 
+
+
+## Gotowce
+
+Gotowy layout, *application.html.erb* wrzucamy do katalogu *layout*:
+
+    :::html_rails
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+      <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+      <title>Leniwce z o.o.</title>
+      <%= stylesheet_link_tag 'application', 'uv' %>
+    </head>
+    <body>
+      <h1>Leniwce z o.o.</h1>
+        <p style="color: green"><%= flash[:notice] %></p>
+    <%= yield %>
+    </body>
+    </html>
+
+Plik *uv.css* kopiujemy z katalogu *stylesheets* tego samouczka.
+
+
+## Filter parameter logging
+
+Pamiętamy też o skróceniu logów:
+
+    :::ruby
+    class ApplicationController < ActionController::Base
+      
+      # Scrub sensitive parameters from your log
+      filter_parameter_logging :body
+    end
+
+## TODO
+
+1. Użyć *named routes*.
+2. Dodać „porządny” layout.
+3. Dodać wyszukiwanie z paginacją: sphinx?, xapian?
+4. Użyć innego ORM, np. datamapper
+   \([przykład](http://github.com/dkubb/datamapper-on-rails/)\).
+5. Wpisać listę języków do tabelki *languages* i pobrać tę listę 
+   z tej tabelki.
