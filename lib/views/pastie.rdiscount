@@ -79,19 +79,28 @@ Na SQlite `dbconsole`:
     insert into wlepki (lang, body) 
         values("html", "<html></html>");
 
+<blockquote>
+{%= image_tag "/images/wlepka.png", :alt => "[wlepka.rb]" %}
+</blockquote>
+
 Na Rails `console`:
 
     :::sql_rails
     Wlepka.all
     Wlepka.all(:conditions => ["lang = ?", "ruby"])
-    Wlepka.all(:conditions => ["lang = ? and body like ?", "ruby", "%puts%"])
+    Wlepka.all(:conditions =>
+      ["lang = ? and body like ?", "ruby", "%puts%"])
 
 Więcej przykładowych poleceń jest 
 [tutaj](http://apidock.com/rails/ActiveRecord/Base)
 
-    w = Wlepka.new :lang => "css", :body => "h1 { color: red; }"
+    :::sql_rails
+    w = Wlepka.new :lang => "css", 
+        :body => "h1 { color: red; }"
     w.save
-    Wlepka.create :lang => "css", :body => "h1 { background-color: blue; }"
+    
+    Wlepka.create :lang => "css", 
+        :body => "h1 { background-color: blue; }"
 
 
 ## Generujemy kontroler
@@ -106,6 +115,10 @@ od *wlepka*:
     script/generate controller wlepki
 
 Kontroller *wlepki_controller.rb*:
+
+<blockquote>
+{%= image_tag "/images/wlepki_controller.png", :alt => "[wlepki_controller.rb]" %}
+</blockquote>
 
     :::ruby
     class WlepkiController < ApplicationController
