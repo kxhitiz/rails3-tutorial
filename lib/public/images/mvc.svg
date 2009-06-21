@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640px"
+   height="480px"
+   id="svg796"
+   sodipodi:version="0.32"
+   inkscape:version="0.46+devel"
+   sodipodi:docname="mvc.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs798">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path2163"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path2157"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 240 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="640 : 240 : 1"
+       inkscape:persp3d-origin="320 : 160 : 1"
+       id="perspective804" />
+    <inkscape:perspective
+       id="perspective934"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective1065"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective1157"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6233993"
+     inkscape:cx="261.99545"
+     inkscape:cy="299.9031"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:window-width="1138"
+     inkscape:window-height="778"
+     inkscape:window-x="60"
+     inkscape:window-y="49" />
+  <metadata
+     id="metadata801">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <image
+       y="187.88022"
+       x="99.62188"
+       id="image936"
+       height="61"
+       width="53"
+       xlink:href="file:///home/wbzyl/tmp/www.clker.com/model.png"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003" />
+    <image
+       y="185.41626"
+       x="237.12715"
+       id="image1067"
+       height="61"
+       width="49"
+       xlink:href="file:///home/wbzyl/tmp/www.clker.com/brain.png"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003" />
+    <image
+       y="185.64824"
+       x="379.76416"
+       id="image1159"
+       height="62"
+       width="68"
+       xlink:href="file:///home/wbzyl/tmp/www.clker.com/view.png"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003" />
+    <path
+       style="fill:#aa0000;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
+       d="m 364.09123,216.41806 -55.75318,0"
+       id="path2587"
+       inkscape:connector-type="polyline"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003" />
+    <path
+       inkscape:connector-type="polyline"
+       id="path2777"
+       d="m 163.57549,216.44688 55.75318,0"
+       style="fill:#aa0000;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003" />
+    <path
+       style="fill:#aa0000;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
+       d="m 261.66297,122.02652 0,55.75318"
+       id="path2779"
+       inkscape:connector-type="polyline"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003" />
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG"
+       x="201.06416"
+       y="278.94949"
+       id="text2785"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003"><tspan
+         sodipodi:role="line"
+         id="tspan2787"
+         x="201.06416"
+         y="278.94949">kontroller</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:DejaVu LGC Sans;-inkscape-font-specification:DejaVu LGC Sans"
+       x="388.69055"
+       y="274.87488"
+       id="text2789"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2791"
+         x="388.69055"
+         y="274.87488" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG"
+       x="228.53281"
+       y="109.17319"
+       id="text2793"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2795"
+         x="228.53281"
+         y="109.17319" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG"
+       x="95.478645"
+       y="279.1868"
+       id="text2797"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003"><tspan
+         sodipodi:role="line"
+         id="tspan2799"
+         x="95.478645"
+         y="279.1868">model</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG"
+       x="383.7626"
+       y="278.90555"
+       id="text2801"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003"><tspan
+         sodipodi:role="line"
+         id="tspan2803"
+         x="383.7626"
+         y="278.90555">widok</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG"
+       x="215.59686"
+       y="110.40516"
+       id="text2805"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/mvc.png"
+       inkscape:export-xdpi="60.098003"
+       inkscape:export-ydpi="60.098003"><tspan
+         sodipodi:role="line"
+         id="tspan2807"
+         x="215.59686"
+         y="110.40516">routing</tspan></text>
+  </g>
+</svg>

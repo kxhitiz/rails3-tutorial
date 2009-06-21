@@ -58,7 +58,7 @@ blockquote {
   width: 297px;
   margin-top: 6px;
   margin-left: 528px;
-  padding: 18px 22px 0 22px;
+  padding: 18px 22px 18px 22px;
   position: absolute;
   background: rgb(252, 229, 192);
   -moz-border-radius: 4px;  
@@ -81,11 +81,12 @@ blockquote p.author {
 h2 {
   font-size: 140%;
   padding-bottom: 6px;
-  border-bottom: 2px dashed #0B030C;
+  border-bottom: 2px dotted #A00;
+  color: #A00;
 }
 
-h2, h3 {
-  color: #0B030C;
+h3 {
+  color: #A00;
 }
 
 pre.dawn {

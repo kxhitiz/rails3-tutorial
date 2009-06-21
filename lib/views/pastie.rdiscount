@@ -1,6 +1,6 @@
 # Leniwce z o.o.
 
-To klon Pastie napisany w Rails 3 + ActiveRecord
+To klon Pastie napisany w Rails 3 + ActiveRecord.
 
 Czym jest „pastie”? Oto przykłady:
 
@@ -27,7 +27,7 @@ z ładnie podkolorowanym kodem, np.
 
     http://leniwce.org:3000/128
 
-Od tej chwili, po wsze czasy, będzie on dostepny pod tym adresem.
+Od tej chwili po wsze czasy będzie on dostepny pod tym adresem.
 
 Następna wersja aplikacji będzie miała na każdej stronie
 formularz umożliwiający wyszukiwanie fragmentów kodu
@@ -39,7 +39,7 @@ zawierającą podaną frazę.
 Fragmenty kodu będziemy zapisywać w tabelce *wlepki*.
 Strona główna będzie dostępna z:
 
-        http://localhost:3000/wlepki/
+    http://localhost:3000/wlepki/
 
 Wklejone fragmenty kodu będą dostępne z:
 
@@ -65,44 +65,45 @@ i migrujemy:
 
     rake db:migrate
 
-Tworzymy routing:
+## Model *Wlepki*
 
-    :::ruby
-    ActionController::Routing::Routes.draw do |map|
-      map.root :controller => "wlepki", :action => "index"
-      # w tej kolejności:
-      map.connect ':action/:id', :controller => "wlepki"
-      map.connect ':id', :controller => "wlepki", :action => "show"
-    end
+<blockquote>
+{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
+</blockquote>
+
+Na SQlite `dbconsole`:
+
+    :::sql
+    insert into wlepki (lang, body) 
+        values("ruby", "puts 1");
+    insert into wlepki (lang, body) 
+        values("html", "<html></html>");
+
+Na Rails `console`:
+
+    :::sql_rails
+    Wlepka.all
+    Wlepka.all(:conditions => ["lang = ?", "ruby"])
+    Wlepka.all(:conditions => ["lang = ? and body like ?", "ruby", "%puts%"])
+
+Więcej przykładowych poleceń jest 
+[tutaj](http://apidock.com/rails/ActiveRecord/Base)
+
+    w = Wlepka.new :lang => "css", :body => "h1 { color: red; }"
+    w.save
+    Wlepka.create :lang => "css", :body => "h1 { background-color: blue; }"
 
 
-## Generujemy kontroler i dwa widoki
+## Generujemy kontroler
+
+<blockquote>
+{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
+</blockquote>
 
 W zgodzie z konwencją nazwa kontrolera jest liczbą mnogą
 od *wlepka*:
 
-    script/generate controller wlepki index show
-
-Strona główna, czyli widok *index.html.erb*:
-
-    :::html_rails
-    <h1>Wlepki</h1>
-    
-    <% form_for :wlepka, :url => { :action => "create" }  do |f| %>
-      <%= f.error_messages %>
-    
-      <p>
-        <%= f.label :lang, "język" %> 
-        <%= f.text_field :lang %>
-      </p>
-      <p>
-        <%= f.label :body, "kod" %><br />
-        <%= f.text_area :body, :cols => 20, :rows => 80 %>
-      </p>
-      <p>
-        <%= f.submit 'Wklej' %>
-      </p>
-    <% end %>
+    script/generate controller wlepki
 
 Kontroller *wlepki_controller.rb*:
 
@@ -130,12 +131,60 @@ Kontroller *wlepki_controller.rb*:
   
     end
 
+## Tworzymy dwa widoki
+
+<blockquote>
+{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
+</blockquote>
+
+Strona główna, czyli widok *index.html.erb*:
+
+    :::html_rails
+    <% form_for :wlepka, 
+         :url => { :action => "create" }  do |f| %>
+      <%= f.error_messages %>
+    
+      <p>
+        <%= f.label :lang, "Wybierz język" %><br /> 
+        <%= f.select :lang, @languages %>
+      </p>
+      <p>
+        <%= f.label :body, "Wklej kod:" %><br />
+        <%= f.text_area :body, :cols => 80, :rows => 20 %>
+      </p>
+      <p>
+        <%= f.submit 'Wklej' %>
+      </p>
+    <% end %>
+
 Widok *show.html.erb*:
 
     :::html_rails
     <h1>Wlepka: <%= @wlepka.lang %></h1>
     <%= @wlepka.body %>
     <%= link_to 'Nowa wlepka', :action => "index" %>
+
+
+## Projektujemy routing
+
+<blockquote>
+{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
+</blockquote>
+
+The routing *ActionController::Routing* module provides URL rewriting
+in native Ruby. It’s a way to redirect incoming requests to
+controllers and actions. This replaces mod_rewrite rules. Best of all,
+Rails' Routing works with any web server. Routes are defined in
+*config/routes.rb*.
+\[[więcej](http://apidock.com/rails/ActionController/Routing)\]
+
+    :::ruby
+    ActionController::Routing::Routes.draw do |map|
+      map.root :controller => "wlepki", :action => "index"
+      # w tej kolejności:
+      map.connect ':action/:id', :controller => "wlepki"
+      map.connect ':id', :controller => "wlepki", :action => "show"
+    end
 
 
 ## Dodajemy kolorowanie składni
