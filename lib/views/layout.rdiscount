@@ -9,7 +9,7 @@
       <%= stylesheet_link_tag "css/blueprint/ie.css" %>
     <![endif]-->
 
-    <title><%= @title || "WB/Rails3" %></title>
+    <title><%= @title %></title>
   </head>
   <body>
     <div class="span-21" id="header">

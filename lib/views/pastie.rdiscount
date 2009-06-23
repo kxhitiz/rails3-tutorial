@@ -1,4 +1,11 @@
-# Leniwce z o.o.
+#### {% title "Leniwiec z o.o." %}
+
+# Leniwiec z o.o.
+
+<blockquote>
+{%= image_tag "/images/leniwiec.jpg", 
+              :alt => "[Bradypus tridactylus]", :title => "Bradypus tridactylus" %}
+</blockquote>
 
 To klon Pastie napisany w Rails 3 + ActiveRecord.
 
@@ -11,150 +18,130 @@ Jak stworzyć klona pastie w Sinatrze + Datamapper
 opisał Nick Plante, [Clone Pastie with Sinatra & DataMapper 
 0.9](http://blog.zerosum.org/2008/7/2/clone-pastie-with-sinatra-datamapper-redux).
 
-Tak wygląda strona główna *pastie.org*:
+Nasz „Leniwiec” ma umożliwiać wklejanie 
+fragmentów kodu. Kod będziemy wklejać do formularza
+z przyciskiem „Wklej”. 
+Po kliknięciu tego przycisku, wklejony kod
+zapisujemy w tabelce i przekierowujemy się na stronę
+z wklejonym kodem, na przykład:
+
+    http://leniwiec.local:3000/128
+
+Od tej chwili, po wsze czasy (no, dopóty, dopóki nie padnie dysk na
+*mancie*), wklejony kod będzie dostępny pod tym URL.
+
+W następnej wersji dodamy do każdej strony formularz umożliwiający
+wyszukiwanie wklejonych fragmentów kodu zawierających podaną frazę.
+
+A tak wygląda strona główna *pastie.org*:
 
 {%= image_tag "/images/pastie.png", :alt => "[http://pastie.org]" %}
 
-## Opis funkcjonalności aplikacji
 
-Fragmenty kodu będziemy wklejać na stronie głównej strony:
+**Zaczynamy** od wygenerowania rusztowanie aplikacji:
 
-    http://leniwce.org:3000/
+    rails leniwiec.local
 
-Po kliknięciu przycisku „Wklej” wklejony kod zostanie
-zapisany w tabelce a my zostaniemy przekierowani na stronę
-z ładnie podkolorowanym kodem, np.
-
-    http://leniwce.org:3000/128
-
-Od tej chwili po wsze czasy będzie on dostepny pod tym adresem.
-
-Następna wersja aplikacji będzie miała na każdej stronie
-formularz umożliwiający wyszukiwanie fragmentów kodu
-zawierającą podaną frazę.
-
-
-## Generujemy rusztowanie aplikacji
-
-Fragmenty kodu będziemy zapisywać w tabelce *wlepki*.
-Strona główna będzie dostępna z:
-
-    http://localhost:3000/wlepki/
-
-Wklejone fragmenty kodu będą dostępne z:
-
-    http://localhost:3000/:id
-
-Będziemy korzystać z SQLite + ActiveRecord:
-
-    rails wlepka
-
-Zaczynamy od nauczenia Railsów liczby mnogiej słowa *wlepka*.
-Wpisujemy do pliku *initializers.rb*:
+Oraz nauczenia Railsów odmiany słowa *leniwiec*.
+W pliku *inflections.rb*:
 
     :::ruby
     ActiveSupport::Inflector.inflections do |inflect|
-      inflect.irregular 'wlepka', 'wlepki'  
+      inflect.irregular 'leniwiec', 'leniwce'
     end
 
-Dopiero teraz generujemy model:
-
-    script/generate model wlepka lang:string body:text
-
-i migrujemy:
-
-    rake db:migrate
-
-## Model *Wlepki*
+## Projektujemy routing
 
 <blockquote>
 {%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
 </blockquote>
 
-Na SQlite `dbconsole`:
+The routing *ActionController::Routing* module provides URL rewriting
+in native Ruby. It’s a way to redirect incoming requests to
+controllers and actions. This replaces mod_rewrite rules. Best of all,
+Rails' Routing works with any web server. Routes are defined in
+*config/routes.rb*.
+\[[więcej](http://apidock.com/rails/ActionController/Routing)\]
 
-    :::sql
-    insert into wlepki (lang, body) 
-        values("ruby", "puts 1");
-    insert into wlepki (lang, body) 
-        values("html", "<html></html>");
+Strona główna:
 
-<blockquote>
-{%= image_tag "/images/wlepka.png", :alt => "[wlepka.rb]" %}
-</blockquote>
+    http://leniwiec.local:3000/
 
-Na Rails `console`:
+Wklejone fragmenty kodu:
 
-    :::sql_rails
-    Wlepka.all
-    Wlepka.all(:conditions => ["lang = ?", "ruby"])
-    Wlepka.all(:conditions =>
-      ["lang = ? and body like ?", "ruby", "%puts%"])
+    http://leniwiec.local:3000/:number
 
-Więcej przykładowych poleceń jest 
-[tutaj](http://apidock.com/rails/ActiveRecord/Base)
+Wyszukiwanie:
 
-    :::sql_rails
-    w = Wlepka.new :lang => "css", 
-        :body => "h1 { color: red; }"
-    w.save
-    
-    Wlepka.create :lang => "css", 
-        :body => "h1 { background-color: blue; }"
+    http://leniwiec.local:3000/search?query=def
 
+Wyniki:
 
-## Generujemy kontroler
+    http://leniwiec.local:3000/search
 
-<blockquote>
-{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
-</blockquote>
-
-W zgodzie z konwencją nazwa kontrolera jest liczbą mnogą
-od *wlepka*:
-
-    script/generate controller wlepki
-
-Kontroller *wlepki_controller.rb*:
-
-<blockquote>
-{%= image_tag "/images/wlepki_controller.png", :alt => "[wlepki_controller.rb]" %}
-</blockquote>
+Routing:
 
     :::ruby
-    class WlepkiController < ApplicationController
-      
-      def index
-        @wlepka = Wlepka.new
-      end
+    # root_path, root_url
+    map.root :conditions => { :method => :get },
+      :controller => 'leniwce',
+      :action => 'index'
     
-      def show
-        @wlepka = Wlepka.find(params[:id])
-      end
-      
-      def create
-        @wlepka = Wlepka.new(params[:wlepka])
+    # leniwce_url(:number)
+    map.leniwce ':number',
+      :conditions => { :method => :get },
+      :controller => 'leniwce',
+      :action => 'show',
+      :number => /\d+/
     
-        if @wlepka.save
-          flash[:notice] = 'Zapisano wlepkę w bazie.'
-          redirect_to(:action => "show", :id => @wlepka.id) 
-        else
-          render :action => "index"
-        end
-      end
-  
-    end
+    # create_path
+    map.create '',
+      :conditions => { :method => :post },
+      :controller => 'leniwce',
+      :action => 'create'
+     
+    # search_path
+    map.search 'search',
+      :conditions => { :method => :get },
+      :controller => 'leniwce',
+      :action => 'search'
 
-## Tworzymy dwa widoki
+Generujemy model i migrujemy:
+
+<blockquote>
+{%= image_tag "/images/leniwiec.png", :alt => "[leniwiec.rb]" %}
+</blockquote>
+
+    script/generate model Leniwiec lang:string body:text 
+    rake db:migrate
+
+Generujemy kontroller:
+
+    script/generate controller Leniwce index show search
+
+Dopiero teraz możemy obejrzeć routing:
+
+    rake routes
+
+I próbnie uruchomić aplikację.
+
+Co działa? A co nie działa? Wpisujemy kilka URL.
+Przygladamy się temu co jest wypisywane na konsoli.
+
+
+## Widoki
 
 <blockquote>
 {%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
 </blockquote>
 
-Strona główna, czyli widok *index.html.erb*:
+Zaczynamy od widoku *index.html.erb*. Zawiera ona formularz do
+wklejania kodu:
 
     :::html_rails
-    <% form_for :wlepka, 
-         :url => { :action => "create" }  do |f| %>
+    <% form_for :leniwiec, :url => { 
+          :controller => "leniwce", 
+          :action => "create" } do |f| %>
       <%= f.error_messages %>
     
       <p>
@@ -170,58 +157,7 @@ Strona główna, czyli widok *index.html.erb*:
       </p>
     <% end %>
 
-Widok *show.html.erb*:
-
-    :::html_rails
-    <h1>Wlepka: <%= @wlepka.lang %></h1>
-    <%= @wlepka.body %>
-    <%= link_to 'Nowa wlepka', :action => "index" %>
-
-
-## Projektujemy routing
-
-<blockquote>
-{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
-</blockquote>
-
-The routing *ActionController::Routing* module provides URL rewriting
-in native Ruby. It’s a way to redirect incoming requests to
-controllers and actions. This replaces mod_rewrite rules. Best of all,
-Rails' Routing works with any web server. Routes are defined in
-*config/routes.rb*.
-\[[więcej](http://apidock.com/rails/ActionController/Routing)\]
-
-    :::ruby
-    ActionController::Routing::Routes.draw do |map|
-      map.root :controller => "wlepki", :action => "index"
-      # w tej kolejności:
-      map.connect ':action/:id', :controller => "wlepki"
-      map.connect ':id', :controller => "wlepki", :action => "show"
-    end
-
-
-## Dodajemy kolorowanie składni
-
-Poprawiamy kontroller:
-
-    :::ruby
-    class WlepkiController < ApplicationController
-      def show
-        @wlepka = Wlepka.find(params[:id])
-        @wlepka.body = ::Uv.parse(@wlepka.body, 'xhtml', @wlepka.lang, false, "dawn")  
-      end
-
-oraz *environment.rb*:
-
-    :::ruby
-    require 'uv'
-    Rails::Initializer.run do |config|
-      config.gem 'ultraviolet' 
-
-
-## Gotowce
-
-Gotowy layout, *application.html.erb* wrzucamy do katalogu *layout*:
+Od razu też wrzucimy do katalogu *layouts* layout *application.html.erb*:
 
     :::html_rails
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -235,10 +171,134 @@ Gotowy layout, *application.html.erb* wrzucamy do katalogu *layout*:
     </head>
     <body>
       <h1>Leniwce z o.o.</h1>
-        <p style="color: green"><%= flash[:notice] %></p>
-    <%= yield %>
+      
+      <p style="color: green"><%= flash[:notice] %></p>
+      
+      <%= yield %>
+      
     </body>
     </html>
+
+Plik *uv.css* będzie używany przy kolorowaniu składni.
+
+Wejście na stronę *http://localhost:300/* daje błąd:
+
+    NoMethodError in Leniwce#index 
+  
+    You have a nil object when you didn't expect it!
+    You might have expected an instance of Array.
+    …
+    <%= f.select :lang, @languages %>
+
+Zmienna `@languages` nie istnieje. Aby błąd się nie pojawiał
+musimy ją zdefiniować.
+
+<blockquote>
+{%= image_tag "/images/leniwce_controller.png", :alt => "[leniwce_controller.rb]" %}
+</blockquote>
+
+Dopisujemy w pliku *leniwce_controller.rb* w metodzie *index*:
+
+    :::ruby
+    class LeniwceController < ApplicationController
+      def index
+        @languages = ["ruby", "html", "css"]
+      end
+
+Jeszcze raz wchodzimy na stronę *http://localhost:3000/*,
+teraz już działa, wpisujemy kawałek kodu, klikamy przycisk
+„Wklej” i dostajemy stronę z:
+
+    Unknown action
+    No action responded to create. Actions: index, search, and show
+
+No to definiujemy akcję *create*. Ponownie zaglądamy do pliku
+*leniwce_controller.rb*, gdzie definiujemy metodę *create*:
+
+    :::ruby
+    def create
+      @leniwiec = Leniwiec.new(params[:leniwiec])
+      if @leniwiec.save
+        flash[:notice] = 'Umieszczono leniwca w bazie.'
+        redirect_to leniwce_path(@leniwiec.id)
+      else
+        render :action => "index"
+      end
+    end
+
+Teraz wyświetla się wygenerowana stronka *show.html.erb*
+na której ma się pojawić przed chwilą wklejony i zapisany
+w bazie kod. Zmieniamy ją na:
+
+    :::html_rails
+    <h3>Leniwiec: <%= @wlepka.lang %></h3>
+    <%= @leniwiec.body %>
+    <%= link_to 'Nowy leniwiec', root_path %>
+ 
+Teraz po przekierowaniu dostajemy błąd:
+
+    NoMethodError in Leniwce#show 
+    Showing app/views/leniwce/show.html.erb where line #1 raised: 
+    You have a nil object when you didn't expect it!
+
+Oznacza to, że musimy wyciągnąć leniwaca z bazy w metodzie *show*.
+Robimy to tak:
+
+    :::ruby
+    def show
+      @leniwiec = Leniwiec.find(params[:number])
+    end
+
+## Wcześniej należy przećwiczyć konsolę!
+
+Przykłady na SQlite `dbconsole`:
+
+    :::sql
+    insert into leniwce (lang, body) 
+        values("ruby", "puts 1");
+    insert into leniwce (lang, body) 
+        values("html", "<html></html>");
+
+i na Rails `console`:
+
+    :::sql_rails
+    Leniwiec.all
+    Leniwiec.all(:conditions => ["lang = ?", "ruby"])
+    Leniwiec.all(:conditions =>
+      ["lang = ? and body like ?", "ruby", "%puts%"])
+
+Więcej przykładowych poleceń jest do wklejenia
+[stąd](http://apidock.com/rails/ActiveRecord/Base)
+
+    :::sql_rails
+    w = Leniwiec.new :lang => "css", 
+        :body => "h1 { color: red; }"
+    w.save
+    
+    Leniwiec.create :lang => "css", 
+        :body => "h1 { background-color: blue; }"
+
+
+## Dodajemy kolorowanie składni
+
+Podrasowujemy metodę *show*:
+
+    :::ruby
+    class LeniwceController < ApplicationController
+      def show
+        @leniwiec = Leniwiec.find(params[:number])
+        @leniwiec.body = ::Uv.parse(@leniwiec.body, 'xhtml', @leniwiec.lang, false, "dawn")  
+      end
+
+oraz dopisujemy w *environment.rb*:
+
+    :::ruby
+    require 'uv'
+    Rails::Initializer.run do |config|
+      config.gem 'ultraviolet' 
+
+
+## Gotowiec
 
 Plik *uv.css* kopiujemy z katalogu *stylesheets* tego samouczka.
 
@@ -249,17 +309,16 @@ Pamiętamy też o skróceniu logów:
 
     :::ruby
     class ApplicationController < ActionController::Base
-      
       # Scrub sensitive parameters from your log
       filter_parameter_logging :body
     end
 
-## TODO
 
-1. Użyć *named routes*.
-2. Dodać „porządny” layout.
-3. Dodać wyszukiwanie z paginacją: sphinx?, xapian?
-4. Użyć innego ORM, np. datamapper
+## Zadania
+
+1. Dodać „porządny” layout.
+1. Dodać wyszukiwanie z paginacją kolejno: sql, sphinx, xapian
+1. Użyć innego ORM, np. datamapper
    \([przykład](http://github.com/dkubb/datamapper-on-rails/)\).
-5. Wpisać listę języków do tabelki *languages* i pobrać tę listę 
-   z tej tabelki.
+1. Wpisać listę języków obsługiwanych przez gem *Ultraviolet*
+   do tabelki *languages* i pobrać tę listę z tej tabelki.

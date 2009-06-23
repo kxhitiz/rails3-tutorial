@@ -41,8 +41,15 @@ module WB
     #end
     
     # helper methods
+    # attr_accessor :title
     
-    attr_accessor :title
+    def title(name=nil)
+      @title = "WB/Rails3"
+      if name
+        @title += " | " + name.to_s
+      end
+    end
+
     
     get '/' do
       rdiscount :main

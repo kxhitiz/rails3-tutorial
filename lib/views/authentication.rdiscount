@@ -1,3 +1,5 @@
+#### {% title "Autentykacja" %}
+
 Omówić: Ben Johnsos, [Authlogic](http://github.com/binarylogic/authlogic/).
 A clean, simple, and unobtrusive ruby authentication solution.
 

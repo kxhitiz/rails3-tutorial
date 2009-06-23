@@ -14,7 +14,7 @@
    id="svg12"
    sodipodi:version="0.32"
    inkscape:version="0.46+devel"
-   sodipodi:docname="Nowy dokument 2"
+   sodipodi:docname="leniwiec.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs14">
@@ -178,7 +178,10 @@
        x="190"
        y="140"
        rx="4"
-       ry="4" />
+       ry="4"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        ry="4"
        rx="4"
@@ -191,7 +194,10 @@
     <path
        style="opacity:0.78571424;fill:#800000;fill-opacity:1;stroke:#2b0000;stroke-width:1;stroke-miterlimit:2;stroke-opacity:1;stroke-dasharray:none"
        d="m 51,35.0625 c -0.554,0 -1,0.446 -1,1 L 50,44 50,44.0625 50,76 c 0,2.216 1.784,4 4,4 l 52,0 c 2.216,0 4,-1.784 4,-4 l 0,-32 c 0,-2.216 -1.784,-4 -4,-4 l -36,0 0,-3.9375 c 0,-0.554 -0.446,-1 -1,-1 l -18,0 z"
-       id="rect828" />
+       id="rect828"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        id="path833"
        d="m 451,135.0625 c -0.554,0 -1,0.446 -1,1 l 0,7.9375 0,0.0625 0,31.9375 c 0,2.216 1.784,4 4,4 l 52,0 c 2.216,0 4,-1.784 4,-4 l 0,-32 c 0,-2.216 -1.784,-4 -4,-4 l -36,0 0,-3.9375 c 0,-0.554 -0.446,-1 -1,-1 l -18,0 z"
@@ -203,22 +209,34 @@
     <path
        id="path837"
        d="m 121,85.0625 c -0.554,0 -1,0.446 -1,1 L 120,94 120,94.0625 120,126 c 0,2.216 1.784,4 4,4 l 52,0 c 2.216,0 4,-1.784 4,-4 l 0,-32 c 0,-2.216 -1.784,-4 -4,-4 l -36,0 0,-3.9375 c 0,-0.554 -0.446,-1 -1,-1 l -18,0 z"
-       style="opacity:0.78571424;fill:#800000;fill-opacity:1;stroke:#2b0000;stroke-width:1;stroke-miterlimit:2;stroke-opacity:1;stroke-dasharray:none" />
+       style="opacity:0.78571424;fill:#800000;fill-opacity:1;stroke:#2b0000;stroke-width:1;stroke-miterlimit:2;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:#ffffff;stroke:#000000;stroke-width:2;stroke-opacity:1;marker-end:url(#Arrow2Mend);opacity:0.66000000000000003;filter:url(#filter2075);stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round"
        d="m 80,90 0,20 30,0"
-       id="path839" />
+       id="path839"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="stroke-width:2;fill:#ffffff;stroke:#000000;stroke-opacity:1;font-size:12;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow2Mend);opacity:0.59999999999999998;filter:url(#filter3619)"
        d="m 150,140 0,30 30,0"
-       id="path841" />
+       id="path841"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG"
        x="120"
        y="60"
        id="text843"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan845"
          x="120"
@@ -229,7 +247,10 @@
        x="190"
        y="110"
        id="text847"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan849"
          x="190"
@@ -248,13 +269,16 @@
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:MaszynaAEG;-inkscape-font-specification:MaszynaAEG Bold"
-       x="170"
+       x="160"
        y="220"
        id="text855"
-       sodipodi:linespacing="100%"><tspan
+       sodipodi:linespacing="100%"
+       inkscape:export-filename="/home/wbzyl/public_git/tutorials/rails3-tutorial/lib/public/images/leniwiec.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan857"
-         x="170"
-         y="220">wlepka.rb</tspan></text>
+         x="160"
+         y="220">leniwiec.rb</tspan></text>
   </g>
 </svg>
