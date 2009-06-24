@@ -11,7 +11,7 @@
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
-1. {%= link_to "Klon Pastie w Rails3 + ActiveRecord", "/pastie" %}
+1. {%= link_to "„Leniwiec z o.o.” – klon pastie", "/pastie" %}
 1. {%= link_to "Aplikacja: Todo", "/todo" %}
 1. {%= link_to "Aplikacja: Blog", "/blog" %}
 1. {%= link_to "Aplikacja: Store", "/store" %}
