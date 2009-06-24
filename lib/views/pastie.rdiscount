@@ -1,9 +1,9 @@
 #### {% title "Leniwiec z o.o." %}
 
-# Leniwiec z o.o.
+# Pastie „Leniwiec z o.o.”
 
 <blockquote>
-{%= image_tag "/images/leniwiec.jpg", 
+{%= image_tag "/images/bradypus.jpg", 
               :alt => "[Bradypus tridactylus]", :title => "Bradypus tridactylus" %}
 </blockquote>
 
@@ -43,7 +43,7 @@ A tak wygląda strona główna *pastie.org*:
     rails leniwiec.local
 
 Oraz nauczenia Railsów odmiany słowa *leniwiec*.
-W pliku *inflections.rb*:
+W pliku *inflections.rb* wpisujemy:
 
     :::ruby
     ActiveSupport::Inflector.inflections do |inflect|
@@ -56,11 +56,11 @@ W pliku *inflections.rb*:
 {%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
 </blockquote>
 
-The routing *ActionController::Routing* module provides URL rewriting
+Cytat: „The routing *ActionController::Routing* module provides URL rewriting
 in native Ruby. It’s a way to redirect incoming requests to
-controllers and actions. This replaces mod_rewrite rules. Best of all,
+controllers and actions. This replaces *mod_rewrite* rules. Best of all,
 Rails' Routing works with any web server. Routes are defined in
-*config/routes.rb*.
+*config/routes.rb*.”
 \[[więcej](http://apidock.com/rails/ActionController/Routing)\]
 
 Strona główna:
@@ -126,7 +126,41 @@ Dopiero teraz możemy obejrzeć routing:
 I próbnie uruchomić aplikację.
 
 Co działa? A co nie działa? Wpisujemy kilka URL.
-Przygladamy się temu co jest wypisywane na konsoli.
+Przyglądamy się temu co jest wypisywane na konsoli.
+
+
+## Jazda obowiązkowa: ćwiczenia na konsoli
+
+<blockquote>
+{%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
+</blockquote>
+
+Przykłady do wpisania na konsoli SQlite, `script/dbconsole`:
+
+    :::sql
+    insert into leniwce (lang, body) 
+        values("ruby", "puts 1");
+    insert into leniwce (lang, body) 
+        values("html", "<html></html>");
+
+I – na konsoli Rails, `script/console`:
+
+    :::sql_rails
+    Leniwiec.all
+    Leniwiec.all(:conditions => ["lang = ?", "ruby"])
+    Leniwiec.all(:conditions =>
+      ["lang = ? and body like ?", "ruby", "%puts%"])
+
+Więcej przykładowych poleceń jest do wklejenia
+[stąd](http://apidock.com/rails/ActiveRecord/Base)
+
+    :::sql_rails
+    w = Leniwiec.new :lang => "css", 
+        :body => "h1 { color: red; }"
+    w.save
+    
+    Leniwiec.create :lang => "css", 
+        :body => "h1 { background-color: blue; }"
 
 
 ## Widoki
@@ -135,15 +169,13 @@ Przygladamy się temu co jest wypisywane na konsoli.
 {%= image_tag "/images/mvc.png", :alt => "[MVC]" %}
 </blockquote>
 
-Zaczynamy od widoku *index.html.erb*. Zawiera ona formularz do
-wklejania kodu:
+Zaczynamy od widoku *index.html.erb* z formularzem do wklejania kodu:
 
     :::html_rails
     <% form_for :leniwiec, :url => { 
           :controller => "leniwce", 
           :action => "create" } do |f| %>
       <%= f.error_messages %>
-    
       <p>
         <%= f.label :lang, "Wybierz język" %><br /> 
         <%= f.select :lang, @languages %>
@@ -180,8 +212,9 @@ Od razu też wrzucimy do katalogu *layouts* layout *application.html.erb*:
     </html>
 
 Plik *uv.css* będzie używany przy kolorowaniu składni.
+Skopiowałem go z katalogu *stylesheets* tego samouczka.
 
-Wejście na stronę *http://localhost:300/* daje błąd:
+Wejście na stronę *http://localhost:3000/* daje błąd:
 
     NoMethodError in Leniwce#index 
   
@@ -231,7 +264,7 @@ na której ma się pojawić przed chwilą wklejony i zapisany
 w bazie kod. Zmieniamy ją na:
 
     :::html_rails
-    <h3>Leniwiec: <%= @wlepka.lang %></h3>
+    <h3>Leniwiec: <%= @leniwiec.lang %></h3>
     <%= @leniwiec.body %>
     <%= link_to 'Nowy leniwiec', root_path %>
  
@@ -241,7 +274,7 @@ Teraz po przekierowaniu dostajemy błąd:
     Showing app/views/leniwce/show.html.erb where line #1 raised: 
     You have a nil object when you didn't expect it!
 
-Oznacza to, że musimy wyciągnąć leniwaca z bazy w metodzie *show*.
+Oznacza to, że w metodzie *show* musimy wyciągnąć leniwca z bazy.
 Robimy to tak:
 
     :::ruby
@@ -249,39 +282,10 @@ Robimy to tak:
       @leniwiec = Leniwiec.find(params[:number])
     end
 
-## Wcześniej należy przećwiczyć konsolę!
-
-Przykłady na SQlite `dbconsole`:
-
-    :::sql
-    insert into leniwce (lang, body) 
-        values("ruby", "puts 1");
-    insert into leniwce (lang, body) 
-        values("html", "<html></html>");
-
-i na Rails `console`:
-
-    :::sql_rails
-    Leniwiec.all
-    Leniwiec.all(:conditions => ["lang = ?", "ruby"])
-    Leniwiec.all(:conditions =>
-      ["lang = ? and body like ?", "ruby", "%puts%"])
-
-Więcej przykładowych poleceń jest do wklejenia
-[stąd](http://apidock.com/rails/ActiveRecord/Base)
-
-    :::sql_rails
-    w = Leniwiec.new :lang => "css", 
-        :body => "h1 { color: red; }"
-    w.save
-    
-    Leniwiec.create :lang => "css", 
-        :body => "h1 { background-color: blue; }"
-
 
 ## Dodajemy kolorowanie składni
 
-Podrasowujemy metodę *show*:
+Zmieniamy kod metody *show*:
 
     :::ruby
     class LeniwceController < ApplicationController
@@ -290,7 +294,7 @@ Podrasowujemy metodę *show*:
         @leniwiec.body = ::Uv.parse(@leniwiec.body, 'xhtml', @leniwiec.lang, false, "dawn")  
       end
 
-oraz dopisujemy w *environment.rb*:
+oraz dopisujemy w pliku *environment.rb*:
 
     :::ruby
     require 'uv'
@@ -298,14 +302,63 @@ oraz dopisujemy w *environment.rb*:
       config.gem 'ultraviolet' 
 
 
-## Gotowiec
+## Następna wersja „Leniwca z o.o.”
 
-Plik *uv.css* kopiujemy z katalogu *stylesheets* tego samouczka.
+Zaimplementujemy wyszukiwanie fragmentów kodu zawierających podaną
+frazę. Jak takie rzeczy się robi można podejrzeć na screencaście
+[Simple Search Form](http://railscasts.com/episodes/37-simple-search-form).
+
+W pliku *application.html.erb* dodamy formularz.
+Tym razem użyjemy `form_tag` a nie `form_for`, dlaczego?
+
+    :::html_rails
+    <% form_tag search_path, :method => 'get' do %>
+      <p>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Wyszukaj", :name => nil %>
+      </p>
+    <% end %>
+
+Jaką funkcję spełnia `:name => nil`? Technicznie żadną.
+To jaki sens ma ten kawałek kodu?
+
+W pliku *leniwce_controller.rb* piszemy metodę *search*:
+
+    :::ruby
+    def search
+      @search = params[:search]
+      @leniwce = Leniwiec.search(@search)
+      
+      # kolorowanie składni
+      @leniwce.each do |leniwiec|
+        leniwiec.body = ::Uv.parse(leniwiec.body, 'xhtml', leniwiec.lang, false, "dawn")
+      end 
+    end
+
+Implementujemy `Leniwiec.search`:
+
+    :::ruby
+    def self.search(search)
+      if search
+        all(:conditions => ['body LIKE ?', "%#{search}%"])
+      else
+        all
+      end
+    end
+
+I tworzymy widok na wyszukane fragmenty kodu:
+
+    :::html_rails
+    <h3>Wyniki wyszukiwania: <%= @search %></h3>
+    <% @leniwce.each do |leniwiec| %>
+      <p><b><%= leniwiec.lang %></b></p>
+      <%= leniwiec.body %>
+    <% end %>
 
 
 ## Filter parameter logging
 
-Pamiętamy też o skróceniu logów:
+Pamiętamy też o skróceniu logów \(dlaczego?\):
 
     :::ruby
     class ApplicationController < ActionController::Base
@@ -313,12 +366,6 @@ Pamiętamy też o skróceniu logów:
       filter_parameter_logging :body
     end
 
+## Final touches
 
-## Zadania
-
-1. Dodać „porządny” layout.
-1. Dodać wyszukiwanie z paginacją kolejno: sql, sphinx, xapian
-1. Użyć innego ORM, np. datamapper
-   \([przykład](http://github.com/dkubb/datamapper-on-rails/)\).
-1. Wpisać listę języków obsługiwanych przez gem *Ultraviolet*
-   do tabelki *languages* i pobrać tę listę z tej tabelki.
+Pozostaje jeszcze osuszyć kod (jaki?) oraz odrobić zadania.

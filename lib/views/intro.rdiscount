@@ -1,65 +1,51 @@
-#### {% title "Wstęp" %}
+#### {% title "Rozkład jazdy" %}
 
-# Rozkład jazdy
 
-* Wykład 1
-* Wykład 2
-* Wykład 3
-* Wykład 4
+# Wykłady
 
-## Kilka uwag o przykładach
+1. Fortunka
+2. Wprowadzenie do języka Ruby
+3. Pastie
+4. Może Sinatra?
+5. … 
+6. Aplikacje z dwoma modelami.
+
+
+## Uwagi o przykładach
 
 Zaczynamy od przerobienia *Fortunki* na aplikację Rails.
 Fortunka to aplikacja z jednym modelem.
+REST.
 
-Aplikacje z dwoma modelami.
+Następnie piszemy klon *Pastie*.
+Też tylko jeden model.
+Bez REST.
 
-1. Blog
-2. Todo
-3. Hurtownia
+*Blog*, *Todo*, *Hurtownia* to aplikacje z dwoma modelami. Autorem
+tych aplikacji jest Ryan Bates.  Są one wykorzystywane w jego
+[screencastach](http://railscasts.com/). Kod przykładów oraz 
+kod screencastów znajdują się na serwerze
+[Github](http://github.com/ryanb).
 
-Autorem tych przykładów jest Ryan Bates.
-Przykłady te są wykorzystywane
-w jego [screencastach](http://railscasts.com/).
-Kod przykładów oraz kod screencastów znajdują
-się na serwerze [Github](http://github.com/ryanb).
 
-## TODO
-
-Więcej przykładów:
-
-1. z jednym modelem: *Tatry + Google maps*.
-2. z więcej niż dwoma modelami *Ale Kino*.
-3. wyszukiwanie w bazie: Xapian +
-   [Xapit gem](http://github.com/ryanb/xapit).
-
-Najważniejsze gemy/wtyczki w przykładach:
+## Najważniejsze gemy i wtyczki
 
 1. Mislav Marohnić, gem
-   [will_paginate](http://github.com/mislav/will_paginate/)
-
-2. Ben Johnsos, [Authlogic](http://github.com/binarylogic/authlogic/).
+   [will_paginate](http://github.com/mislav/will_paginate/).
+   Most awesome pagination solution for Ruby.
+2. Ben Johnsos, gem
+   [Authlogic](http://github.com/binarylogic/authlogic/).
    A clean, simple, and unobtrusive ruby authentication solution.
-
-2. Rick Olson, plugin
-   [Restful Authentication Generator](http://github.com/technoweenie/restful-authentication/)
-   - [articles](http://ruby.about.com/lr/restful_authentication/384407/3/)
-
 3. Jon Yurek, gem 
    [paperclip](http://github.com/thoughtbot/paperclip/),
-
-   - [strona domowa gemu](http://www.thoughtbot.com/projects/paperclip)
-
+   [strona domowa](http://www.thoughtbot.com/projects/paperclip).
+   Easy file attachment management for ActiveRecord.
 4. Mike Perham, plugin
-   [Exception Notifier](http://github.com/rails/exception_notification/)
-
-5. Rick Olson, plugin
-   [Attachment Fu](http://github.com/technoweenie/attachment_fu/) 
-   facilitates file uploads in Ruby on Rails.
-
-6. Jeremy Kemper, plugin
-   [Acts As List](http://github.com/rails/acts_as_list/)
-   provides the capabilities for sorting and reordering a number of
+   [Exception Notifier](http://github.com/rails/exception_notification/).
+   Exception Notifier for Rails.
+5. Jeremy Kemper, plugin
+   [Acts As List](http://github.com/rails/acts_as_list/).
+   Provides the capabilities for sorting and reordering a number of
    objects in a list.
 
 
@@ -70,3 +56,13 @@ Najważniejsze gemy/wtyczki w przykładach:
 2. [Real HTTP Caching for Ruby Web Apps](http://github.com/rtomayko/rack-cache/)
 3. Generatory.
    [*A collection of useful Rails generator scripts*](http://github.com/ryanb/nifty-generators/)
+
+
+## TODO
+
+Więcej przykładów:
+
+1. Z jednym modelem, np. *Tatry + Google maps*.
+2. Z więcej niż dwoma modelami, np. *Ale Kino*.
+3. Wyszukiwanie w bazie: 
+   Xapian + gem [Xapit](http://github.com/ryanb/xapit).

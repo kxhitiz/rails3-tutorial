@@ -1,4 +1,6 @@
-# Samouczek do Rails 3
+#### {% title %} – set the default title
+
+# Samouczek
 
 <blockquote>
   {%= image_tag "/images/the_thinker.jpg", :alt => "[The Thinker]" %}
@@ -7,7 +9,7 @@
   <p class="author">— John von Neumann</p>
 </blockquote>
 
-1. {%= link_to "Zaczynamy", "/intro" %}
+1. {%= link_to "Rozkład jazdy", "/intro" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
 1. {%= link_to "Klon Pastie w Rails3 + ActiveRecord", "/pastie" %}
 1. {%= link_to "Aplikacja: Todo", "/todo" %}
@@ -16,6 +18,7 @@
 1. {%= link_to "Autentykacja i autoryzacja", "/authentication" %}
 1. {%= link_to "Caching", "/caching" %}
 1. {%= link_to "Ćwiczenia", "/exercises" %}
+1. {%= link_to "Odpowiedzi", "/answers" %}
 
 ## Dokumentacja
 

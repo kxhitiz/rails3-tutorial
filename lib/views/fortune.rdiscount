@@ -584,16 +584,6 @@ W widokach definiujemy tytuł wpisując:
     <% title 'WB_RAILS – Aktywne bazy danych' -%>
 
 
-## Udoskonalenia
-
-1. Utworzyć nową stronę główną aplikacji.
-   Umieścić na niej po jednym losowym cytacie
-   z każdej kategorii oraz linki do stron
-   z indeksami kategorii.
-2. Otagowujemy obrazki: [Acts As Taggable on Steroids Ruby On Rails Plugin With 
-   Paginate](http://burm.net/2008/10/08/acts-as-taggable-on-steroids-ruby-on-rails-plugin-with-paginate/)
-
-
 ## Różne
 
 Skorzystać z wtyczki: 

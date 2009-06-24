@@ -2,7 +2,48 @@
 
 # Ćwiczenia
 
-1\. [A code snippet tool, intended for localhost usage](http://github.com/navyrain/navysnip/)
+1\. Udoskonalamy „Fortunkę”:
+
+* Utworzyć nową stronę główną aplikacji.
+  Umieścić na niej po jednym losowym cytacie
+  z każdej kategorii oraz linki do stron
+  z indeksami kategorii.
+* Zaimplementować tagowanie obrazków tak jak to jest pokazane na screencaście 
+  [More on Virtual Attributes](http://railscasts.com/episodes/167-more-on-virtual-attributes).
+* Jeszcze raz otagować obrazki. Tym razem skorzystać z
+  [Acts As Taggable on Steroids Ruby On Rails Plugin With 
+  Paginate](http://burm.net/2008/10/08/acts-as-taggable-on-steroids-ruby-on-rails-plugin-with-paginate/)
+
+2\. Wystylizować „Leniwca z o.o.”. 
+
+Do strony z wynikami wyszukiwania dodać paginację.
+Skorzystać z gemu 
+[mislav-will-paginate](http://github.com/mislav/will_paginate/).
+
+Do wyszukiwarki dodać select-menu z listą języków
+obsługiwanych przez gem *Ultraviolet*
+(`uv -l syntaxes`). Zmodyfikować kod *leniwca.local*, tak aby
+było możliwe wyszukiwanie fragmentów kodu z wybranego
+języka. Wskazówka: objerzeć screencast 
+[Advanced Search Form](http://railscasts.com/episodes/111-advanced-search-form)
+Uwaga: na liście języków umieścić „Wszystkie języki”,
+„Języki skryptowe“ i „Języki kompilowane”.
+
+Wpisać listę wszystkich języków do tabelki *languages*.
+Do select-menu pobrać tę listę z tej tabelki.
+
+Dodać „full text search”. Wykorzystać gem 
+[xapit](http://github.com/ryanb/xapit/) albo
+[thinking-sphinx](http://github.com/freelancing-god/thinking-sphinx/).
+Przykład korzystający *thinking-sphinx* można obejrzeć
+na screencaście R. Batesa, 
+[Thinking Sphinx](http://railscasts.com/episodes/120-thinking-sphinx).
+
+Użyć innego ORM, np. Datamapper
+\([przykład](http://github.com/dkubb/datamapper-on-rails/)\).
+
+
+3\. [A code snippet tool, intended for localhost usage](http://github.com/navyrain/navysnip/)
 
 Add the following:
 
@@ -14,7 +55,8 @@ Add the following:
 * Tweak the PRE CSS or do something clever with wrapping 
   to make long lines display nicely
 
-2\. [Extremely Simple Photo Album in 
+
+4\. [Extremely Simple Photo Album in 
   Rails](http://rubyplus.org/episodes/92-Extremely-Simple-Photo-Album-in-Rails.html)
 
 * You can extend this album so that the photo upload does not tie up
