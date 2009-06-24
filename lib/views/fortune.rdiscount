@@ -2,6 +2,23 @@
 
 # Fortunka w Ruby on Rails
 
+<blockquote>
+{%= image_tag "/images/martin-fowler.jpg", :alt => "[Martin Fowler]" %}
+<p>
+  Often when you come across something new it can be a good idea to
+  overuse it in order to find out it's boundaries. This is a quite
+  reasonable learning strategy. It's also why people always tend to
+  overuse new technologies or techniques in the early days. People
+  often criticize this but it's a natural part of learning. If you
+  don't push something beyond its boundary of usefulness how do you
+  find where that boundary is? The important thing is to do so in a
+  relatively controlled environment so you can fix things when you
+  find the boundary. (After all until we tried it I thought XML would
+  be a good syntax for build files.)
+</p>
+<p class="author">- Martin Fowler</p>
+</blockquote>
+
 Zaczynamy od wygenerowania szkieletu aplikacji:
 
     rails fortune
@@ -65,10 +82,44 @@ Teraz podejrzymy jakie generatory są zainstalowane w systemie:
       Scaffolds an entire resource, from model and migration to controller and
       views, along with a full test suite. The resource is ready to use as a
       starting point for your RESTful, resource-oriented application.
- 
+
+
+## Co to jest REST?
+
+<blockquote>
+{%= image_tag "/images/hfrails_cover.png", :alt => "[Head First Rails]" %}
+<p>
+  If you use REST, your teeth will be brighter,
+  your life will be happier,
+  and all will be goodnes and sunshine with the world.
+</p>
+<p class="author">– David Griffiths</p>
+</blockquote>
+
+Dłuższy cytat: „**REST** stands for **Represenational State Transfer**
+\[…hmm?!…\] RESTful design really means designing your applications
+to work the way the web was **originally** meant to look.”
+
+Podstawy REST:
+
+1. Dane są zasobami (ang. *resources*). Fortunka to zbiór
+   cytatów, dlatego cytaty są *resources*.
+2. Każdy zasób ma swój unikalny URI.
+3. Na zasobach można wykonywać cztery podstawowe operacje
+   Create, Read, Update i Delete 
+   (zwykle skracane do *CRUD*).
+4. Klient i serwer komunikują się ze sobą korzystając
+   protokołu bezstanowego. Oznaczo to, że klient 
+   zwraca się z żądaniemdo serwera. Serwer odpowiada i
+   cała konwersacja się kończy.
+
+
+## Wracamy do budowania Fortunki
+
 Model *Education* wygenerujemy tak:
 
-    ./script/generate scaffold Education author:string quotation:text
+    ./script/generate scaffold Education \
+        author:string quotation:text
 
 Polecenie:
 
@@ -400,22 +451,22 @@ Dla odmiany zabezpieczymy cały kontroler za pomocą digest authentication.
 
 ## Paginacja
 
+<blockquote>
+{%= image_tag "/images/mislav.jpg", :alt => "[Mislav Marohnić]" %}
+</blockquote>
+
 Skorzystamy z gemu
 [will_paginate](http://github.com/mislav/will_paginate/)
 
 W pliku *environment.rb* dopisujemy:
 
     :::ruby 
+    require 'will_paginate'
     Rails::Initializer.run do |config|
-      config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', 
+      config.gem 'mislav-will_paginate', 
+        :version => '~> 2.3.6', :lib => 'will_paginate', 
         :source => 'http://gems.github.com'
     end
-
-i po kończącym blok end dopisujemy:
-
-    :::ruby
-    end
-    require "will_paginate" 
 
 Następnie sprawdzamy czy gem jest już zainstalowany w odpowiedniej wersji:
 
@@ -459,6 +510,10 @@ Nowy plik stylu dopisujemy w layoucie kontrolera.
 
 
 ## Dodajemy obrazki korzystając z gemu  Paperclip
+
+<blockquote>
+{%= image_tag "/images/jyurek.jpg", :alt => "[Jon Yurek]" %}
+</blockquote>
 
 Do każdego cytatu będzie można dodać obrazek ze zdjęciem 
 autora cytatu lub czegokolwiek.
