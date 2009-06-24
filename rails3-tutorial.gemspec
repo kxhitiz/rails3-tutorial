@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wlodek Bzyl"]
-  s.date = %q{2009-05-31}
+  s.date = %q{2009-06-24}
   s.description = %q{Notatki do frameworka Rails3
 }
   s.email = %q{matwb@univ.gda.pl}
@@ -18,7 +18,16 @@ Gem::Specification.new do |s|
      "TODO",
      "VERSION.yml",
      "config.ru",
+     "lib/config.ru",
+     "lib/public/images/bradypus.jpg",
+     "lib/public/images/leniwce_controller.png",
+     "lib/public/images/leniwce_controller.svg",
+     "lib/public/images/leniwiec.png",
+     "lib/public/images/leniwiec.svg",
+     "lib/public/images/mvc.png",
+     "lib/public/images/mvc.svg",
      "lib/public/images/pablo_picasso.jpg",
+     "lib/public/images/pastie.png",
      "lib/public/images/rails3.png",
      "lib/public/images/rails3.svg",
      "lib/public/images/the_thinker.jpg",
@@ -38,6 +47,7 @@ Gem::Specification.new do |s|
      "lib/public/stylesheets/src/grid.png",
      "lib/public/stylesheets/uv.css",
      "lib/rails3-tutorial.rb",
+     "lib/views/answers.rdiscount",
      "lib/views/authentication.rdiscount",
      "lib/views/blog.rdiscount",
      "lib/views/caching.rdiscount",
@@ -46,6 +56,7 @@ Gem::Specification.new do |s|
      "lib/views/intro.rdiscount",
      "lib/views/layout.rdiscount",
      "lib/views/main.rdiscount",
+     "lib/views/pastie.rdiscount",
      "lib/views/store.rdiscount",
      "lib/views/todo.rdiscount",
      "rails3-tutorial.gemspec"
