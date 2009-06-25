@@ -41,15 +41,16 @@ module WB
     #end
     
     # helper methods
-    # attr_accessor :title
-    
-    def title(name=nil)
-      @title = "WB/Rails3"
-      if name
-        @title += " | " + name.to_s
-      end
+    #attr_reader :title
+
+    def page_title
+      @title || ""
     end
 
+    # def title=(name)... does not work, bug?
+    def title(name)
+      @title = " | #{name}"
+    end
     
     get '/' do
       rdiscount :main
