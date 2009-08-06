@@ -15,7 +15,10 @@
 </blockquote>
 
 Dlaczego należy korzystać z takiej aplikacji.
-Zobacz cytat z prawej strony.
+Zobacz cytat z prawej strony oraz artykuł Marka Forstera
+[Get Everything Done](http://www.markforster.net/polish/)
+\({%= link_to "opis udoskonalonej wersji systemu AutoFocus", "/doc/RevisedAutofocusSystem.pdf" %}\).
+
 
 Aplikacja TODO jest wykorzystywana w screencastach
 R. Batesa. Repozytorium do ściągnięcia z Githuba:

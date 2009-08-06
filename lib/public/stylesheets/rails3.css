@@ -43,7 +43,7 @@ body {
 a[href^="http:"], a[href^="mailto:"], a[href^="http:"]:visited, 
 a[href$=".pdf"], a[href$=".doc"], a[href$=".xls"], a[href$=".rss"], 
 a[href$=".rdf"], a[href^="aim:"] {
-  padding:2px 16px 2px 0;
+  padding:2px 20px 2px 0;
 }
 
 h1 {
