@@ -14,7 +14,7 @@
   <body>
     <div class="span-21" id="header">
       <div class="push-1 span-7">
-        <a href="/"><%= image_tag "/images/rails3.png", :alt => "[WB/Ruby logo]" %></a>
+        <%= link_to "#{ image_tag "/images/rails3.png", :alt => "[WB/Ruby logo]" }", "/" %>
       </div>
       <div class="span-13 last">
         <div class="append-1" id="links">

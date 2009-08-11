@@ -4,6 +4,13 @@ h4 {
   display: none;
 }
 
+/* css3 */
+
+@font-face {
+  font-family: Header; 
+  src: url('fonts/Cyklop-Italic.otf') format('opentype');
+}
+
 html {
   /* http://www.hicksdesign.co.uk/journal/forcing-scrollbars-now-even-better */
   height: 100%; 
@@ -31,6 +38,8 @@ body {
 }
 
 #links a {
+  margin-right: 10px;
+  font: 100% Header, "DejaVu Sans", sans-serif; 
   text-decoration: none;
   color: #A00;
 }

@@ -1,0 +1,10 @@
+#### {% title "Autoryzacja" %}
+
+<blockquote>
+ <p>Once the system knows who the user is through 
+  authentication, authorization is how the system decides 
+  what the user can do.</p>
+ <p>A good example of this is using group permissions or the 
+  difference between a normal user and the superuser on a 
+  unix system.</p>
+</blockquote>
