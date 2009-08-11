@@ -252,7 +252,7 @@ To jeszcze nie jest to o co chodzi. Zmieniamy *div*:
 
     :::html
     <div id="user_nav">
-      <% if current_user %>
+      <% if logged_in? %>
         <%= link_to "Edit Profile", edit_user_path(:current) %> |
         <%= link_to "Logout", logout_path %>
       <% else %>
@@ -261,19 +261,20 @@ To jeszcze nie jest to o co chodzi. Zmieniamy *div*:
       <% end %>
     </div>
 
-gdzie metodę `current_user` musimy zdefiniować.
-Aha, co oznacza symbol *:current* powyżej?
+gdzie metodę *logged_in?* musimy sami napisać.
 
-Definicję metody znajdziemy w dokumentacji do przykładu
+Pytanie: co oznacza symbol *:current* powyżej?
+czy symbole ten jest definiowany w *Authlogic*, czy w *ActiveRecord*?
+
+Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 [authlogic_example] [authlogic example]. 
-Definicję i definicję metody pomocniczej wklejamy do
-pliku *application_controller.rb* (dlaczego?):
+Poniższe definicje wklejamy do pliku *application_controller.rb*:
 
     :::ruby
-    helper_method :current_user
-    
+    helper_method :current_user, :logged_in?
+      
     private
-    
+      
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -282,6 +283,10 @@ pliku *application_controller.rb* (dlaczego?):
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
+    end
+      
+    def logged_in?
+      current_user
     end
 
 Po tych poprawkach, wchodzimy na stronę główną aplikacji:
@@ -318,10 +323,12 @@ i usuwać istniejące cytaty.
 Dopisujemy do *application_controller.rb*:
 
     :::ruby
+    helper_method :login_required
+      
     private
 
-    def require_user
-      unless current_user
+    def login_required
+      unless logged_in?
         flash[:notice] = "You must be logged in to access this page."
         redirect_to new_user_session_url
         return false
@@ -332,13 +339,13 @@ oraz do *fortunes_controller.rb*:
 
     :::ruby
     class FortunesController < ApplicationController
-      before_filter :require_user, :only => [:edit, :update, :destroy]
+      before_filter :login_required, :only => [:edit, :update, :destroy]
 
 Zmieniamy kod widoków: *fortunes/index.html.erb*, *fortunes/show.html.erb*
 dopisując gdzie trzeba:
 
     :::html
-    <% if current_user %>
+    <% if logged_in? %>
     ...
     <% end %>
 
