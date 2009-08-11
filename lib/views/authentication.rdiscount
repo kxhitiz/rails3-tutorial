@@ -286,7 +286,7 @@ Poniższe definicje wklejamy do pliku *application_controller.rb*:
     end
       
     def logged_in?
-      current_user
+      current_user != nil
     end
 
 Po tych poprawkach, wchodzimy na stronę główną aplikacji:
