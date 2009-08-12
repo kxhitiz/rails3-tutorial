@@ -1,5 +1,7 @@
 #### {% title "Autoryzacja" %}
 
+# Autoryzacja
+
 <blockquote>
  <p>Once the system knows who the user is through 
   authentication, authorization is how the system decides 
@@ -8,3 +10,10 @@
   difference between a normal user and the superuser on a 
   unix system.</p>
 </blockquote>
+
+Coś co działa z *Authlogic*: [Yet another role-based authorization system for Rails] [acl9]
+
+
+#### Links
+
+[acl9]: http://github.com/be9/acl9 "Yet another role-based authorization…"

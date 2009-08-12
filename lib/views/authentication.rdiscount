@@ -18,6 +18,7 @@ identifying the users, at least with local user databases.
 
 W przykładach poniżej będę korzystał ze generatorów z gemu
 [nifty-generators] [nifty generators].
+*Proste ćwiczenie z nifty layout*: zmienić domyślne tytuły stron.
 
 
 ## Jak to działa?
@@ -362,8 +363,9 @@ Dopisujemy do *application_controller.rb*:
 Teraz należy przeczytać ze zrozumieniem dokumentację:
 [Authlogic Example](http://github.com/binarylogic/authlogic_example/).
 
-
-**Proste ćwiczenie z nifty layout**: zmienić domyślne tytuły stron.
+Lokalizacja, czyli *i18n*. Przetłumaczyć na język polski komunikaty *Authlogic*.
+Przygotować zlokalizowaną wersję *Fortunki*.
+Jak to się robi? Zobacz [Railscasts \#138: i18n] [railscasts i18n].
  
 
 ## Coś prostszego: nifty layouts
@@ -392,3 +394,4 @@ Jakieś pytania?
   "Reset passwords…"
 [nifty generators]: http://github.com/ryanb/nifty-generators/ "A collection of useful Rails generator scripts"
 [authlogic example]: http://github.com/binarylogic/authlogic_example/ "binarylogic's authlogic_example at master"
+[railscasts i18n]: http://railscasts.com/episodes/138-i18n/ "Railscasts — i18n"
