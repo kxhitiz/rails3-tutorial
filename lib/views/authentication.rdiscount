@@ -404,9 +404,12 @@ Jakie pola powinniśmy jeszcze odfiltrować?
 Teraz należy przeczytać ze zrozumieniem dokumentację:
 [Authlogic Example](http://github.com/binarylogic/authlogic_example/).
 
+### Lekcja do odrobienia: lokalizacja
+
 Lokalizacja, czyli *i18n*. Przetłumaczyć na język polski komunikaty *Authlogic*.
 Przygotować zlokalizowaną wersję *Fortunki*.
-Jak to się robi? Zobacz [Railscasts \#138: i18n] [railscasts i18n].
+
+Jak się to robi? Zobacz [Railscasts \#138: i18n] [railscasts i18n].
  
 
 ## Coś prostszego: nifty layouts
@@ -421,12 +424,11 @@ Przeczytać dokumentację:
 Jakieś pytania?
 
 
-## Zmiana zapomnianego hasła
+## Jak zmienić zapomniane hasło?
 
 [Tutorial: Reset passwords with Authlogic the RESTful way] [reset passwords with authlogic]
 
 Zaczynamy od konfiguracji *Action Mailer* dla trybu *development*.
-
 W pliku *config/environments/development.rb* dopisujemy:
 
     :::ruby
@@ -446,7 +448,7 @@ W pliku *config/environments/development.rb* dopisujemy:
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.default_charset = 'utf-8'
 
-### Resetting password krok po kroku
+### Reset password… krok po kroku
 
 1. A user requests a password reset
 2. An email is sent to them with a link to reset their password
@@ -487,18 +489,20 @@ i modyfikujemy ją w następujący sposób:
       end  
     end  
 
-### Użytkownik zapomniał hasła
+### Zmiana hasła na sposób REST
 
-Dopisujemy do routingu:
+Tworzymy resource o nazwie *password resets*. 
+
+Zaczynamy od dopisania do routingu:
 
     :::ruby
     map.resources :password_resets
 
-generujemy kontroler:
+generujemy pusty kontroler:
 
     script/generate controller password_resets
 
-i dopisujemy poniższy kod:
+i wpisujemy poniższy kod (na razie tylko tyle):
 
     :::ruby
     class PasswordResetsController < ApplicationController
