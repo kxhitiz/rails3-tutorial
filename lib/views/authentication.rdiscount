@@ -77,25 +77,40 @@ Do pamiętania danych zarejestrowanych użytkowników utworzymy
 model *User*, a do rejestracji utworzymy kontroler *UsersController*:
 
     script/generate nifty_scaffold user \
-      username:string email:string password:string new edit
+      username:string password:string new edit
 
 Ponieważ nie chcemy zapamiętywać haseł w czystym tekście, więc
 edytujemy utworzoną migrację zmieniając:
 
     :::ruby
+    t.string :username
     t.string :password
 
 na
 
     :::ruby
-    t.string :crypted_password
-    t.string :password_salt
-    t.string :persistence_token
+    t.string :username, :null => false
+    t.string :email, :null => false
+      
+    t.string :crypted_password, :null => false
+    t.string :password_salt, :null => false
+    t.string :persistence_token, :null => false
 
 Dlaczego *crypted_password*: ponieważ Authlogic oczekuje takiej nazwy.
 Do czego służą pola: *password_salt* i *persistence_token*?
 Więcej o polach w dokumentacji do aplikacji 
 *Authlogic Example*: [Ensure proper database fields] [authlogic example].
+
+Na potrzeby „Resetting password…” dodajemy kilka pól:
+
+    :::ruby     
+    t.string :login, :null => false
+    t.integer :login_count, :default => 0, :null => false
+    t.datetime :last_request_at
+    t.datetime :last_login_at
+    t.datetime :current_login_at
+    t.string :last_login_ip
+    t.string :current_login_ip
 
 Po wprowadzeniu poprawek, migrujemy:
 
@@ -272,7 +287,8 @@ Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 Poniższe definicje wklejamy do pliku *application_controller.rb*:
 
     :::ruby
-    helper_method :current_user, :logged_in?
+    helper_method :current_user, :logged_in?,
+      :require_user, :require_no_user, :redirect_back_or_default
       
     private
       
@@ -288,6 +304,36 @@ Poniższe definicje wklejamy do pliku *application_controller.rb*:
       
     def logged_in?
       current_user != nil
+    end
+
+Na potrzeby rozdziału „Resetting password…” dopisujemy kilka metod:
+
+   :::ruby
+    def require_user
+      unless current_user
+        store_location
+        flash[:notice] = "You must be logged in to access this page"
+        redirect_to new_user_session_url
+        return false
+      end
+    end
+    
+    def require_no_user
+      if current_user
+        store_location
+        flash[:notice] = "You must be logged out to access this page"
+        redirect_to account_url
+        return false
+      end
+    end
+    
+    def store_location
+      session[:return_to] = request.request_uri
+    end
+    
+    def redirect_back_or_default(default)
+      redirect_to(session[:return_to] || default)
+      session[:return_to] = nil
     end
 
 Po tych poprawkach, wchodzimy na stronę główną aplikacji:
@@ -383,6 +429,228 @@ Jakieś pytania?
 ## Full wypas: Reset passwords…
 
 [Tutorial: Reset passwords with Authlogic the RESTful way] [reset passwords with authlogic]
+
+Zaczynamy od konfiguracji *Action::Mailer* dla trybu *development*.
+W pliku *config/environments/development.rb* zmieniamy i dopisujemy:
+
+    :::ruby
+    config.action_mailer.smtp_settings = {
+      :address => 'manta.univ.gda.pl',
+      :user_name => 'wbzyl',
+      :password => 'sekret'
+    }
+    
+    config.action_mailer.delivery_method = :sendmail
+    config.action_mailer.sendmail_settings = {
+      :location => '/usr/sbin/sendmail',
+      :arguments => '-i -t'
+    }
+    
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.default_charset = 'utf-8'
+
+### Resetting password krok po kroku
+
+1. A user requests a password reset
+2. An email is sent to them with a link to reset their password
+3. The user verifies their identity be using the link we emailed them
+4. They are presented with a basic form to change their password
+5. After they change their password we log them in, redirect them to
+   their account, and expire the URL we just sent them
+
+Przesłany mail będzie zawierał link zawierający tekst podobny do:
+`4LiXF7FiGUppIPubBPey`. Ten tekst nazywamy **perishable_token**.
+Jest on pamiętany w polu *perishable_token* tabeli *users*.
+
+*Authlogic* zarządza tym tokenem w następujący sposób:
+
+* The token gets set to a unique value before validation, 
+  which constantly changes the token.
+* After a session is successfully saved (aka logged in) 
+  the the token will be reset. 
+
+Tworzymy migrację, która doda token to tabeli:
+
+    script/generate migration add_users_password_reset_fields
+
+i modyfikujemy ją w następujący sposób:
+
+    :::ruby
+    class AddUsersPasswordResetFields < ActiveRecord::Migration  
+      def self.up  
+        add_column :users, :perishable_token, :string, :default => "", :null => false  
+        
+        add_index :users, :perishable_token  
+        add_index :users, :email  
+      end  
+      
+      def self.down  
+        remove_column :users, :perishable_token  
+      end  
+    end  
+
+### Użytkownik zapomniał hasła
+
+Dopisujemy do routingu:
+
+    :::ruby
+    map.resources :password_resets
+
+i generujemy kontroler:
+
+    script/generate controller password_resets
+
+Dopisujemy akcje:
+
+    :::ruby
+    class PasswordResetsController < ApplicationController
+      before_filter :load_user_using_perishable_token, :only => [:edit, :update]
+      before_filter :require_no_user
+      
+      def new
+        render
+      end
+      
+      def create
+        @user = User.find_by_email(params[:email])
+        if @user
+          @user.deliver_password_reset_instructions!
+          flash[:notice] = "Instructions to reset your password have been emailed to you. " +
+            "Please check your email."
+          redirect_to root_url
+        else
+          flash[:notice] = "No user was found with that email address"
+          render :action => :new
+        end
+      end
+      
+      private
+        def load_user_using_perishable_token
+          @user = User.find_using_perishable_token(params[:id])
+          unless @user
+            flash[:notice] = "We're sorry, but we could not locate your account." +
+              "If you are having issues try copying and pasting the URL " +
+              "from your email into your browser or restarting the " +
+              "reset password process."
+            redirect_to root_url
+          end
+        end
+    end
+
+Do tego kontrolera tworzymy widoki *new.html.erb* i *edit.html.erb*.
+
+Widok *new.html.erb*:
+
+    :::html
+    <h1>Forgot Password</h1>
+    
+    <p>Fill out the form below and instructions 
+       to reset your password will be emailed to you:
+    </p>
+    
+    <% form_tag password_resets_path do %>
+      <label>Email:</label><br />
+      <%= text_field_tag "email" %><br />
+      <br />
+      <%= submit_tag "Reset my password" %>
+    <% end %>
+
+
+### Wysyłanie Emaila
+
+Za wysłanie emaila odpowiedzilan jest metoda 
+`deliver_password_reset_instructions!` modelu *User*:
+
+    :::ruby
+    class User < ActiveRecord::Base
+      acts_as_authentic
+      
+      def deliver_password_reset_instructions!
+        reset_perishable_token!
+        Notifier.deliver_password_reset_instructions(self)
+      end
+
+Pozostaje zdefiniować klasę *Notifier* i w niej metodę 
+*password_reset_instructions*:
+
+    :::ruby
+    class Notifier < ActionMailer::Base
+      default_url_options[:host] = "manta.univ.gda.pl:3000"
+      
+      def password_reset_instructions(user)
+        subject       "Password Reset Instructions"
+        from          "Fortune Notifier <noreply@manta.univ.gda.pl>"
+        recipients    user.email
+        sent_on       Time.now
+        body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
+      end
+    end
+
+oraz widok emaila, *notifier/password_reset_instructions.erb*:
+
+    :::html
+    A request to reset your password has been made. 
+    If you did not make this request, simply ignore this email. 
+    If you did make this request just click the link below:
+    
+    <%= @edit_password_reset_url %>
+    
+    If the above URL does not work try copying and pasting 
+    it into your browser. If you continue to have problem 
+    please feel free to contact us.
+
+### Użytkownik kilka na link w emailu
+
+Link który użytkownik ma kliknąć w emailu będzie wyglądał tak:
+
+    http://manta.univ.gda.pl:3000/password_resets/6th8mSFwxvG-v2IbbRdY/edit    
+
+Po kliknięciu wykonana zostanie metoda *edit* klasy *PasswordResetsConttoller*:
+
+    :::ruby
+      def edit
+        render
+      end
+
+która renderuje widok *edit.html.erb*:    
+    
+    :::ruby
+    <h1>Change My Password</h1>
+    
+    <% form_for @user, :url => password_reset_path, :method => :put do |f| %>
+      <%= f.error_messages %>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %><br />
+      <br />
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %><br />
+      <br />
+      <%= f.submit "Update my password and log me in" %>
+    <% end %>
+
+Powyższy formularz wygląda mniej więcej tak:
+
+    :::html
+    <form action="/password_resets/RgfuGYh4yU6qbQIsIeiE" id="edit_user_1" method="put">
+    ...
+    <input id="user_password" name="user[password]" size="30" type="password" />
+    ...
+
+czyli wykonywana będzie metoda *update* klasy *PasswordResetsConttoller*:
+
+    :::ruby
+    def update
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password_confirmation]
+      if @user.save
+        flash[:notice] = "Password successfully updated"
+        redirect_to root_url # może jakiś inny uri byłby właściwy
+      else
+        render :action => :edit
+      end
+    end
+
 
 
 #### Linki
