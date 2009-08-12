@@ -390,14 +390,16 @@ dopisując gdzie trzeba:
     <% end %>
 
 
-## Security
+### Bezpieczeństwo
 
 Dopisujemy do *application_controller.rb*:
 
     :::ruby
     filter_parameter_logging :password, :password_confirmation
 
-## Pozostałe szczegóły 
+Jakie pola powinniśmy jeszcze odfiltrować?
+
+### Pozostałe szczegóły 
 
 Teraz należy przeczytać ze zrozumieniem dokumentację:
 [Authlogic Example](http://github.com/binarylogic/authlogic_example/).
