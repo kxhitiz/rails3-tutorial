@@ -11,7 +11,8 @@
   unix system.</p>
 </blockquote>
 
-Coś co działa z *Authlogic*: [Yet another role-based authorization system for Rails] [acl9]
+Coś co działa z *Authlogic*: [Yet another role-based authorization system for Rails] [acl9].
+Na Wiki opisano m.in. *role* owner.
 
 
 #### Links
