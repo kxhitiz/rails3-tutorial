@@ -77,19 +77,19 @@ Do pamiętania danych zarejestrowanych użytkowników utworzymy
 model *User*, a do rejestracji utworzymy kontroler *UsersController*:
 
     script/generate nifty_scaffold user \
-      username:string password:string new edit
+      login:string email:string password:string new edit
 
 Ponieważ nie chcemy zapamiętywać haseł w czystym tekście, więc
 edytujemy utworzoną migrację zmieniając:
 
     :::ruby
-    t.string :username
+    t.string :login
     t.string :password
 
 na
 
     :::ruby
-    t.string :username, :null => false
+    t.string :login, :null => false
     t.string :email, :null => false
       
     t.string :crypted_password, :null => false
@@ -207,7 +207,7 @@ Dlaczego?
 Do sterowania potrzebujemy kontrolera:
 
     script/generate nifty_scaffold user_session --skip-model\
-      username:string password:string new destroy
+      login:string email:string password:string new destroy
 
 W wygenerowanym pliku *user_sessions_controller.rb* zmieniamy
 komunikaty:
@@ -280,7 +280,27 @@ To jeszcze nie jest to o co chodzi. Zmieniamy *div*:
 gdzie metodę *logged_in?* musimy sami napisać.
 
 Pytanie: co oznacza symbol *:current* powyżej?
-czy symbole ten jest definiowany w *Authlogic*, czy w *ActiveRecord*?
+Czy symbol ten jest definiowany w *Authlogic*, czy w *ActiveRecord*?
+
+Odpowiedź: nie i nie. Symbol *:current* można zastąpić
+jakimkolwiek innym symbolem, np. *:whatever*.
+
+*Uwaga*: Jeśli zamienimy
+
+    :::ruby
+    edit_user_path(:current)
+
+na
+
+    :::ruby
+    edit_user_path(current_user.username)
+
+to wygenerowany URI będzie podobny do:
+
+    http://localhost:3000/users/wbzyl/edit
+
+\(Sprawdzić!\)
+
 
 Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 [authlogic_example] [authlogic example]. 
@@ -448,6 +468,27 @@ W pliku *config/environments/development.rb* dopisujemy:
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.default_charset = 'utf-8'
 
+Albo lepiej, tworzymy plik 'initializers/manta.rb' o następującej zawartości:
+
+    :::ruby
+    ActionMailer::Base.smtp_settings = {
+      :address => 'manta.univ.gda.pl',
+      :user_name => 'wbzyl',
+      :password => 'sekret'
+    }
+    
+    ActionMailer::Base.delivery_method = :sendmail
+    config.action_mailer.sendmail_settings = {
+      :location => '/usr/sbin/sendmail',
+      :arguments => '-i -t'
+    }
+    
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.raise_delivery_errors = true
+    ActionMailer::Base.default_charset = 'utf-8'
+
+
+
 ### Reset password… krok po kroku
 
 1. A user requests a password reset
@@ -591,7 +632,7 @@ Za wysłanie odpowiedzialna jest klasa *Notifier*.
 gdzie metoda *reset\_perishable\_token!* gemu *Authlogic*
 nadaje nową przypadkową wartość polu *perishable_token*.
 
-Pozostaje zdefiniować klasę *Notifier* i w niej metodę 
+Pozostaje zdefiniować **model** *Notifier* i w niej metodę 
 *password_reset_instructions* (nazwa bez prefixu *deliver*):
 
     :::ruby
