@@ -12,78 +12,83 @@
   a password based authentication.</p>
 </blockquote>
 
+Jeszcze jeden cytat:
 There seems to be a consensus to choose Ben Johnsos 
 [Authlogic] [authlogic] as the Rails way of securely 
 identifying the users, at least with local user databases.
 
-W przykładach poniżej będę korzystał ze generatorów z gemu
+W przykładach skorzystamy z generatorów
 [nifty-generators] [nifty generators].
-*Proste ćwiczenie z nifty layout*: zmienić domyślne tytuły stron.
 
 
-## Jak to działa?
+## Jak działa Authlogic?
 
 Przykład do obejrzenia jest tutaj:
 [Railscasts: \#160 Authlogic] [railscasts authlogic]
 a do poczytania tutaj: [ASCIIcasts: \#160 Authlogic] [asciicasts authlogic] 
 
-Przykład wart jest tysiąca słów. 
-Dodamy autentykację do *Fortunki*. Tylko zalogowany użytkownik
-będzie mógł usuwać i edytować cytaty. Pozostali użytkownicy
-będą mogli przeglądać i dodawać cytaty.
+Własny przykład wart jest więcej.  Dodamy autentykację do *Fortunki*.
 
-Zaczynamy od utworzenia prostej wersji *Fortunki*:
+Autentykacja w *Fortunce* zostanie ustawiona tak, że tylko zalogowany
+użytkownik będzie mógł usuwać i edytować cytaty. Niezalogowanie
+użytkownicy będą mogli tylko przeglądać i dodawać cytaty.
+
+### Tworzymy prostą wersję *Fortunki*
+
+Zaczynamy od wygenerowania szkieletu aplikacji oraz 
+rusztowania REST dla modelu *Fortune*:
 
     :::ruby
     rails fortunka
     cd fortunka
-    script/generate nifty_layout
     script/generate nifty_scaffold fortune quotation:text
     rake db:migrate
     rm public/index.html
 
-Na koniec w pliku *routes.rb* dopisujemy:
+W pliku *routes.rb* ustawiamy stronę główną aplikacji:
 
     :::ruby
     map.root :controller => "fortunes", :action => "index"
 
-usuwamy domyślny routing:
+oraz usuwamy domyślny routing:
 
     :::ruby
     map.connect ':controller/:action/:id'
     map.connect ':controller/:action/:id.:format'
 
-dopisujemy gem *Authlogic* w pliku *environment.rb*:
+W pliku *environment.rb* dopisujemy gem *Authlogic*:
 
     :::ruby
     config.gem "authlogic"  
 
-i sprawdzamy, czy gem jest już zainstalowany:
+i instalujemy go (o ile wcześniej nie był już zainstalowany):
 
     sudo rake gems:install
 
-Gotowe! Uruchamiamy aplikację:
+**Gotowe!** Uruchamiamy aplikację:
 
     script/server thin
 
-i wchodzimy na stronę:
+i wchodzimy na stronę główną:
 
     http://localhost:3000/
 
-Jak każe zwyczaj, na tej stronie, w prawym górnym rogu, umieścimy
+Jak każe zwyczaj, w prawym górnym rogu każdej strony umieścimy
 linki do rejestracji i logowania.
 
-Do pamiętania danych zarejestrowanych użytkowników utworzymy
-model *User*, a do rejestracji utworzymy kontroler *UsersController*:
+Zanim to zrobimy utworzymy model *User*
+do pamiętania danych zarejestrowanych użytkowników.
+Do rejestracji użyjemy kontrolera *UsersController*:
 
     script/generate nifty_scaffold user \
       login:string email:string password:string new edit
 
-Ponieważ nie chcemy zapamiętywać haseł w czystym tekście, więc
-edytujemy utworzoną migrację zmieniając:
+Ponieważ nie należy używać czystego tekstu do pamiętania haseł,
+dlatego wyedytujemy utworzoną migrację zmieniając:
 
     :::ruby
     t.string :login
+    t.string :email
     t.string :password
 
 na
@@ -101,7 +106,7 @@ Do czego służą pola: *password_salt* i *persistence_token*?
 Więcej o polach w dokumentacji do aplikacji 
 *Authlogic Example*: [Ensure proper database fields] [authlogic example].
 
-Na potrzeby „Resetting password…” dodajemy kilka pól:
+Na potrzeby rozdziału „Resetting password…” dodajemy kilka nowych pól:
 
     :::ruby     
     t.string :login, :null => false
@@ -112,7 +117,7 @@ Na potrzeby „Resetting password…” dodajemy kilka pól:
     t.string :last_login_ip
     t.string :current_login_ip
 
-Po wprowadzeniu poprawek, migrujemy:
+Po wprowadzeniu poprawek w modelu migrujemy:
 
     rake db:migrate
 
@@ -120,11 +125,10 @@ Aby aktywować autentykację, edytujemy kod modelu *User*:
 
     :::ruby
     class User < ActiveRecord::Base
-      acts_as_authentic  
+      acts_as_authentic
     end
 
-### Rejestracja
-
+### Implementujemy rejestrację
 
 W pliku *layout/application.html.erb* dodajemy element *div*:
 
@@ -140,15 +144,16 @@ który umieszczamy w prawym górnym rogu strony:
       float: right;
     }
 
-Przeładowujemy aplikację i klikamy w link *Register*:
+Przeładowujemy aplikację i klikamy w link *Register*.
+W wygenerowanym widok:
 
 {%= image_tag "/doc/authentication/register-1.png", :alt => "[generated register view]" %}
 
-Wygenerowany widok musimy zmienić, na taki:
+brakuje pola do potwierdzenia hasła:
 
 {%= image_tag "/doc/authentication/register-2.png", :alt => "[generated register view]" %}
 
-Zmieniamy w widoku *users/_form.html.erb*:
+Zmieniamy w wygenerowanym widoku *users/_form.html.erb*:
 
     :::html
     <p>
@@ -183,15 +188,17 @@ oraz edytujemy plik *users_controller.rb*:
         end
       end
 
-Sprawdzamy rezultaty wchodząc na stronę:
+Na koniec sprawdzamy rezultaty wchodząc na stronę:
 
     http://localhost:3000/users/new 
 
-### Logowanie
+### Implemetujemy logowanie
+
+W tym rozdziale korzystamy z konwencji nazewniczych, generatora
+*session* oraz kodu z pliku README gemu *Authlogic*.
 
 Implementację logowania zaczynamy od wygenerowania
-modelu *UserSession* (**konwencja nazewnicza *Authlogic***).
-Korzystamy z generatora *Authlogic*:
+modelu *UserSession*:
 
     script/generate session user_session
 
@@ -201,12 +208,12 @@ Wygenerowany plik *models/user_session.rb* zawiera kod:
     class UserSession < Authlogic::Session::Base
     end
 
-Zauważmy, że tym razem nie została wygenerowana migracja.
-Dlaczego?
+Zauważmy, że tym razem model nie dziedziczy po
+klasie *ActiveRecord::Base*. Dlaczego?
 
-Do sterowania potrzebujemy kontrolera:
+Do sterowania potrzebujemy **zwykłego** kontrolera:
 
-    script/generate nifty_scaffold user_session --skip-model\
+    script/generate nifty_scaffold user_session --skip-model \
       login:string email:string password:string new destroy
 
 W wygenerowanym pliku *user_sessions_controller.rb* zmieniamy
@@ -222,20 +229,15 @@ na:
     flash[:notice] = "Successfully logged in."
     flash[:notice] = "Successfully logged out."
 
-oraz 
+oraz usuwamy argument *(params[:id])* metody klasowej *find*
 
     :::ruby
     @user_session = UserSession.find(params[:id])
 
-na:
-
-    :::ruby
-    @user_session = UserSession.find
-
 Dlaczego? Odpowiedź: sesja jest tylko jedna.
 
-W widoku *user_sessions/new.html.erb* zmieniamy tytuł:
-"New User Session" na "Logging" oraz 
+Więcej oczywistych zmian: w widoku *user_sessions/new.html.erb*
+zmieniamy tytuł: "New User Session" na "Logging" oraz
 
     :::html
     <%= f.text_field :password %>
@@ -245,14 +247,14 @@ na:
     :::html
     <%= f.password_field :password %>
 
-Zmieniamy routing dla logowania i wylogowywania na zwyczajowe
-login i logout:
+Dodajemy zwyczajowy routing dla logowania i wylogowywania:
 
     :::ruby
     map.login "login", :controller => "user_sessions", :action => "new"
     map.logout "logout", :controller => "user_sessions", :action => "destroy"
 
-Pozostało jeszcze uaktualnić element *div* w pliku *layout/application.html.erb*:
+Na koniec pozostało jeszcze uaktualnić zawartość elementu
+*div#user_nav* w pliku *layout/application.html.erb*:
 
     :::html
     <div id="user_nav">
@@ -260,11 +262,11 @@ Pozostało jeszcze uaktualnić element *div* w pliku *layout/application.html.er
       <%= link_to "Login", login_path %>
     </div>
 
-i możemy sprawdzić jak to działa:
+Gotowe!. Sprawdzamy jak to wszystko działa:
 
     http://localhost:3000/
 
-To jeszcze nie jest to o co chodzi. Zmieniamy *div*:
+To jeszcze nie jest to o co nam chodziło. Zmieniamy *div*:
 
     :::html
     <div id="user_nav">
@@ -282,7 +284,7 @@ gdzie metodę *logged_in?* musimy sami napisać.
 Pytanie: co oznacza symbol *:current* powyżej?
 Czy symbol ten jest definiowany w *Authlogic*, czy w *ActiveRecord*?
 
-Odpowiedź: nie i nie. Symbol *:current* można zastąpić
+Odpowiedzi: Nie i Nie. Symbol *:current* można zastąpić
 jakimkolwiek innym symbolem, np. *:whatever*.
 
 *Uwaga*: Jeśli zamienimy
@@ -304,7 +306,8 @@ to wygenerowany URI będzie podobny do:
 
 Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 [authlogic_example] [authlogic example]. 
-Poniższe definicje wklejamy do pliku *application_controller.rb*:
+
+Poniższy kod wklejamy do pliku *application_controller.rb*:
 
     :::ruby
     helper_method :current_user, :logged_in?,
@@ -321,7 +324,8 @@ Poniższe definicje wklejamy do pliku *application_controller.rb*:
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
     end
-      
+    
+    # to samo co current_user ale bardziej czytelne
     def logged_in?
       current_user != nil
     end
@@ -338,7 +342,7 @@ Na potrzeby rozdziału „Resetting password…” dopisujemy kilka metod:
       end
     end
     
-    # niepotrzebne
+    # póki co niepotrzebne
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
@@ -368,12 +372,10 @@ Analogiczną poprawkę robimy w kodzie metody *update*.
 Przy okazji zmieniamy komunikat z "Successfully updated user."
 na: "Successfully updated profile.".
 
-Po tych poprawkach, możemy uaktualnić profil zalogowanego użytkownika.
-
-### Restrict access
+### Ograniczamy dostęp 
 
 Jak zapewnić sobie aby **tylko** zalogowany użytkownik mógł edytować
-i usuwać istniejące cytaty.
+i usuwać istniejące cytaty?
 
 Dopisujemy do *application_controller.rb*:
 
@@ -383,7 +385,7 @@ Dopisujemy do *application_controller.rb*:
     private
 
     def require_user
-      unless current_user
+      unless current_user # albo: unless logged_in?
         store_location
         flash[:notice] = "You must be logged in to access this page"
         redirect_to new_user_session_url
@@ -395,14 +397,16 @@ Dopisujemy do *application_controller.rb*:
       session[:return_to] = request.request_uri
     end
 
-oraz do *fortunes_controller.rb*: 
+Teraz ograniczenie dostępu uzyskamy korzystając
+z metody klasowej *before\_filter*. W tym celu
+w pliku *fortunes_controller.rb* dopisujemy: 
 
     :::ruby
     class FortunesController < ApplicationController
       before_filter :require_user, :only => [:edit, :update, :destroy]
 
-Zmieniamy kod widoków: *fortunes/index.html.erb*, *fortunes/show.html.erb*
-dopisując gdzie trzeba:
+W widokach: *fortunes/index.html.erb*, *fortunes/show.html.erb*
+ograniczmy dostęp dopisując w odpowiednich miejscach:
 
     :::html
     <% if logged_in? %>
@@ -412,17 +416,20 @@ dopisując gdzie trzeba:
 
 ### Bezpieczeństwo
 
-Dopisujemy do *application_controller.rb*:
+W logach nie powinne być zapisywane żadne poufne informacje,
+np. hasła. Dopisujemy w *application_controller.rb*:
 
     :::ruby
     filter_parameter_logging :password, :password_confirmation
 
 Jakie pola powinniśmy jeszcze odfiltrować?
 
+
 ### Pozostałe szczegóły 
 
-Teraz należy przeczytać ze zrozumieniem dokumentację:
+Teraz należy przeczytać dokumentację:
 [Authlogic Example](http://github.com/binarylogic/authlogic_example/).
+
 
 ### Lekcja do odrobienia: lokalizacja
 
@@ -432,7 +439,7 @@ Przygotować zlokalizowaną wersję *Fortunki*.
 Jak się to robi? Zobacz [Railscasts \#138: i18n] [railscasts i18n].
  
 
-## Coś prostszego: nifty layouts
+## Autentykacja z szablonu: nifty_authentication
 
 Najnowsza wersja gemu [nifty-generators] [nifty generators] zawiera generator
 *nifty_authentication*. 
