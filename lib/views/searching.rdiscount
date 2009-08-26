@@ -1,0 +1,40 @@
+#### {% title "Wyszukiwanie" %}
+
+# Wyszukiwanie
+
+SQL v. zewnętrzna wyszukiwarka + gem.
+
+
+## Searchlogic
+
+Zaczniemy od wyszukiwania via zapytania SQL.
+Tutaj wygodnie jest skorzystać z gemu 
+[Searchlogic] [searchlogic].
+Dlaczego: 
+„Searchlogic makes using *ActiveRecord* named scopes easier and less repetitive.”
+
+Przykład aplikacji napisanej przez autora *Searchlogic*
+Bena Johnsona (nieaktualne, z 2008):
+[Rails app using the searchlogic library] [searchlogic-example].
+
+[Screencast] [searchlogic-screencast] przygotowany przez Ryana Batesa:
+„Searchlogic makes searching models easier than ever with
+its assortment of named scopes. In this episode I show you how to
+create simple and advanced searches.”
+
+
+## Sphinx
+
+Gem *Thinking Sphinx*.
+
+
+## Xapian
+
+Gem *Xapit*.
+
+
+#### Links
+
+[searchlogic]: http://github.com/binarylogic/searchlogic/ "Searchlogic"
+[searchlogic-example]: http://github.com/binarylogic/searchlogic_example/ "Searchlogic Rails example"
+[searchlogic-screencast]: http://railscasts.com/episodes/176-searchlogic "Searchlogic screencast"

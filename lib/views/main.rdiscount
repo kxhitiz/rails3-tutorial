@@ -15,6 +15,7 @@
 1. {%= link_to "Aplikacja: Store", "/store" %}
 1. {%= link_to "Autentykacja", "/authentication" %}
 1. {%= link_to "Autoryzacja", "/authorization" %}
+1. {%= link_to "Wyszukiwanie", "/searching" %}
 1. {%= link_to "Caching", "/caching" %}
 1. {%= link_to "Ćwiczenia", "/exercises" %}
 1. {%= link_to "Odpowiedzi", "/answers" %}
