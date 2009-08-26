@@ -1,39 +1,44 @@
 #### {% title "Autentykacja" %}
 
-# Authentication
+# Autentykacja
+
+Zaczniemy od definicji:
+An **authentication system** is how you identify yourself to 
+the computer. The goal behind an authentication system is 
+to verify that the user is actually who they say they are.
+
+There are many ways of authenticating a user. A good
+example is <i>logging</i> which is
+a password based authentication.
+
+W przykładach poniżej skorzystamy z gemu [Authlogic] [authlogic]
+oraz generatorów [nifty-generators] [nifty generators].
 
 <blockquote>
  {%= image_tag "/images/binary-logic.gif", :alt => "[Binary Logic]" %}
- <p>An authentication system is how you identify yourself to 
-  the computer. The goal behind an authentication system is 
-  to verify that the user is actually who they say they are.</p>
- <p>There are many ways of authenticating a user. A good
-  example is <i>logging</i> which is
-  a password based authentication.</p>
+ <p>There seems to be a consensus to choose Ben Johnsos 
+  <i>Authlogic</i> library as the Rails way of securely 
+  identifying the users, at least with local user databases.</p>
 </blockquote>
-
-Jeszcze jeden cytat:
-There seems to be a consensus to choose Ben Johnsos 
-[Authlogic] [authlogic] as the Rails way of securely 
-identifying the users, at least with local user databases.
-
-W przykładach skorzystamy z generatorów
-[nifty-generators] [nifty generators].
-
 
 ## Jak działa Authlogic?
 
-Przykład do obejrzenia jest tutaj:
+Zaczynamy od obejrzenia screencastu:
 [Railscasts: \#160 Authlogic] [railscasts authlogic]
-a do poczytania tutaj: [ASCIIcasts: \#160 Authlogic] [asciicasts authlogic] 
+albo przeczytania: [ASCIIcasts: \#160 Authlogic] [asciicasts authlogic].
 
-Własny przykład wart jest więcej.  Dodamy autentykację do *Fortunki*.
 
-Autentykacja w *Fortunce* zostanie ustawiona tak, że tylko zalogowany
-użytkownik będzie mógł usuwać i edytować cytaty. Niezalogowanie
-użytkownicy będą mogli tylko przeglądać i dodawać cytaty.
+## Fortunka z autentykacją
 
-### Tworzymy prostą wersję *Fortunki*
+Własny przykład wart jest więcej, dlatego napiszemy
+*Fortunkę* z autentykacją.
+
+Autentykację w *Fortunce* ustawimy tak, że tylko zalogowany
+użytkownik będzie mógł dodawać, usuwać i edytować cytaty. 
+Niezalogowani użytkownicy będą mogli tylko przeglądać cytaty.
+
+
+### Generujemy *Fortunkę*
 
 Zaczynamy od wygenerowania szkieletu aplikacji oraz 
 rusztowania REST dla modelu *Fortune*:
@@ -69,16 +74,19 @@ i instalujemy go (o ile wcześniej nie był już zainstalowany):
 
     script/server thin
 
-i wchodzimy na stronę główną:
+i wchodzimy na stronę główną *Fortunki*:
 
     http://localhost:3000/
+
+
+### Przygotowania do rejestracji i logowanie
 
 Jak każe zwyczaj, w prawym górnym rogu każdej strony umieścimy
 linki do rejestracji i logowania.
 
-Zanim to zrobimy utworzymy model *User*
-do pamiętania danych zarejestrowanych użytkowników.
-Do rejestracji użyjemy kontrolera *UsersController*:
+Do zapamiętywania danych użytkowników użyjemy modelu *User*. 
+Do rejestracji użyjemy kontrolera *UsersController*.
+Model i kontroler generujemy jednocześnie w taki sposób:
 
     script/generate nifty_scaffold user \
       login:string email:string password:string new edit
@@ -103,10 +111,10 @@ na
 
 Dlaczego *crypted_password*: ponieważ Authlogic oczekuje takiej nazwy.
 Do czego służą pola: *password_salt* i *persistence_token*?
-Więcej o polach w dokumentacji do aplikacji 
+Wyjaśnienie w dokumentacji
 *Authlogic Example*: [Ensure proper database fields] [authlogic example].
 
-Na potrzeby rozdziału „Resetting password…” dodajemy kilka nowych pól:
+Na potrzeby rozdziału „Resetting password…” od razu dodamy kilka pól:
 
     :::ruby     
     t.string :login, :null => false
@@ -117,16 +125,18 @@ Na potrzeby rozdziału „Resetting password…” dodajemy kilka nowych pól:
     t.string :last_login_ip
     t.string :current_login_ip
 
-Po wprowadzeniu poprawek w modelu migrujemy:
+Po wprowadzeniu tych poprawek migrujemy:
 
     rake db:migrate
 
-Aby aktywować autentykację, edytujemy kod modelu *User*:
+Aktywacja autentykacji w *Authlogic* sprowadza się do dopisania
+jednego wiersza kodu w klasie *User*:
 
     :::ruby
     class User < ActiveRecord::Base
       acts_as_authentic
     end
+
 
 ### Implementujemy rejestrację
 
@@ -149,11 +159,11 @@ W wygenerowanym widok:
 
 {%= image_tag "/doc/authentication/register-1.png", :alt => "[generated register view]" %}
 
-brakuje pola do potwierdzenia hasła:
+i natychmiast zauważamy, że brakuje pola do potwierdzenia hasła:
 
 {%= image_tag "/doc/authentication/register-2.png", :alt => "[generated register view]" %}
 
-Zmieniamy w wygenerowanym widoku *users/_form.html.erb*:
+Dlatego w widoku *users/\_form.html.erb* zmieniamy:
 
     :::html
     <p>
@@ -161,19 +171,22 @@ Zmieniamy w wygenerowanym widoku *users/_form.html.erb*:
     <%= f.text_field :password %>
     </p>
 
-na
+na: 
 
     :::html
     <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
     </p>
     <p>
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
     </p>
 
-oraz edytujemy plik *users_controller.rb*:
+*Uwaga*: Rails **wie** jak obsłużyć pole *password_confirmation*,
+zob. *validates_confirmation_of* w API.
+
+Następnie edytujemy plik *users_controller.rb*:
 
     :::ruby
     class UsersController < ApplicationController
@@ -182,25 +195,28 @@ oraz edytujemy plik *users_controller.rb*:
         @user = User.new(params[:user])
         if @user.save
           flash[:notice] = "Registration successfull."
-          redirect_to root_url
+          redirect_to root_url  # lepsze propozycje URI?
         else
           render :action => 'new'
         end
       end
 
-Na koniec sprawdzamy rezultaty wchodząc na stronę:
+Na koniec sprawdzamy jak działa rejestracja:
 
     http://localhost:3000/users/new 
 
-### Implemetujemy logowanie
+
+### Implementujemy logowanie
 
 W tym rozdziale korzystamy z konwencji nazewniczych, generatora
-*session* oraz kodu z pliku README gemu *Authlogic*.
+*session* oraz kodu z pliku *README* gemu *Authlogic*.
 
-Implementację logowania zaczynamy od wygenerowania
-modelu *UserSession*:
+Implementację logowania zaczynamy od wygenerowania modelu
+*UserSession*:
 
     script/generate session user_session
+
+Dlaczego do logowania używamy sesji?
 
 Wygenerowany plik *models/user_session.rb* zawiera kod:
 
@@ -247,7 +263,8 @@ na:
     :::html
     <%= f.password_field :password %>
 
-Dodajemy zwyczajowy routing dla logowania i wylogowywania:
+Dodajemy też w pliku *routes.rb* zwyczajowy routing dla logowania i
+wylogowywania:
 
     :::ruby
     map.login "login", :controller => "user_sessions", :action => "new"
@@ -266,7 +283,10 @@ Gotowe!. Sprawdzamy jak to wszystko działa:
 
     http://localhost:3000/
 
-To jeszcze nie jest to o co nam chodziło. Zmieniamy *div*:
+I natychmiast zauważamy, że nie jest to to o co nam
+chodziło. Przy okazji, o co nam chodziło? 
+
+Zmieniamy *div*:
 
     :::html
     <div id="user_nav">
@@ -310,8 +330,7 @@ Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 Poniższy kod wklejamy do pliku *application_controller.rb*:
 
     :::ruby
-    helper_method :current_user, :logged_in?,
-      :require_user, :require_no_user, :redirect_back_or_default
+    helper_method :current_user, :logged_in?
       
     private
       
@@ -325,14 +344,24 @@ Poniższy kod wklejamy do pliku *application_controller.rb*:
       @current_user = current_user_session && current_user_session.record
     end
     
-    # to samo co current_user ale bardziej czytelne
+    # to samo co current_user ale kod czytelniejszy
     def logged_in?
       current_user != nil
     end
+    
+    # metoda wykorzystana w require_user i require_no_user
+    def store_location
+      session[:return_to] = request.request_uri
+    end
 
-Na potrzeby rozdziału „Resetting password…” dopisujemy kilka metod:
+Na potrzeby rozdziału „Resetting password…” (czyżby?) dopisujemy kilka
+metod:
 
     :::ruby
+    helper_method :require_no_user, :redirect_back_or_default
+    
+    private
+    
     def require_no_user
      if current_user
         store_location
@@ -342,7 +371,7 @@ Na potrzeby rozdziału „Resetting password…” dopisujemy kilka metod:
       end
     end
     
-    # póki co niepotrzebne
+    # czy ta metoda może się do czegoś przydać?
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
@@ -353,8 +382,8 @@ Po tych poprawkach, wchodzimy na stronę główną aplikacji:
     http://localhost:3000/
 
 i klikamy link *Edit profile*. Link ten generuje błąd.
-Aby go poprawić, zmieniamy w wygenerowany kod metod 
-dla *edit* oraz *update* kontrolera *users_controller.rb*:
+Aby go poprawić, zmieniamy wygenerowany kod 
+metod *edit* i *update* kontrolera *users_controller.rb*:
 
     :::ruby
     def edit
@@ -372,12 +401,14 @@ Analogiczną poprawkę robimy w kodzie metody *update*.
 Przy okazji zmieniamy komunikat z "Successfully updated user."
 na: "Successfully updated profile.".
 
-### Ograniczamy dostęp 
 
-Jak zapewnić sobie aby **tylko** zalogowany użytkownik mógł edytować
-i usuwać istniejące cytaty?
+## Wielki finał: ograniczamy dostęp 
 
-Dopisujemy do *application_controller.rb*:
+Jak zapewnić sobie, aby **tylko** zalogowany użytkownik mógł 
+dodawać nowe cytaty oraz edytować i usuwać już istniejące cytaty?
+
+Tworzymy metodę pomocniczą *require\_user* dopisując w pliku
+*application_controller.rb*:
 
     :::ruby
     helper_method :require_user
@@ -385,28 +416,28 @@ Dopisujemy do *application_controller.rb*:
     private
 
     def require_user
-      unless current_user # albo: unless logged_in?
+      unless current_user # albo bardziej zrozumiale: unless logged_in?
         store_location
         flash[:notice] = "You must be logged in to access this page"
         redirect_to new_user_session_url
         return false
       end
     end
-    
-    def store_location
-      session[:return_to] = request.request_uri
-    end
 
-Teraz ograniczenie dostępu uzyskamy korzystając
-z metody klasowej *before\_filter*. W tym celu
-w pliku *fortunes_controller.rb* dopisujemy: 
+Teraz ograniczenie dostępu uzyskamy korzystając z metody klasowej
+*before\_filter*. 
+
+W tym celu w pliku *fortunes_controller.rb* dopisujemy:
 
     :::ruby
     class FortunesController < ApplicationController
-      before_filter :require_user, :only => [:edit, :update, :destroy]
+      before_filter :require_user, 
+          :only => [:new, :show, :edit, :create, :update, :destroy]
+      # albo tak
+      # before_filter :require_user, :except => [:index]
 
 W widokach: *fortunes/index.html.erb*, *fortunes/show.html.erb*
-ograniczmy dostęp dopisując w odpowiednich miejscach:
+ograniczamy dostęp dopisując w odpowiednich miejscach:
 
     :::html
     <% if logged_in? %>
@@ -422,7 +453,7 @@ np. hasła. Dopisujemy w *application_controller.rb*:
     :::ruby
     filter_parameter_logging :password, :password_confirmation
 
-Jakie pola powinniśmy jeszcze odfiltrować?
+Wartości jakich pól powinniśmy jeszcze odfiltrować?
 
 
 ### Pozostałe szczegóły 
