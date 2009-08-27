@@ -109,6 +109,17 @@ na
     t.string :password_salt, :null => false
     t.string :persistence_token, :null => false
 
+Dodajemy też indeksy:
+
+    :::ruby
+    class CreateUsers < ActiveRecord::Migration
+      def self.up
+        ...
+        add_index :users, :login
+        add_index :users, :email     
+      end
+      ...
+
 Dlaczego *crypted_password*: ponieważ Authlogic oczekuje takiej nazwy.
 Do czego służą pola: *password_salt* i *persistence_token*?
 Wyjaśnienie w dokumentacji
@@ -195,7 +206,7 @@ Następnie edytujemy plik *users_controller.rb*:
         @user = User.new(params[:user])
         if @user.save
           flash[:notice] = "Registration successfull."
-          redirect_to root_url  # lepsze propozycje URI?
+          redirect_to fortunes_url  # lepsze propozycje URI?
         else
           render :action => 'new'
         end
@@ -291,7 +302,7 @@ Zmieniamy *div*:
     :::html
     <div id="user_nav">
       <% if logged_in? %>
-        <%= link_to "Edit Profile", edit_user_path(:current) %> |
+        <%= link_to "Edit Profile", edit_user_path(current_user.login) %> |
         <%= link_to "Logout", logout_path %>
       <% else %>
         <%= link_to "Register", new_user_path %> |
@@ -301,28 +312,14 @@ Zmieniamy *div*:
 
 gdzie metodę *logged_in?* musimy sami napisać.
 
-Pytanie: co oznacza symbol *:current* powyżej?
-Czy symbol ten jest definiowany w *Authlogic*, czy w *ActiveRecord*?
-
-Odpowiedzi: Nie i Nie. Symbol *:current* można zastąpić
-jakimkolwiek innym symbolem, np. *:whatever*.
-
-*Uwaga*: Jeśli zamienimy
+*Uwaga*: URI generowany przez
 
     :::ruby
-    edit_user_path(:current)
+    edit_user_path(current_user.login)
 
-na
-
-    :::ruby
-    edit_user_path(current_user.username)
-
-to wygenerowany URI będzie podobny do:
+jest podobny do:
 
     http://localhost:3000/users/wbzyl/edit
-
-\(Sprawdzić!\)
-
 
 Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 [authlogic_example] [authlogic example]. 
@@ -424,10 +421,8 @@ Tworzymy metodę pomocniczą *require\_user* dopisując w pliku
       end
     end
 
-Teraz ograniczenie dostępu uzyskamy korzystając z metody klasowej
-*before\_filter*. 
-
-W tym celu w pliku *fortunes_controller.rb* dopisujemy:
+Teraz ograniczenie dostępu do metod uzyskamy korzystając z metody klasowej
+*before\_filter*. W pliku *fortunes_controller.rb* dopisujemy:
 
     :::ruby
     class FortunesController < ApplicationController
@@ -469,54 +464,39 @@ Przygotować zlokalizowaną wersję *Fortunki*.
 
 Jak się to robi? Zobacz [Railscasts \#138: i18n] [railscasts i18n].
  
+### Lekcja do odrobienia: paginacja
 
-## Autentykacja z szablonu: nifty_authentication
+Dodać do *Fortunki* paginację. Skorzystać z gemu [will_paginate] [will paginate]
+([screencast] [railscasts will_paginate]).
+
+
+## Generowanie autentykacji
 
 Najnowsza wersja gemu [nifty-generators] [nifty generators] zawiera generator
-*nifty_authentication*. 
-
-Przeczytać dokumentację:
+*nifty_authentication*. Przeczytać dokumentację tego generatora:
 
     script/generate nifty_authentication --help
 
-Jakieś pytania?
+Przygotować prosty przykład. Jakieś pytania? 
 
 
 ## Jak zmienić zapomniane hasło?
 
-[Tutorial: Reset passwords with Authlogic the RESTful way] [reset passwords with authlogic]
+Zaczynamy od przeczytania samouczka: 
+[Tutorial. Reset passwords with Authlogic the RESTful way] [reset passwords with authlogic]
 
-Zaczynamy od konfiguracji *Action Mailer* dla trybu *development*.
-W pliku *config/environments/development.rb* dopisujemy:
-
-    :::ruby
-    config.action_mailer.smtp_settings = {
-      :address => 'manta.univ.gda.pl',
-      :user_name => 'wbzyl',
-      :password => 'sekret'
-    }
-    
-    config.action_mailer.delivery_method = :sendmail
-    config.action_mailer.sendmail_settings = {
-      :location => '/usr/sbin/sendmail',
-      :arguments => '-i -t'
-    }
-    
-    config.action_mailer.perform_deliveries = true
-    config.action_mailer.raise_delivery_errors = true
-    config.action_mailer.default_charset = 'utf-8'
-
-Albo lepiej, tworzymy plik 'initializers/manta.rb' o następującej zawartości:
+Zaczynamy od konfiguracji *Action Mailer*.
+Tworzymy plik 'initializers/mail.rb' o następującej zawartości:
 
     :::ruby
     ActionMailer::Base.smtp_settings = {
       :address => 'manta.univ.gda.pl',
       :user_name => 'wbzyl',
-      :password => 'sekret'
+      #:password => 'sekret'
     }
     
     ActionMailer::Base.delivery_method = :sendmail
-    config.action_mailer.sendmail_settings = {
+    ActionMailer::Base.sendmail_settings = {
       :location => '/usr/sbin/sendmail',
       :arguments => '-i -t'
     }
@@ -560,7 +540,6 @@ i modyfikujemy ją w następujący sposób:
             :default => "", :null => false  
         
         add_index :users, :perishable_token  
-        add_index :users, :email  
       end  
       
       def self.down  
@@ -602,7 +581,7 @@ i wpisujemy poniższy kod (na razie tylko tyle):
               "If you are having issues try copying and pasting the URL " +
               "from your email into your browser or restarting the " +
               "reset password process."
-            redirect_to root_url
+            redirect_to fortunes_url
           end
         end
     end
@@ -643,7 +622,7 @@ metody *create* tego kontrolera:
         @user.deliver_password_reset_instructions!
         flash[:notice] = "Instructions to reset your password have been emailed to you. " +
           "Please check your email."
-        redirect_to root_url
+        redirect_to fortunes_url
       else
         flash[:notice] = "No user was found with that email address"
         render :action => :new
@@ -671,14 +650,12 @@ gdzie metoda *reset\_perishable\_token!* gemu *Authlogic*
 nadaje nową przypadkową wartość polu *perishable_token*.
 
 Pozostaje zdefiniować **model** *Notifier* i w niej metodę 
-*password_reset_instructions* (nazwa bez prefixu *deliver*):
+*password_reset_instructions* (konwencja nazewnicza: 
+nazwa bez prefixu *deliver*):
 
     :::ruby
     class Notifier < ActionMailer::Base
-      # production
-      # default_url_options[:host] = "manta.univ.gda.pl:3000"
-      # development
-      default_url_options[:host] = "localhost:3000"
+      default_url_options[:host] = "manta.univ.gda.pl:3000"
       
       def password_reset_instructions(user)
         subject    "Password Reset Instructions"
@@ -705,7 +682,7 @@ Szablon emaila, to widok *notifier/password_reset_instructions.erb*:
 
 ### Użytkownik kilka na link w emailu
 
-Link który użytkownik ma kliknąć w emailu będzie wyglądał tak:
+Link który użytkownik ma kliknąć w emailu będzie wyglądał jakoś tak:
 
     http://manta.univ.gda.pl:3000/password_resets/6th8mSFwxvG-v2IbbRdY/edit    
 
@@ -750,7 +727,7 @@ metoda *update* klasy *PasswordResetsConttoller*:
       @user.password_confirmation = params[:user][:password_confirmation]
       if @user.save
         flash[:notice] = "Password successfully updated"
-        redirect_to root_url # albo jakieś inne uri?
+        redirect_to fortune_url
       else
         render :action => :edit
       end
@@ -786,3 +763,5 @@ dopisujemy link do "Forgot password":
 [authlogic example]: http://github.com/binarylogic/authlogic_example/ "binarylogic's authlogic_example at master"
 [railscasts i18n]: http://railscasts.com/episodes/138-i18n/ "Railscasts — i18n"
 [rails guides mailer]: http://guides.rubyonrails.org/action_mailer_basics.html "Action Mailer Basics"
+[will paginate]: http://github.com/mislav/will_paginate/ "Most awesome pagination solution for Ruby"
+[railscasts will_paginate]: http://railscasts.com/episodes/51-will-paginate/ "Railscasts — will_paginate"
