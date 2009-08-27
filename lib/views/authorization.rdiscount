@@ -289,6 +289,22 @@ Jak sprawdzamy, czy użytkownik *owns* jakąś fortunkę:
 Jak użyć named scope do odfiltrowania fortunek, których
 właścicielem jest *current_user*?
 
+Może tak:
+
+    :::ruby
+    Fortunes.owner.paginate  :page => params[:page], :per_page => 4,
+      :order => 'created_at DESC'
+
+i zdefiniować named scope *order* w modelu *Fortune* tak:
+
+    :::ruby
+    named_scope :recent, lambda { 
+        |*args| {:conditions => ["released_at > ?", (args.first || 2.weeks.ago)]} 
+    }
+    named_scope :owner
+
+Zobacz też: http://wiki.github.com/mislav/will_paginate/simple-search
+
 
 #### Links
 
