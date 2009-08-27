@@ -733,7 +733,7 @@ metoda *update* klasy *PasswordResetsConttoller*:
       end
     end
 
-### Hooking into Fortunes
+### Podczepienie "Forgot password" pod Fortunkę
 
 W widoku *layout/application.html.erb* w elemencie *div#user_nav*
 dopisujemy link do "Forgot password":
