@@ -11,10 +11,286 @@
   unix system.</p>
 </blockquote>
 
-Coś co działa z *Authlogic*: [Yet another role-based authorization system for Rails] [acl9].
-Na Wiki opisano m.in. *role* owner.
+*Autoryzacji* użyjemy w *Fortunce* do:
+
+* ograniczenia edycji i usuwania do własnych cytatów
+* wprowadzenia *admina*, który może edytować i usuwać
+  istniejące cytaty, ale nie może dodawać nowych cytatów
+
+Skorzystamy z gemu Olega Dashevskiego [acl9] [acl9], ponieważ
+rekomenduje on bibliotekę *Authlogic* (dziwny powód, nieprawdaż?).
+
+*Acl9* to „Yet another role-based authorization system for Rails”
+składający się z dwóch podsystemów:
+
+* **role control** subsystem, which allows to set 
+  and query user roles for various objects
+* **access control** subsystem, which allows to specify 
+  different role-based access rules inside controllers.
+
+## Instalacja Acl9
+
+Do pliku *config/environment.rb* dopisujemy:
+
+    :::ruby
+    config.gem "be9-acl9", :lib => "acl9",
+        :source => "http://gems.github.com"
+
+i instalujemy gem (o ile wcześniej nie został zainstalowany):
+
+    sudo rake gems:install
+
+## Roles
+
+Można by bezpośrednio przypisać *permissions* do *users*.
+Niestety **nie** jest to dobre podejście (*decoupling*).
+Otrzymamy bardziej elastyczne rozwiązanie 
+(lepszy *decoupling*) wprowadzając *roles*.
+
+Następnie *permissions* przypiszemy do *roles* a
+*roles* do *users*.
+
+Do sprawdzenia uprawnień w *Acl9* służy metoda:
+
+    :::ruby
+    subject.has_role?(role, object)
+
+co czytamy „Does **subject** have **role** on **object**?”
+
+W *Fortunce* **subject** jest instancją klasy *User*,
+**object** jest instancją dowolnej klasy (włączając klasę obiektu subject)
+bądź nil (w tym wypadku mamy do czynienia z globalną *role*).
+
+
+### Role model
+
+Podsystem *role control* korzysta z modelu *Role*:
+
+    :::ruby
+    class Role < ActiveRecord::Base
+      acts_as_authorization_role
+    end
+
+Tabela *roles* ma następującą budowę:
+
+    :::ruby
+    create_table "roles", :force => true do |t|
+      t.string   "name",              :limit => 40
+      t.string   "authorizable_type", :limit => 40
+      t.integer  "authorizable_id"
+      
+      t.timestamps
+    end
+
+Generujemy model i migrację:
+
+    script/generate model role
+
+dopisujemy co trzeba w plikach *user.rb* i *XXX\_create\_roles.rb*
+i migrujemy:
+
+    rake db:migrate
+
+### Subject model
+
+W *Fortunce* subject to *User*. Dlatego aktywujemy *Acl9*
+dopisując w tym modelu:
+
+    :::ruby
+    class User < ActiveRecord::Base
+      acts_as_authorization_subject
+    end
+
+*Acl9* korzysta z następującej *join table*:
+
+    :::ruby
+    create_table "roles_users", :id => false, :force => true do |t|
+      t.integer  "user_id"
+      t.integer  "role_id"
+
+      t.timestamps
+    end
+
+Tabelę tę utworzymy korzystając z migracji:
+
+    script/generate migration create_roles_users
+
+i zamieniając wygenerowany kod na:
+
+    :::ruby
+    class CreateRolesUsers < ActiveRecord::Migration
+      def self.up
+        create_table "roles_users", :id => false, :force => true do |t|
+          t.integer  "user_id"
+          t.integer  "role_id"
+          t.timestamps
+        end
+      end
+    
+      def self.down
+        drop_table :roles_users
+      end
+    end
+
+Migrujemy:
+
+    rake db:migrate
+
+
+
+### Object model
+
+Object model, to *Fortune*.
+Dlatego dopisujemy *acts\_as\_authorization_object* w nim:
+
+    :::ruby
+    class Fortune < ActiveRecord::Base
+      acts_as_authorization_object
+    end
+  
+W ten sposób wprowadziliśmy do aplikacji autoryzację.
+Pozostaje ją uaktywnić. Zanim to zrobimy, wejdźmy na stronę:
+
+    http://localhost:3000
+
+sprawdzając w ten sposób, czy nie zrobiliśmy jakiś prostych błędów
+albo czy nie zapomnieliśmy coś jeszcze wpisać.
+
+## Wprowadzamy autoryzację
+
+Autoryzację będziemy wprowadzać stopniowo, 
+tak jak jest to opisane w [Tutorial: securing a controller] [acl9 wiki].
+
+### Krok pierwszy
+
+Zaczynamy od „acl9 with no restrictions”.
+
+W kontrolerze *FortunesController* dopisujemy:
+
+    :::ruby
+    class FortunesController < ApplicationController
+      access_control do
+        allow all
+      end
+      ...
+
+### Krok drugi
+
+Teraz „allow only logged in users”. Zamieniamy *allow all* na:
+
+    :::ruby
+    class FortunesController < ApplicationController
+      access_control do
+        allow logged_in
+        allow anonymous, :to => [:index]
+      end
+      ...
+
+How *Acl9* knows the user is logged in or not? Odpowiedź na Wiki.
+
+Jeśli użytkownik będzie chciał zrobić coś do czego nie ma uprawnień
+*Acl9* rzuca wyjątek *Acl9::AccessDenied*. 
+Możemy go obsłużyć w taki sposób:
+
+    :::ruby
+    class ApplicationController < ActionController::Base
+      rescue_from 'Acl9::AccessDenied', :with => :access_denied
+    
+      private
+    
+      def access_denied
+        if current_user
+          render :template => 'access_denied'
+        else
+          flash[:notice] = 'Access denied. Try to log in first.'
+          redirect_to login_path
+        end
+      end    
+    end
+
+Ale na razie użytkownik nie może robić takich rzeczy (sprawdzić?).
+
+### Krok trzeci
+
+*Acl9* definuje trzy pseudo-roles: *all*, *anonymous* oraz *logged_in*.
+
+Nadchodzi *admin*. Dopisujemy do kontrolera:
+
+    :::ruby
+    class FortunesController < ApplicationController
+      access_control do
+        allow :admin, :except => [:new] 
+        ###, :except => [:new, :create]
+        ### allow :admin, :for => Fortune
+        allow logged_in
+        allow anonymous, :to => [:index]
+      end
+      ...
+
+*Admina* tworzymy wykonując poniższe polecenia na konsoli:
+
+    :::ruby
+    user = User.find(1)     # lub wybieramy innego użytkownika
+    user.has_role? :admin  # => false
+    user.has_role! :admin
+    user.has_role? :admin   # => true
+
+### Krok czwarty
+
+So far so good. Still, any logged in user can edit fortunes now, 
+even if another user has created them.
+We'll fix this situation by using *object roles*.
+
+    :::ruby
+    access_control do
+      allow all, :to => [:index, :show]
+      allow :admin
+      allow logged_in, :to => [:new, :create]
+      allow :owner, :of => :fortune, :to => [:edit, :update]
+    end
+
+
+What does it mean, :fortune? Is it a role? Nope. Basically it's a
+reference to @fortune, the instance variable in the controller.
+
+Does *Acl9* set @product variable automagically? Nope. You'll need a
+before_filter for that.
+
+    :::ruby
+    class FortunesController < ApplicationController
+      before_filter :load_fortune, :only => [:edit, :update, :destroy, :show]
+      ...
+      private
+      ...
+      def load_fortune
+        @fortune = Fortune.find(params[:id])
+      end
+
+Rolę *:owner* przypiujemy do nowej fortunki dopisując w metodzie
+*create* kontrolera *FortuneController*:
+
+    :::ruby
+    def create
+      @fortune = Fortune.new(params[:fortune])
+      if @fortune.save
+        flash[:notice] = "Successfully created fortune."
+        current_user.has_role!(:owner, @fortune)  # assign the role
+      ...
+
+## TODO
+
+Jak sprawdzamy, czy użytkownik *owns* jakąś fortunkę:
+
+    :::ruby
+    u = User.first
+    f = Fortune.last
+    u.has_role? :owner, f
+
+Jak użyć named scope do odfiltrowania fortunek, których
+właścicielem jest *current_user*?
 
 
 #### Links
 
 [acl9]: http://github.com/be9/acl9 "Yet another role-based authorization…"
+[acl9 wiki]: http://wiki.github.com/be9/acl9/tutorial-securing-a-controller "Tutorial: securing a controller"

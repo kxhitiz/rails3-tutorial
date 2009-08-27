@@ -8,7 +8,7 @@ the computer. The goal behind an authentication system is
 to verify that the user is actually who they say they are.
 
 There are many ways of authenticating a user. A good
-example is <i>logging</i> which is
+example is *logging* which is
 a password based authentication.
 
 W przykładach poniżej skorzystamy z gemu [Authlogic] [authlogic]
