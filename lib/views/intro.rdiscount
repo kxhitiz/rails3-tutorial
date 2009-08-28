@@ -27,6 +27,31 @@ kod screencastów znajdują się na serwerze
 [Github](http://github.com/ryanb).
 
 
+## Konfiguracja irb & script/console
+
+Instalujemy dwa gemy:
+
+* wirble
+* hirb
+
+W katalogu domowym tworzymy plik *.irbrc* o zawartości:
+
+    :::ruby
+    require 'rubygems'
+    require 'wirble'
+    require 'hirb'
+    
+    Wirble.init
+    Wirble.colorize
+    
+    Hirb.enable
+    
+    if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+      require 'logger'
+      RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+    end
+
+
 ## Najważniejsze gemy i wtyczki
 
 1. Mislav Marohnić, gem
