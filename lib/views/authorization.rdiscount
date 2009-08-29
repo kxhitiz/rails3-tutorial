@@ -243,18 +243,17 @@ We'll fix this situation by using *object roles*.
 
     :::ruby
     access_control do
-      allow all, :to => [:index, :show]
-      allow :admin
-      allow logged_in, :to => [:new, :create]
-      allow :owner, :of => :fortune, :to => [:edit, :update]
+      allow all, :to => [:index, :show] # jakby ktoś chciał podglądać
+      allow :admin # może wszystko
+      allow logged_in, :to => [:new, :create] # jeszcze nie mają właściciela
+      allow :owner, :of => :fortune, :to => [:edit, :update, :destroy]
     end
 
+What does it mean, *:fortune* above? Is it a role? Nope. Basically it's a
+reference to *@fortune*, the instance variable in the controller.
 
-What does it mean, :fortune? Is it a role? Nope. Basically it's a
-reference to @fortune, the instance variable in the controller.
-
-Does *Acl9* set @product variable automagically? Nope. You'll need a
-before_filter for that.
+Does *Acl9* set *@fortune* variable automagically? Nope. You'll need a
+*before\_filter* for that.
 
     :::ruby
     class FortunesController < ApplicationController
@@ -274,7 +273,7 @@ Rolę *:owner* przypiujemy do nowej fortunki dopisując w metodzie
       @fortune = Fortune.new(params[:fortune])
       if @fortune.save
         flash[:notice] = "Successfully created fortune."
-        current_user.has_role!(:owner, @fortune)  # assign the role
+        current_user.has_role!(:owner, @fortune) # przypisz rolę
       ...
 
 ## Luźne komentarze do *Acl9*
@@ -295,7 +294,7 @@ Teraz:
     :::ruby
     @user.roles
 
-to na przykład:
+to, na przykład:
 
     +----+-------+-------------------+-----------------+ ...
     | id | name  | authorizable_type | authorizable_id | ...
@@ -315,9 +314,24 @@ Po tych wyjaśnieniach kod metody *index* powinien być zrozumiały:
 
     :::ruby
     def index
-      @fortunes = current_user.roles.map(&:authorizable).
-        paginate(:page => params[:page], :per_page => 4, :order => 'created_at DESC')      
+      @fortunes = 
+      if current_user.has_role?('admin')
+        Fortune.paginate(:page => params[:page], 
+                         :per_page => 4, 
+                         :order => 'created_at DESC') 
+      else
+        current_user.roles.map(&:authorizable). # fortunki użytkownika
+          paginate(:page => params[:page], 
+                   :per_page => 4, 
+                   :order => 'created_at DESC')      
+      end
     end
+
+Komentarz do powyższego kodu: 
+
+* *admin* powinien „widzieć” wszystkie fortunki 
+* zalogowany użytkownik tylko swoje fortunki \(*\)
+* dodajemy paginację via *will\_paginate*.
 
 Jeśli trzeba będzie jeszcze coś odfiltrować, to można się 
 zastanowić nad użyciem gotowca w postaci gemu *Searchlogic*:
