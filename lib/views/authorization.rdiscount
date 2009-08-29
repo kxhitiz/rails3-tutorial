@@ -316,12 +316,10 @@ Po tych wyjaśnieniach kod metody *index* powinien być zrozumiały:
     def index
       if current_user.has_role?('admin')
         @fortunes = Fortune.paginate(:page => params[:page], 
-                                     :per_page => 4, 
                                      :order => 'created_at DESC') 
       else
         @fortunes = current_user.roles.map(&:authorizable). # fortunki użytkownika
           paginate(:page => params[:page], 
-                   :per_page => 4, 
                    :order => 'created_at DESC')      
       end
     end

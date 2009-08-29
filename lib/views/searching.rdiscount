@@ -16,21 +16,23 @@ My zaimplementujemy w *Fortunce* coś bardziej skomplikowanego
 
 ### Instalacja gemu
 
-Wpisujemy w config/environment.rb co trzeba
-
-Sprawdzamy jak *Searchlogic* działa na konsoli:
+Dopisujemy do *config/environment.rb*:
 
     :::ruby
-    Fortune.all
-    Fortune.author_like 'Einstein'
-    Fortune.author_not_like 'Einstein'
+    config.gem "searchlogic"  
+
+i sprawdzamy na konsoli jak działa *Searchlogic*:
+
+    :::ruby
+    Fortune.author_like('Einstein')
+    Fortune.author_not_like('Einstein')
     Fortune.author_like('Einstein').quotation_like('God') # AND
     Fortune.quotation_like_any(['God', 'never']) # OR
     Fortune.quotation_like_all(['God', 'Before']) # AND
     User.roles_name_like('admin')
     User.roles_name_like('owner')
 
-Można szukać też tak:
+Można wyszukiwać też tak:
 
     :::ruby
     Fortune.search(:author_like => 'Einstein') # Search object
@@ -39,18 +41,64 @@ Można szukać też tak:
     s = Fortune.search(:author_like => 'Einstein')
     s.quotation_like('God').all # composition
 
-Inne rzeczy:
+Inne rzeczy, nie będące wyszukiwaniem:
 
+    :::ruby
     Fortune.ascend_by_author
 
 
+### Proste wyszukiwanie po autorach
 
-### Różne rzeczy
+Zauważmy, że *to_s* poniżej „daje opcjonalny *author\_like\_any*”:
+
+    :::ruby
+    @fortunes = Fortune.author_like_any(params[:search].to_s.split)
+
+Ponieważ
+
+    :::ruby
+    nil.to_s # => ""
+    nil.to_s.split # => []
+
+Zatem, jeśli nic nie wpisano, czyli *params[:search] = nil*, 
+to zdefiniowana powyżej tablica *@fortunes* równa się tablicy
+
+    :::ruby
+    Fortune.all
+
+Kontroler:
+
+    :::ruby
+    class FortunesController < ApplicationController
+      def index
+        @main = Fortune.author_like_any(params[:search].to_s.split).
+          paginate(:page => params[:page], :order => 'created_at DESC')
+      end
+    end
+
+Formularz:
+
+    :::html
+    <h3>Search by author</h3>
+    <%- form_tag root_path, :method => 'get' do -%>
+      <p>
+        <%= text_field_tag 'search', params[:search] %>
+        <%= submit_tag "Submit", :name => nil %>
+        </p>
+    <%- end -%>
+
+
+## Wyszukiwanie po fortunkach
+
+Zaawansowane wyszukiwanie, tj. wyszukiwanie po cytatach i po autorach.
+
+
+
+## Luźne rzeczy
 
 Przykład aplikacji napisanej przez autora *Searchlogic*
 Bena Johnsona (nieaktualne, z 2008):
 [Rails app using the searchlogic library] [searchlogic-example].
-
 
 
 ## Sphinx
