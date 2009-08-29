@@ -277,50 +277,61 @@ Rolę *:owner* przypiujemy do nowej fortunki dopisując w metodzie
         current_user.has_role!(:owner, @fortune)  # assign the role
       ...
 
-## TODO
+## Luźne komentarze do *Acl9*
 
-Jak sprawdzamy, czy użytkownik *owns* jakąś fortunkę:
+Model *Role* tworzy polimorficzne powiązanie z modelem *User*:
+ 
+    :::ruby
+    class Role < ActiveRecord::Base
+      belongs_to :authorizable, :polymorphic => true
+    end
+    
+    class User < ActiveRecord::Base
+      has_many :roles, :as => :authorizable
+    end
+
+Teraz:
 
     :::ruby
-    u = User.last
-    Fortune.find u.roles
-    Fortune.find current_user.roles
+    @user.roles
 
-A tak z API:
+to na przykład:
+
+    +----+-------+-------------------+-----------------+ ...
+    | id | name  | authorizable_type | authorizable_id | ...
+    +----+-------+-------------------+-----------------+ ...
+    | 4  | owner | Fortune           | 9               | ...
+    | 5  | owner | Fortune           | 10              | ...
+    +----+-------+-------------------+-----------------+ ...
+
+Jeśli *@role.id = 5*, to
 
     :::ruby
-    f = Fortune.last
-    u.has_role? :owner, f
+    @role.authorizable
 
-Jak użyć named scope do odfiltrowania fortunek, których
-właścicielem jest *current_user*?
+jest obiektem klasy *Fortune* o *id = 10*.
 
-Zob. Pagination (leverage will_paginate) tutaj:
-[Searchlogic] (http://github.com/binarylogic/searchlogic/):
+Po tych wyjaśnieniach kod metody *index* powinien być zrozumiały:
 
+    :::ruby
+    def index
+      @fortunes = current_user.roles.map(&:authorizable).
+        paginate(:page => params[:page], :per_page => 4, :order => 'created_at DESC')      
+    end
+
+Jeśli trzeba będzie jeszcze coś odfiltrować, to można się 
+zastanowić nad użyciem gotowca w postaci gemu *Searchlogic*:
+
+[leverage will\_paginate] (http://github.com/binarylogic/searchlogic/):
 Instead of recreating the wheel with pagination, Searchlogic works
 great with will_paginate. All that Searchlogic is doing is creating
-named scopes, and will_paginate works great with named scopes:
+named scopes, and *will\_paginate* works great with named scopes:
 
     :::ruby
-    User.username_like("bjohnson").age_less_than(20).paginate(:page => params[:page])
-    User.search(:username_like => "bjohnson", :age_less_than => 20).paginate(:page => params[:page])
-
-Może tak (chyba nie tak):
-
-    :::ruby
-    Fortunes.owner.paginate  :page => params[:page], :per_page => 4,
-      :order => 'created_at DESC'
-
-i zdefiniować named scope *order* w modelu *Fortune* tak:
-
-    :::ruby
-    named_scope :recent, lambda { 
-        |*args| {:conditions => ["released_at > ?", (args.first || 2.weeks.ago)]} 
-    }
-    named_scope :owner
-
-Zobacz też: http://wiki.github.com/mislav/will_paginate/simple-search
+    User.username_like("bjohnson").age_less_than(20).
+      paginate(:page => params[:page])
+    User.search(:username_like => "bjohnson", :age_less_than => 20).
+      paginate(:page => params[:page])
 
 
 #### Links
