@@ -282,14 +282,31 @@ Rolę *:owner* przypiujemy do nowej fortunki dopisując w metodzie
 Jak sprawdzamy, czy użytkownik *owns* jakąś fortunkę:
 
     :::ruby
-    u = User.first
+    u = User.last
+    Fortune.find u.roles
+    Fortune.find current_user.roles
+
+A tak z API:
+
+    :::ruby
     f = Fortune.last
     u.has_role? :owner, f
 
 Jak użyć named scope do odfiltrowania fortunek, których
 właścicielem jest *current_user*?
 
-Może tak:
+Zob. Pagination (leverage will_paginate) tutaj:
+[Searchlogic] (http://github.com/binarylogic/searchlogic/):
+
+Instead of recreating the wheel with pagination, Searchlogic works
+great with will_paginate. All that Searchlogic is doing is creating
+named scopes, and will_paginate works great with named scopes:
+
+    :::ruby
+    User.username_like("bjohnson").age_less_than(20).paginate(:page => params[:page])
+    User.search(:username_like => "bjohnson", :age_less_than => 20).paginate(:page => params[:page])
+
+Może tak (chyba nie tak):
 
     :::ruby
     Fortunes.owner.paginate  :page => params[:page], :per_page => 4,
