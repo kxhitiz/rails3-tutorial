@@ -314,13 +314,12 @@ Po tych wyjaśnieniach kod metody *index* powinien być zrozumiały:
 
     :::ruby
     def index
-      @fortunes = 
       if current_user.has_role?('admin')
-        Fortune.paginate(:page => params[:page], 
-                         :per_page => 4, 
-                         :order => 'created_at DESC') 
+        @fortunes = Fortune.paginate(:page => params[:page], 
+                                     :per_page => 4, 
+                                     :order => 'created_at DESC') 
       else
-        current_user.roles.map(&:authorizable). # fortunki użytkownika
+        @fortunes = current_user.roles.map(&:authorizable). # fortunki użytkownika
           paginate(:page => params[:page], 
                    :per_page => 4, 
                    :order => 'created_at DESC')      
@@ -334,11 +333,10 @@ Komentarz do powyższego kodu:
 * dodajemy paginację via *will\_paginate*.
 
 Jeśli trzeba będzie jeszcze coś odfiltrować, to można się 
-zastanowić nad użyciem gotowca w postaci gemu *Searchlogic*:
+zastanowić nad użyciem gotowca w postaci gemu *Searchlogic*.
 
-[leverage will\_paginate] (http://github.com/binarylogic/searchlogic/):
 Instead of recreating the wheel with pagination, Searchlogic works
-great with will_paginate. All that Searchlogic is doing is creating
+great with *will\_paginate*. All that Searchlogic is doing is creating
 named scopes, and *will\_paginate* works great with named scopes:
 
     :::ruby
@@ -346,6 +344,8 @@ named scopes, and *will\_paginate* works great with named scopes:
       paginate(:page => params[:page])
     User.search(:username_like => "bjohnson", :age_less_than => 20).
       paginate(:page => params[:page])
+
+Cytat z sekcji [Leverage will\_paginate] (http://github.com/binarylogic/searchlogic/).
 
 
 #### Links

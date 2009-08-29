@@ -7,20 +7,50 @@ SQL v. zewnętrzna wyszukiwarka + gem.
 
 ## Searchlogic
 
-Zaczniemy od wyszukiwania via zapytania SQL.
-Tutaj wygodnie jest skorzystać z gemu 
-[Searchlogic] [searchlogic].
-Dlaczego: 
-„Searchlogic makes using *ActiveRecord* named scopes easier and less repetitive.”
+Zaczynamy od screencastu  
+[Simple Search Form] [simple search railscasts] pokazującego 
+jak zaimplementować proste wyszukiwanie.
+
+My zaimplementujemy w *Fortunce* coś bardziej skomplikowanego
+— tak jak w przykładzie ze screencastu [Searchlogic] [searchlogic-screencast].
+
+### Instalacja gemu
+
+Wpisujemy w config/environment.rb co trzeba
+
+Sprawdzamy jak *Searchlogic* działa na konsoli:
+
+    :::ruby
+    Fortune.all
+    Fortune.author_like 'Einstein'
+    Fortune.author_not_like 'Einstein'
+    Fortune.author_like('Einstein').quotation_like('God') # AND
+    Fortune.quotation_like_any(['God', 'never']) # OR
+    Fortune.quotation_like_all(['God', 'Before']) # AND
+    User.roles_name_like('admin')
+    User.roles_name_like('owner')
+
+Można szukać też tak:
+
+    :::ruby
+    Fortune.search(:author_like => 'Einstein') # Search object
+    Fortune.search(:author_like => 'Einstein').all
+    Fortune.search(:author_like => 'Einstein', :quotation_like => 'God').all
+    s = Fortune.search(:author_like => 'Einstein')
+    s.quotation_like('God').all # composition
+
+Inne rzeczy:
+
+    Fortune.ascend_by_author
+
+
+
+### Różne rzeczy
 
 Przykład aplikacji napisanej przez autora *Searchlogic*
 Bena Johnsona (nieaktualne, z 2008):
 [Rails app using the searchlogic library] [searchlogic-example].
 
-[Screencast] [searchlogic-screencast] przygotowany przez Ryana Batesa:
-„Searchlogic makes searching models easier than ever with
-its assortment of named scopes. In this episode I show you how to
-create simple and advanced searches.”
 
 
 ## Sphinx
@@ -38,3 +68,4 @@ Gem *Xapit*.
 [searchlogic]: http://github.com/binarylogic/searchlogic/ "Searchlogic"
 [searchlogic-example]: http://github.com/binarylogic/searchlogic_example/ "Searchlogic Rails example"
 [searchlogic-screencast]: http://railscasts.com/episodes/176-searchlogic "Searchlogic screencast"
+[simple search railscasts]: http://railscasts.com/episodes/37-simple-search-form "Simple Search Form"
