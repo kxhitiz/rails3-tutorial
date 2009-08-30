@@ -44,6 +44,7 @@ Można wyszukiwać też tak:
 Inne rzeczy, nie będące wyszukiwaniem:
 
     :::ruby
+    Fortune.published_equals(true)
     Fortune.ascend_by_author
 
 
@@ -71,8 +72,10 @@ Kontroler:
     :::ruby
     class FortunesController < ApplicationController
       def index
-        @main = Fortune.author_like_any(params[:search].to_s.split).
-          paginate(:page => params[:page], :order => 'created_at DESC')
+        @main = Fortune.published_equals(true).
+          author_like_any(params[:search].to_s.split).
+          paginate(:page => params[:page], 
+                   :order => 'created_at DESC')
       end
     end
 
@@ -142,21 +145,14 @@ metody *index*  metodę *search*, tak aby URL-e były bardziej przyjazne:
     end
 
 
-## Luźne rzeczy
-
-Przykład aplikacji napisanej przez autora *Searchlogic*
-Bena Johnsona (nieaktualne, z 2008):
-[Rails app using the searchlogic library] [searchlogic-example].
-
-
 ## Sphinx
 
-Gem *Thinking Sphinx*.
+TODO gem *Thinking Sphinx*.
 
 
 ## Xapian
 
-Gem *Xapit*.
+TODO gem *Xapit*.
 
 
 #### Links
