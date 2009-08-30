@@ -90,8 +90,56 @@ Formularz:
 
 ## Wyszukiwanie po fortunkach
 
-Zaawansowane wyszukiwanie, tj. wyszukiwanie po cytatach i po autorach.
+Zaawansowane wyszukiwanie, tj. wyszukiwanie po autorach
+i po cytatach.
 
+Zaczniemy od przerobienia w layoucie *main.html.erb* formularza:
+
+    :::html
+    <h3>Search by author</h3>
+    <%- form_tag search_path, :method => 'get' do -%>
+      <p>
+        Author:<br/>
+        <%= text_field_tag 'a', params[:a] %>
+      </p>
+      <p>
+        Quotation:<br/>
+        <%= text_field_tag 'q', params[:q] %>
+      </p>
+      <p>   
+        <%= submit_tag "Submit", :name => nil %>
+      </p>
+    <%- end -%>
+
+i dodajemy nową named route:
+
+    :::ruby
+    map.search "search", :controller => "main", :action => "search"
+
+Następnie, w kontrolerze *MainController* wydzielamy z
+metody *index*  metodę *search*, tak aby URL-e były bardziej przyjazne:
+
+    :::ruby
+    class MainController < ApplicationController
+      def index
+        @subtitle = "Recent"    
+        @main = Fortune.published_equals(true).
+          paginate(:page => params[:page], 
+                   :per_page => 4, 
+                   :order => 'created_at DESC')
+      end
+      
+      def search
+        @subtitle = "Results"    
+        @main = Fortune.published_equals(true).
+          author_like_any(params[:a].to_s.split).
+          quotation_like_any(params[:q].to_s.split).      
+          paginate(:page => params[:page], 
+                   :per_page => 4, 
+                   :order => 'created_at DESC')
+        render :action => 'index'  
+      end
+    end
 
 
 ## Luźne rzeczy
