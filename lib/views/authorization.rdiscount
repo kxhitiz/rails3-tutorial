@@ -75,9 +75,8 @@ Tabela *roles* ma następującą budowę:
 
     :::ruby
     create_table "roles", :force => true do |t|
-      t.string   "name",              :limit => 40
-      t.string   "authorizable_type", :limit => 40
-      t.integer  "authorizable_id"
+      t.string   "name", :limit => 44
+      t.references :authorizable, :polymorphic => true
       
       t.timestamps
     end
