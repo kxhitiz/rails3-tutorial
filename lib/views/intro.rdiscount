@@ -2,32 +2,11 @@
 
 # Wykłady
 
-1. Fortunka
-2. Wprowadzenie do języka Ruby
-3. Pastie
-4. Może Sinatra?
-5. … 
-6. Aplikacje z dwoma modelami.
+1. Wykład I (00.10.2009): Zaczynamy 
+2. Wykład II (00.10.2009): Wprowadzenie do języka Ruby
 
 
-## Uwagi o przykładach
-
-Zaczynamy od przerobienia *Fortunki* na aplikację Rails.
-Fortunka to aplikacja z jednym modelem.
-REST.
-
-Następnie piszemy klon *Pastie*.
-Też tylko jeden model.
-Bez REST.
-
-*Blog*, *Todo*, *Hurtownia* to aplikacje z dwoma modelami. Autorem
-tych aplikacji jest Ryan Bates.  Są one wykorzystywane w jego
-[screencastach](http://railscasts.com/). Kod przykładów oraz 
-kod screencastów znajdują się na serwerze
-[Github](http://github.com/ryanb).
-
-
-## Konfiguracja irb & script/console
+## Konfigurujemy *irb* i *script/console*
 
 Instalujemy dwa gemy:
 
@@ -75,18 +54,14 @@ W katalogu domowym tworzymy plik *.irbrc* o zawartości:
 
 ## Różne
 
-1. [JavaScript and CSS Asset Compression 
+1. S. Becker, [JavaScript and CSS Asset Compression 
    for Production Rails Apps](http://github.com/sbecker/asset_packager/)
-2. [Real HTTP Caching for Ruby Web Apps](http://github.com/rtomayko/rack-cache/)
-3. Generatory.
-   [*A collection of useful Rails generator scripts*](http://github.com/ryanb/nifty-generators/)
+2. R. Tomayko, [Real HTTP Caching for Ruby Web Apps](http://github.com/rtomayko/rack-cache/)
+3. R. Bates, [A collection of useful Rails generator scripts](http://github.com/ryanb/nifty-generators/)
 
 
 ## TODO
 
-Więcej przykładów:
-
-1. Z jednym modelem, np. *Tatry + Google maps*.
-2. Z więcej niż dwoma modelami, np. *Ale Kino*.
-3. Wyszukiwanie w bazie: 
-   Xapian + gem [Xapit](http://github.com/ryanb/xapit).
+1. Omówić przykład: *Ale Kino*.
+2. Wyszukiwanie w bazie: 
+   Xapian + [Xapit](http://github.com/ryanb/xapit).
