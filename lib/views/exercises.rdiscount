@@ -82,10 +82,14 @@ arkusze SASS na CSS. Wyguglać jak to się robi.
 „JavaScript and CSS Asset Compression for **Production** Rails Apps.”
 Używamy YSLow do oceny strony korzystającej z tej wtyczki.
 
-Opisujemy swoje doświadczenia z 1–3 w jblogu pod tytułem
+4\. Dodajemy *gravatary* do aplikacji. Korzystamy z jakiegoś gema
+lub jakiejś wtyczki, np.
+[Ruby on Rails Gravatar Plugin](http://mdeering.com/posts/022-ruby-on-rails-gravitar-plugin).
+
+Opisujemy swoje doświadczenia z 1–4 w jblogu pod tytułem
 *pierwsze-koty-za-ploty*.
 
-4\. [Cytat] [compass]:
+5\. [Cytat] [compass]:
 „Compass is a Stylesheet Authoring Environment that makes your
 website design simpler to implement and easier to maintain.”
 Użyć frameworka *Compass* w projekcie *studenci-ii*.
