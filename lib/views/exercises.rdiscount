@@ -3,16 +3,100 @@
 # Ćwiczenia
 
 <blockquote>
-  {%= image_tag "/images/albert_einstein.jpg", :alt => "[Albert Einstein]" %}
-  <p>
-   In the interests of clarity, it seemed necessary to constantly
-   remind myself to pay not the slightest attention to the elegance of
-   the presentation; I adhered conscientiously to the rule of the
-   brilliant theoretician, Ludwig Boltzmann, to leave elegance to
-   tailors and shoemakers.
-  </p>
-  <p class="author">— Albert Einstein</p>
+<p>
+  Blueprint is a CSS framework designed to cut down on your CSS
+  development time.
+</p>
+<p class="author">— Joshua Clayton</p>
 </blockquote>
+
+## BlueprintCSS
+
+1\. Przygotować stronę ilustrującą możliwości frameworka
+Blueprint. Zacząć od ściągnięcia 
+[repozytorium Blueprint] [blueprint-css] z Githuba.
+
+Użyć narzędzia *compress.rb* do wygenerowania własnych 
+wersji arkuszy CSS. Przeczytać:
+[Blueprint's compress.rb: A Walkthrough](http://joshuaclayton.github.com/article/2009/05/19/blueprint-css-a-walkthrough.html).
+
+2\. Zainstalować rozszerzenie do Firefoksa:
+[Dust-Me Selectors](https://addons.mozilla.org/en-US/firefox/addon/5392).
+Korzystając z tego rozszerzenia, oczyścić arkusz CSS z nieużywanych
+selektorów.
+
+3\. Zwalidować HTML i CSS.
+
+4\. Zainstalować rozszerzenie do Firefox:
+[YSlow](http://developer.yahoo.com/yslow/). 
+Użyć tego rozszerzenia do oceny strony przygotowanej w 1\.
+
+Każde rozwiązanie opisać w jblogu pod tytułem *blueprint-css*.
+
+
+<blockquote cite="http://haml-lang.com/">
+<p>
+  Haml is based on one primary principle. 
+  <em>Markup should be beautiful.</em>
+</p>
+</blockquote>
+
+## HAML & SASS
+
+1\. Przepisujemy HTML na [HAML] [haml]:
+„Haml takes your gross, ugly templates and replaces 
+them with veritable Haiku.”
+
+Walidujemy wygenerowany HTML. Sprawdzamy 
+za pomocą YSlow czy zmieniła się ocena strony.
+
+2\. Przepisujemy CSS na [SASS] [sass]: 
+„Sass makes CSS fun again.”
+
+Walidujemy wygenerowany CSS. 
+
+Opisujemy swoje doświadzczenia w jblogu pod tytułem *haml-sass*.
+
+
+## Lista studentów
+
+1\. Generujemy szablon aplikacji Rails o nazwie *studenci-ii*. 
+Przepisujemy wygenerowane szablony na HAML.
+Używamy YSLow do oceny stron.
+
+2\. Dodajemy własne arkusze stylów napisane w notacji
+SASS. Railsy potrafią w locie przekonwertować
+arkusze SASS na CSS. Wyguglać jak to się robi.
+
+<blockquote>
+<p>
+  We send down exactly one .js and one .css file. If you are sending
+  down more than one of each of these to the browser, you have a
+  performance problem. Fix it with asset packager.
+</p>
+<p class="author">— Pivotal Labs</p>
+</blockquote>
+ 
+3\. Kompresujemy *static assets* za pomocą wtyczki
+[Asset Packager] [asset-packager]: 
+„JavaScript and CSS Asset Compression for **Production** Rails Apps.”
+Używamy YSLow do oceny strony korzystającej z tej wtyczki.
+
+4\. Dodajemy *gravatary* do aplikacji. Korzystamy z jakiegoś gema
+lub jakiejś wtyczki, np.
+[Ruby on Rails Gravatar Plugin](http://mdeering.com/posts/022-ruby-on-rails-gravitar-plugin).
+
+Opisujemy swoje doświadczenia z 1–4 w jblogu pod tytułem
+*pierwsze-koty-za-ploty*.
+
+5\. [Cytat] [compass]:
+„Compass is a Stylesheet Authoring Environment that makes your
+website design simpler to implement and easier to maintain.”
+Użyć frameworka *Compass* w projekcie *studenci-ii*.
+Opisać swoje doświadczenia w jblogu pod tytułem *kompas*.
+
+
+## Fortunka
 
 1\. Udoskonalamy „Fortunkę”:
 
@@ -77,3 +161,12 @@ Add the following:
 * When a photo is added instead of displaying the album index page,
   display the album show page so that users can continue uploading
   photos.
+
+
+#### Links
+
+[blueprint-css]: http://github.com/joshuaclayton/blueprint-css "A CSS framework"
+[haml]: http://haml-lang.com/ "HAML: markup haiku"
+[sass]: http://sass-lang.com/ "Sass makes CSS fun again"
+[asset-packager]: http://github.com/sbecker/asset_packager "CSS and Javascript asset packager"
+[compass]: http://github.com/chriseppstein/compass "A CSS stylesheet authoring environment"

@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -18,8 +21,8 @@
       </div>
       <div class="span-13 last">
         <div class="append-1" id="links">
-          <a href="http://wbzyl.ug.edu.pl/">home</a>
-          <a href="http://wbzyl.ug.edu.pl/galeria">galeria</a>
+          <a href="http://sigma.ug.edu.pl/~wbzyl/">home</a>
+          <a href="http://sigma.ug.edu.pl/~wbzyl/galeria/zakopane/2009-08-28-zawrat/">galeria</a>
         </div>
       </div>
     </div>

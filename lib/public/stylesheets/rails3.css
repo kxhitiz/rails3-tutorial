@@ -68,6 +68,10 @@ h1 {
   padding-left: 44px;
 }
 
+#content h1 {
+  font: normal 160% Header, "DejaVu Sans", serif;
+}
+
 blockquote {
   font: normal 14/1.5 "DejaVu Sans", PakTypeNaqsh, sans-serif;
   width: 297px;
