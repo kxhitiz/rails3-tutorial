@@ -238,7 +238,7 @@ Wygenerowany plik *models/user_session.rb* zawiera kod:
 Zauważmy, że tym razem model nie dziedziczy po
 klasie *ActiveRecord::Base*. Dlaczego?
 
-Do sterowania potrzebujemy **zwykłego** kontrolera:
+Do sterowania będziemy potrzebować **zwykłego** kontrolera:
 
     script/generate nifty_scaffold user_session --skip-model \
       login:string email:string password:string new destroy
