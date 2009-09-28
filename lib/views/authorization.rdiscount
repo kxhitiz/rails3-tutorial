@@ -158,7 +158,7 @@ Dlatego dopisujemy w nim *acts\_as\_authorization_object*:
       acts_as_authorization_object
     end
   
-kończąc wprowadzanie autoryzację do aplikacji.
+kończąc wprowadzanie do aplikacji autoryzacji.
 
 Pozostaje ją uaktywnić. Zanim to zrobimy, wejdźmy na stronę:
 
