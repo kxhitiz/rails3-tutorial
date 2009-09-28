@@ -1,4 +1,4 @@
-# Samouczek
+# Samouczek do frameworka Rails
 
 <blockquote>
   {%= image_tag "/images/the_thinker.jpg", :alt => "[The Thinker]" %}
@@ -20,6 +20,7 @@
 1. {%= link_to "Ćwiczenia", "/exercises" %}
 1. {%= link_to "Odpowiedzi", "/answers" %}
 
+
 ## Dokumentacja
 
 Na początek zaczynamy od przestudiownaia
@@ -30,3 +31,11 @@ Na początek zaczynamy od przestudiownaia
 3. [Rails Form helpers](http://guides.rubyonrails.org/form_helpers.html)
 4. Dalej już według własnego uznania, 
    wybieramy kolejny *Przewodnik* do przestudiowania
+
+
+## Podręczniki do języka Ruby
+
+* [Why's (Poignant) Guide to Ruby](http://www.ember.co.nz/files/resources/whys-poignant-guide-to-ruby.pdf)
+* [Mr. Neighborly's Humble Little 
+  Ruby Book](http://www.humblelittlerubybook.com/book/html/index.html)
+  \([pdf](http://www.humblelittlerubybook.com/book/hlrb.pdf)\)
