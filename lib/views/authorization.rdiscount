@@ -239,11 +239,13 @@ Nadchodzi *admin*. Dopisujemy do kontrolera:
       end
       ...
 
-*Admina* tworzymy wykonując poniższe polecenia na konsoli:
+*Admina* tworzymy wykonując poniższe polecenia na konsoli
+albo tworząc nowego użytkownika w pliku 
+*db/seeds.rb* \([Rails 2.3.4](http://railscasts.com/episodes/179-seed-data)\):
 
     :::ruby
     user = User.find(1)     # lub wybieramy innego użytkownika
-    user.has_role? :admin  # => false
+    user.has_role? :admin   # => false
     user.has_role! :admin
     user.has_role? :admin   # => true
 
