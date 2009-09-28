@@ -168,11 +168,11 @@ który umieszczamy w prawym górnym rogu strony:
 Przeładowujemy aplikację i klikamy w link *Register*.
 W wygenerowanym widok:
 
-{%= image_tag "/doc/authentication/register-1.png", :alt => "[generated register view]" %}
+{%= image_tag "/images/register-1.png", :alt => "[generated register view 1]" %}
 
 i natychmiast zauważamy, że brakuje pola do potwierdzenia hasła:
 
-{%= image_tag "/doc/authentication/register-2.png", :alt => "[generated register view]" %}
+{%= image_tag "/images/register-2.png", :alt => "[generated register view 2]" %}
 
 Dlatego w widoku *users/\_form.html.erb* zmieniamy:
 
