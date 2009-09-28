@@ -55,7 +55,7 @@ Zauważmy, że *to_s* poniżej „daje opcjonalny *author\_like\_any*”:
     :::ruby
     @fortunes = Fortune.author_like_any(params[:search].to_s.split)
 
-Ponieważ
+Jest tak ponieważ
 
     :::ruby
     nil.to_s # => ""
