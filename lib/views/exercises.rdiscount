@@ -93,6 +93,10 @@ Wyszukać w sieci darmowy szablon, albo przygotować go
 samemu. Zainstalować za go pomocą programu *install_theme*.
 Jak to się robi, opisano w blogu we wpisie wspomnianym powyżej.
 
+3\. Dodać *gravatary* do aplikacji (użyć migracji). 
+Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
+[Ruby on Rails Gravatar Plugin](http://mdeering.com/posts/022-ruby-on-rails-gravitar-plugin).
+
 <blockquote>
 <p>
   We send down exactly one .js and one .css file. If you are sending
@@ -102,15 +106,11 @@ Jak to się robi, opisano w blogu we wpisie wspomnianym powyżej.
 <p class="author">— Pivotal Labs</p>
 </blockquote>
  
-3\. Zkompresować *static assets* za pomocą wtyczki
+4\. Zkompresować *static assets* za pomocą wtyczki
 [Asset Packager] [asset-packager]: 
 „JavaScript and CSS Asset Compression for **Production** Rails Apps.”
 Używamy YSLow do oceny strony korzystającej z tej wtyczki.
 Zapisać wyniki w jblogu.
-
-4\. Dodać *gravatary* do aplikacji (użyć migracji). 
-Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
-[Ruby on Rails Gravatar Plugin](http://mdeering.com/posts/022-ruby-on-rails-gravitar-plugin).
 
 Opisać swoje doświadczenia z pkt. 1–4 w jblogu pod tytułem
 *pierwsze-koty-za-ploty*.
