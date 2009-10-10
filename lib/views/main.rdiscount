@@ -17,8 +17,11 @@
 1. {%= link_to "Autoryzacja", "/authorization" %}
 1. {%= link_to "Wyszukiwanie", "/searching" %}
 1. {%= link_to "Caching", "/caching" %}
-1. {%= link_to "Ćwiczenia", "/exercises" %}
-1. {%= link_to "Odpowiedzi", "/answers" %}
+
+Laboratorium:
+
+* {%= link_to "Ćwiczenia", "/exercises" %}
+* {%= link_to "Odpowiedzi", "/answers" %}
 
 
 ## Dokumentacja

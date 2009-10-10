@@ -1,9 +1,30 @@
 #### {% title "Rozkład jazdy" %}
 
-# Wykłady
+# Wykłady i Laboratoria
 
-1. Wykład I (00.10.2009): Zaczynamy 
-2. Wykład II (00.10.2009): Wprowadzenie do języka Ruby
+### 5.10.2009
+
+* O zaletach „epoki żelaza” z J. Kaplan-Moss. 
+  [Snakes on the Web](http://jacobian.org/writing/snakes-on-the-web/).
+* Nieco o systemie Git na przykładzie forkowania *jBloga*.
+* Generujemy szkielet aplikacji *Fortunka*.
+
+* BlueprintCSS
+
+
+### 12.10.2009
+
+* Szablony w Rails: ERB.
+* Szablon: aplikacji, kontrolera, metody.
+
+Wprowadzenie do języka Ruby.
+
+
+### ?.??.2009
+
+Rzeczy do zrobienia we frameworkach, czyli „what sucks”
+kontynuacja J. Kaplan-Moss. 
+[Snakes on the Web](http://jacobian.org/writing/snakes-on-the-web/).
 
 
 ## Konfigurujemy *irb* i *script/console*
