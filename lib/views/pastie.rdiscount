@@ -27,8 +27,8 @@ z wklejonym kodem, na przykład:
 
     http://leniwiec.local:3000/128
 
-Od tej chwili, po wsze czasy (no, dopóty, dopóki nie padnie dysk na
-*mancie*), wklejony kod będzie dostępny pod tym URL.
+Od tej chwili, po wsze czasy (no, dopóty, dopóki nie padnie 
+macierz dyskowa na *Sigmie*), wklejony kod będzie dostępny pod tym URL.
 
 W następnej wersji dodamy do każdej strony formularz umożliwiający
 wyszukiwanie wklejonych fragmentów kodu zawierających podaną frazę.
@@ -137,7 +137,7 @@ Przyglądamy się temu co jest wypisywane na konsoli.
 
 Przykłady do wpisania na konsoli SQlite, `script/dbconsole`:
 
-    :::sql
+    :::ruby
     insert into leniwce (lang, body) 
         values("ruby", "puts 1");
     insert into leniwce (lang, body) 
@@ -145,7 +145,7 @@ Przykłady do wpisania na konsoli SQlite, `script/dbconsole`:
 
 I – na konsoli Rails, `script/console`:
 
-    :::sql_rails
+    :::ruby
     Leniwiec.all
     Leniwiec.all(:conditions => ["lang = ?", "ruby"])
     Leniwiec.all(:conditions =>
@@ -154,7 +154,7 @@ I – na konsoli Rails, `script/console`:
 Więcej przykładowych poleceń jest do wklejenia
 [stąd](http://apidock.com/rails/ActiveRecord/Base)
 
-    :::sql_rails
+    :::ruby
     w = Leniwiec.new :lang => "css", 
         :body => "h1 { color: red; }"
     w.save
