@@ -20,6 +20,7 @@
 
 Laboratorium:
 
+* {%= link_to "Listy obecności", "/ls" %}
 * {%= link_to "Ćwiczenia", "/exercises" %}
 * {%= link_to "Odpowiedzi", "/answers" %}
 
