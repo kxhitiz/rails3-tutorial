@@ -27,9 +27,12 @@ selektorów.
 
 3\. Zwalidować HTML i CSS.
 
-4\. Zainstalować rozszerzenie do Firefox:
-[YSlow](http://developer.yahoo.com/yslow/). 
-Użyć tego rozszerzenia do oceny strony przygotowanej w 1\.
+4\. Zainstalować rozszerzenia do przeglądarki Firefox:
+
+   * [Firebug](https://addons.mozilla.org/en-US/firefox/addon/1843) 
+   * [YSlow](http://developer.yahoo.com/yslow/).
+
+Użyć Yslow do oceny strony przygotowanej w 1\.
 
 Każde rozwiązanie opisać w jblogu pod tytułem *blueprint-css*.
 
