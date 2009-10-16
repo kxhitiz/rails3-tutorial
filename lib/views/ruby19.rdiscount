@@ -2,6 +2,15 @@
 
 # Ruby 1.9
 
+<blockquote>
+ {%= image_tag "/images/edsger_wybe_dijkstra.jpg", :alt => "[Edsger W. Dijkstra]" %}
+ <p>
+  Elegance is not a dispensable luxury but 
+  a quality that decides between success and failure.
+ </p>
+</blockquote>
+
+
 Na Sigmie jest zainstalowany 
 ruby 1.8.7 (2009-06-08 patchlevel&nbsp;173).
 Uwaga: wersje z mniejszym patchlevel mają
