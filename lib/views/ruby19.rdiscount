@@ -7,7 +7,7 @@ ruby 1.8.7 (2009-06-08 patchlevel&nbsp;173).
 Uwaga: wersje z mniejszym patchlevel mają
 problemy z *security* i/lub wyciekami pamięci.
 
-Aktualna wersja: ruby 1.9.1-p243
+Aktualna wersja: ruby 1.9.1-p243.
 Dostępny jest już ruby 1.9.2-prelease.
 
 Repozytorium SVN z kodem jest na
