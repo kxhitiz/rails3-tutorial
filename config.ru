@@ -1,6 +1,6 @@
 $:.unshift('lib') unless $:.include?('lib')
 
-gem 'wbzyl-rails3-tutorial'
+gem 'rails3-tutorial'
 require 'rails3-tutorial'
 
 gem 'wbzyl-rack-codehighlighter'
