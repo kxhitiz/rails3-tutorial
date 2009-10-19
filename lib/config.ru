@@ -1,6 +1,6 @@
 require 'rails3-tutorial'
 
-gem 'wbzyl-rack-codehighlighter'
+gem 'rack-codehighlighter'
 require 'rack/codehighlighter'
 
 gem 'ultraviolet'

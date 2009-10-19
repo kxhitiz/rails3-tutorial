@@ -23,12 +23,13 @@ Notatki do frameworka Rails3
     gemspec.add_runtime_dependency 'ultraviolet'
     gemspec.add_runtime_dependency 'coderay'
     gemspec.add_runtime_dependency 'wbzyl-sinatra-rdiscount'    
-    gemspec.add_runtime_dependency 'wbzyl-rack-codehighlighter'
+    gemspec.add_runtime_dependency 'rack-codehighlighter'
   
     gemspec.rubyforge_project = 'rails3-tutorial'
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available."
   puts "Install it with:"
-  puts "  sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+  puts "  sudo gem install jeweler -s http://gemcutter.com"
 end

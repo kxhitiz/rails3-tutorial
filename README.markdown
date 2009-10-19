@@ -4,7 +4,7 @@ This is a modular Sinatra application implemented as Gem.
 
 Install it with:
 
-    gem install wbzyl-rails3-tutorial
+    gem install rails3-tutorial
 
 *rails3-tutorial* depends on several gems, so expect
 a few exceptions to be thrown.

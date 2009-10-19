@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-tutorial}
-  s.version = "0.0.2"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wlodek Bzyl"]
-  s.date = %q{2009-10-18}
+  s.date = %q{2009-10-19}
   s.description = %q{Notatki do frameworka Rails3
 }
   s.email = %q{matwb@univ.gda.pl}
@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
      "VERSION.yml",
      "config.ru",
      "lib/config.ru",
-     "lib/log/thin.log",
      "lib/public/doc/RevisedAutofocusSystem.pdf",
      "lib/public/images/algorithm.png",
      "lib/public/images/binary-logic.gif",
@@ -64,7 +63,6 @@ Gem::Specification.new do |s|
      "lib/public/stylesheets/src/grid.png",
      "lib/public/stylesheets/uv.css",
      "lib/rails3-tutorial.rb",
-     "lib/tmp/pids/thin.pid",
      "lib/views/answers.rdiscount",
      "lib/views/authentication.rdiscount",
      "lib/views/authorization.rdiscount",
@@ -103,7 +101,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<ultraviolet>, [">= 0"])
       s.add_runtime_dependency(%q<coderay>, [">= 0"])
       s.add_runtime_dependency(%q<wbzyl-sinatra-rdiscount>, [">= 0"])
-      s.add_runtime_dependency(%q<wbzyl-rack-codehighlighter>, [">= 0"])
+      s.add_runtime_dependency(%q<rack-codehighlighter>, [">= 0"])
     else
       s.add_dependency(%q<rack>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
@@ -111,7 +109,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<ultraviolet>, [">= 0"])
       s.add_dependency(%q<coderay>, [">= 0"])
       s.add_dependency(%q<wbzyl-sinatra-rdiscount>, [">= 0"])
-      s.add_dependency(%q<wbzyl-rack-codehighlighter>, [">= 0"])
+      s.add_dependency(%q<rack-codehighlighter>, [">= 0"])
     end
   else
     s.add_dependency(%q<rack>, [">= 0"])
@@ -120,6 +118,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<ultraviolet>, [">= 0"])
     s.add_dependency(%q<coderay>, [">= 0"])
     s.add_dependency(%q<wbzyl-sinatra-rdiscount>, [">= 0"])
-    s.add_dependency(%q<wbzyl-rack-codehighlighter>, [">= 0"])
+    s.add_dependency(%q<rack-codehighlighter>, [">= 0"])
   end
 end
