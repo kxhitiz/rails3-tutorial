@@ -1,0 +1,41 @@
+#### {% title "Ruby on Rails interview questions" %}
+
+# Ruby on Rails interview questions
+
+Questions:
+
+1. Difference between html.erb & rhtml
+2. What is dynamic database
+3. Difference between dynamic hasfinder and hasfinder
+4. What is ORM
+5. Tell briefly about Active Record
+6. What is Associations
+7. What do you mean by polymorphic associations
+8. What is HABTM
+9. In HABTM, how will be the join table naming convention
+  (For example Models User and Role)
+10. What is meta programming
+11. What is Rspec
+12. Tell briefly about RESTFUL Architecture
+13. Difference between map.resources and map.resource
+14. What is a block
+15. Define Lambda & Proc
+16. Difference between Lambda & Proc
+17. Three levels of protection in ruby
+18. Difference between protected method and private method
+19. What is *attr_accessor*, *attr_protected*
+20. How a website is working in Rails application
+21. What is sessions and cookies
+22. How sessions are storing
+23. What is gem and difference between gem and plugin
+24. What is TDD
+25. What are callbacks
+26. Why ruby is called as dynamic language
+27. What is namespace
+28. What is left join and outer join
+29. How many engines mysql is having
+30. What are called modules and what is the use of lib folder
+31. How to provide grant permission for mysql
+32. Difference between single quote and double quote in ruby
+
+Źródło: [Genlinux](http://www.genlinux.org/2009/10/ruby-on-rails-interview-questions.html)
