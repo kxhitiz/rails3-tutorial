@@ -20,14 +20,17 @@
 
 ### 21.10.2009
 
-Trochę o repozytoriach gita, błędach które popełniacie.
-Jak umieścić swoją zmienioną wersję na *github.com*.
-
-Wprowadzenie do języka Ruby.
-Bazy danych na konsoli.
+Wprowadzenie do języka Ruby. Trochę kodu wpisanego
+z ręki, kilka przykładów: Hanoi, biblioteki erb i erubis.
+Generowanie diagramów: [yuml](http://yuml.me/).
 
 
 ### 28.10.2009
+
+Trochę o repozytoriach gita, popełnianych błędach oraz .
+jak umieścić swoją zmienioną wersję na *github.com*.
+
+Przykład: bazy danych na konsoli.
 
 Info: polecenie *rake routes*, REST. 
 
