@@ -2,7 +2,7 @@
 
 # Wykłady i Laboratoria
 
-### 5.10.2009
+### 7.10.2009
 
 * O zaletach „epoki żelaza” z J. Kaplan-Moss. 
   [Snakes on the Web](http://jacobian.org/writing/snakes-on-the-web/).
@@ -12,21 +12,24 @@
 * BlueprintCSS
 
 
-### 12.10.2009
+### 14.10.2009
 
 * Szablony w Rails: ERB.
 * Szablon: aplikacji, kontrolera, metody.
 
 
-### 19.10.2009
+### 21.10.2009
 
 Trochę o repozytoriach gita, błędach które popełniacie.
 Jak umieścić swoją zmienioną wersję na *github.com*.
 
-Info: polecenie *rake routes*, REST. 
+Wprowadzenie do języka Ruby.
 Bazy danych na konsoli.
 
-Wprowadzenie do języka Ruby.
+
+### 28.10.2009
+
+Info: polecenie *rake routes*, REST. 
 
 
 ### ?.??.2009
