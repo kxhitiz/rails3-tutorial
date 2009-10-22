@@ -357,6 +357,20 @@ named scopes, and *will\_paginate* works great with named scopes:
 Cytat z sekcji [Leverage will\_paginate](http://github.com/binarylogic/searchlogic/).
 
 
+## Devise
+
+[Devise](http://blog.plataformatec.com.br/2009/10/devise-flexible-authentication-solution-for-rails/) 
+to „flexible authentication solution for Rails” korzystające 
+z biblioteki [Warden](http://github.com/hassox/warden/).
+
+Cytat z [README](http://github.com/plataformatec/devise/):
+
+* Is Rack based.
+* Is a complete MVC solution based on Rails engines.
+* Allows you to have multiple roles (or models/scopes) signed in at the same time.
+* Is based on a modularity concept: use just what you really need.
+
+
 #### Links
 
 [acl9]: http://github.com/be9/acl9 "Yet another role-based authorization…"
