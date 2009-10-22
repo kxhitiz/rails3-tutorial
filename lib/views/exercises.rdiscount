@@ -108,8 +108,14 @@ Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
 </p>
 <p class="author">— Pivotal Labs</p>
 </blockquote>
- 
-4\. Zkompresować *static assets* za pomocą wtyczki
+
+4\. Wersja 3.5 Firefoxa obsługuje 
+[W3C Geolocation API](http://dev.w3.org/geo/api/spec-source.html).
+Korzystając z wtyczki
+[GeoMereLaal](http://github.com/parolkar/geo_mere_laal) 
+dodać Geolocation do aplikacji.
+
+5\. Skompresować *static assets* za pomocą wtyczki
 [Asset Packager] [asset-packager]: 
 „JavaScript and CSS Asset Compression for **Production** Rails Apps.”
 Używamy YSLow do oceny strony korzystającej z tej wtyczki.
