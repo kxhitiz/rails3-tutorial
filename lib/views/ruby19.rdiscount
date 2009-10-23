@@ -145,7 +145,7 @@ Za to mamy:
     str = "witaj świecie'
     str.encoding
 
-Zadawaniekodowania w pliku via *magic comments*:
+Zadawanie kodowania w pliku via *magic comments*:
 
     :::ruby
     # *coding: utf-8*
