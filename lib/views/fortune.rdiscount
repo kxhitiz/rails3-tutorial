@@ -564,7 +564,13 @@ albo, lepiej, w pliku *environment.rb* dopisujemy:
         :source => 'http://gems.github.com'
     end
 
-i teraz wykonujemy
+Uwaga: Troszkę się pozmieniało od wakacji. Teraz gemy są na
+*http://gemcutter.com*. Gemy nie są *namespaced* i 
+po instalacji gemu *gemcutter* instalujemy je tak:
+
+    sudo gem install paperclip
+
+Koniec uwagi. Kończymy konfigurację aplikacji instalując brakujące gemy:
 
     sudo rake gems:install
 
