@@ -246,14 +246,28 @@ Wyniki naszej pracy możemy podejrzeć tutaj:
     http://localhost:3000
 
 Ale po kliknięciu na 'NEW' dostajemy *weird error*.
-Generator wygenerował błędny kod? Poprawiamy generator
-zamieniając w widokach, `education_path` na `education_index_path`,
-przykład:
+Generator wygenerował błędny kod? 
+
+Poprawiamy generator zamieniając w widokach, 
+`education_path` na `education_index_path` oraz 
+kontrolerze w metodzie `destroy` na:
 
     :::ruby
     link_to 'Back', education_index_path
 
-I jeszcze raz podglądamy routing:
+Musimy też podmienić w wygenerowanym formularzu wymienić:
+
+    :::html_rails
+    <% form_for(@education) do |f| %>
+
+na
+
+    :::html_rails
+    <% form_for(:education, :url => education_index_path) do |f| %>
+
+
+I jeszcze raz podglądamy routing aby się przekonać co jest z nim
+nie tak. Gdzie jest „ambiguous”:
 
     rake routes
 
@@ -293,6 +307,7 @@ z `config.i18n.default_locale`:
       config.i18n.default_locale = :pl
     end
 
+
 ## Suszymy kod: refaktoryzacja widoków
 
 Wspólny kod z plików *new.html.erb* oraz *edit.html.erb*
@@ -308,6 +323,16 @@ a w pliku *edit.html.erb*:
     :::html_rails
     <%= render :partial => "form", 
           :locals => { :f => f, :button_label => 'Update' } %>
+
+Nie zapominany wymienić w *_form.html.erb*:
+
+    :::html_rails
+    <%= f.submit ... %>
+
+na:
+
+    :::html_rails
+    <%= f.submit button_label %>
 
 
 ## Suszymy kod: refaktoryzacja kontrolera za pomocą filtrów
