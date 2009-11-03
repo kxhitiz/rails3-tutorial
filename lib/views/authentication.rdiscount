@@ -11,6 +11,15 @@ There are many ways of authenticating a user. A good
 example is *logging* which is
 a password based authentication.
 
+Na początek *kontrowersyjny* cytat.
+
+[Rails and OpenID: Start Your Engines ](http://terrbear.org/?p=187):
+If you care about your user’s security, and your time, it’s time you
+stop asking them for passwords. Storing user passwords and handling
+authentication offers a bunch of problems that have already been
+solved, and requires a lot of work to do it right.
+
+
 W przykładach poniżej skorzystamy z gemu [Authlogic] [authlogic]
 oraz generatorów [nifty-generators] [nifty generators].
 
