@@ -277,7 +277,7 @@ kontrolerze w metodzie `destroy` na:
     :::ruby
     link_to 'Back', education_index_path
 
-Musimy też podmienić w wygenerowanym formularzu wymienić:
+W wygenerowanym formularzu wymienić musimy też podmienić:
 
     :::html_rails
     <% form_for(@education) do |f| %>
