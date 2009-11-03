@@ -270,19 +270,19 @@ Wyniki naszej pracy możemy podejrzeć tutaj:
 Ale po kliknięciu na 'NEW' dostajemy *weird error*.
 Generator wygenerował błędny kod? 
 
-Poprawiamy generator zamieniając w widokach, 
+Poprawiamy generator zamieniając w widokach:
 `education_path` na `education_index_path` oraz 
-kontrolerze w metodzie `destroy` na:
+w kontrolerze w metodzie `destroy` na:
 
     :::ruby
     link_to 'Back', education_index_path
 
-W wygenerowanym formularzu wymienić musimy też podmienić:
+W wygenerowanym formularzu musimy też podmienić:
 
     :::html_rails
     <% form_for(@education) do |f| %>
 
-na
+na (to było trudne!):
 
     :::html_rails
     <% form_for(:education, :url => education_index_path) do |f| %>
