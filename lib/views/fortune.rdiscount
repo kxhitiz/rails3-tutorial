@@ -229,9 +229,31 @@ Migrujemy:
     rake db:create
     rake db:migrate
 
-Podglądamy routing:
+Podglądamy routing dla wygenerowane dla **Computers**:
 
     rake routes
+
+wypisuje coś takiego:
+
+        computers GET /computers          {:action=>"index", :controller=>"computers"}
+                 POST /computers          {:action=>"create", :controller=>"computers"}
+     new_computer GET /computers/new      {:action=>"new", :controller=>"computers"}
+    edit_computer GET /computers/:id/edit {:action=>"edit", :controller=>"computers"}
+         computer GET /computers/:id      {:action=>"show", :controller=>"computers"}
+                  PUT /computers/:id      {:action=>"update", :controller=>"computers"}
+               DELETE /computers/:id      {:action=>"destroy", :controller=>"computers"}
+
+Routing dla **Education** (rzeczownik niepoliczalny) wygląda tak:
+
+    education_index GET /education          {:action=>"index", :controller=>"education"}
+                   POST /education          {:action=>"create", :controller=>"education"}
+      new_education GET /education/new      {:action=>"new", :controller=>"education"}
+     edit_education GET /education/:id/edit {:action=>"edit", :controller=>"education"}
+          education GET /education/:id      {:action=>"show", :controller=>"education"}
+                    PUT /education/:id      {:action=>"update", :controller=>"education"}
+                 DELETE /education/:id      {:action=>"destroy", :controller=>"education"}
+
+Gdzie chowa się niejednoznaczność routingu (trasowania)? Jak to zostało poprawione?
 
 Stronę z listą cytatów podmontowujemy jako stronę główną witrynki.
 W tym celu w pliku *routes.rb* edytujemy wiersz z `map.root`:
