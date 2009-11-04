@@ -142,7 +142,7 @@ utworzy następujące pliki:
 
 <tbody>
  <tr>
- <td>app/models/post.rb</td>
+ <td>app/models/computer.rb</td>
  <td>The Computer model</td>
  </tr>
 
@@ -163,17 +163,17 @@ utworzy następujące pliki:
 
  <tr>
  <td>app/views/computers/show.html.erb</td>
- <td>A view to display a single post</td>
+ <td>A view to display a single computer</td>
  </tr>
 
  <tr>
  <td>app/views/computers/new.html.erb</td>
- <td>A view to create a new post</td>
+ <td>A view to create a new computer</td>
  </tr>
 
  <tr>
  <td>app/views/computers/edit.html.erb</td>
- <td>A view to edit an existing post</td>
+ <td>A view to edit an existing computer</td>
  </tr>
 
  <tr>
@@ -209,7 +209,7 @@ utworzy następujące pliki:
  </tr>
 
  <tr>
- <td>test/unit/post_test.rb</td>
+ <td>test/unit/computer_test.rb</td>
  <td>Unit testing harness for the computers model</td>
  </tr>
 
