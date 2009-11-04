@@ -2,11 +2,11 @@
 
 # Sprytny kod
 
-## Ruby
-
 <blockquote>
   {%= image_tag "/images/algorithm.png", :alt => "[Rozwiązanie…]" %}
 </blockquote>
+
+## Ruby
 
 1\. Czytnik RSS
 
