@@ -2,6 +2,8 @@
 
 # Sprytny kod
 
+## Ruby
+
 <blockquote>
   {%= image_tag "/images/algorithm.png", :alt => "[Rozwiązanie…]" %}
 </blockquote>
@@ -20,4 +22,6 @@
     end
     puts tab.uniq.sort.map { |x| "- " + x} 
 
-2\. …
+## Rails 3
+
+1\. …
