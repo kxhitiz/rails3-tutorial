@@ -426,15 +426,16 @@ Teraz do partial mozemy wrzucić więcej kodu:
 nie ma problemu z liczbą pojedynczą i mnogą.
 
 
-## Problemy, problemy: znowu czeka nas suszenie kodu
-
 > Given sufficient time, what you put off doing 
 > today will get done by itself.
 
-Powinniśmy mieć jeden model: *Quotation* z dodatkowym
-atrybutem *category*. Co robić?
+## Problemy, problemy: znowu czeka nas suszenie kodu
 
-Na razie skorzystamy z takiego frazesu:
+Być może powinnien być jeden model/resource: *Quotation* z dodatkowym
+atrybutem *category*. Ale wtedy routing będzie do bani.
+Dlaczego? Co robić?
+
+Na razie skorzystamy z frazesu wypisanego obok.
 
 ## Dodajemy Basic HTTP Authentication
 
