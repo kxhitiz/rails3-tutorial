@@ -6,9 +6,10 @@
   {%= image_tag "/images/algorithm.png", :alt => "[Rozwiązanie…]" %}
 </blockquote>
 
+
 ## Ruby
 
-1\. Czytnik RSS
+1\. [O. Szrajer] Czytnik RSS.
 
     :::ruby
     require 'rubygems'
@@ -21,6 +22,11 @@
       |x| x.inner_html.match("Stargate|Merlin|House") ? tab << x.inner_html.split('[').first : nil
     end
     puts tab.uniq.sort.map { |x| "- " + x} 
+
+Przykład z kategorii „scraping”. Zobacz też:
+
+ * [Screen Scraping with ScrAPI](http://railscasts.com/episodes/173-screen-scraping-with-scrapi)
+
 
 ## Rails 3
 

@@ -103,7 +103,7 @@ Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
 Albo zamiast wtyczki skorzystać z pomysłu przedstawionego
 w [Railscasts \#182](http://railscasts.com/episodes/182-cropping-images).
 W tym screencaście, R. Bates pokazuje jak
-dodać do aplikacji bajerancki interfejs umożliwiający przycinanie 
+dodać do aplikacji zgrabny  interfejs umożliwiający przycinanie 
 obrazków przed umieszczeniem ich w bazie danych.
 Dodać taką funkcjonalność do budowanej aplikacji.
 
