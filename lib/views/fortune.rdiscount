@@ -229,9 +229,31 @@ Migrujemy:
     rake db:create
     rake db:migrate
 
-Podglądamy routing:
+Podglądamy routing dla wygenerowane dla **Computers**:
 
     rake routes
+
+wypisuje coś takiego:
+
+        computers GET /computers          {:action=>"index", :controller=>"computers"}
+                 POST /computers          {:action=>"create", :controller=>"computers"}
+     new_computer GET /computers/new      {:action=>"new", :controller=>"computers"}
+    edit_computer GET /computers/:id/edit {:action=>"edit", :controller=>"computers"}
+         computer GET /computers/:id      {:action=>"show", :controller=>"computers"}
+                  PUT /computers/:id      {:action=>"update", :controller=>"computers"}
+               DELETE /computers/:id      {:action=>"destroy", :controller=>"computers"}
+
+Routing dla **Education** (rzeczownik niepoliczalny) wygląda tak:
+
+    education_index GET /education          {:action=>"index", :controller=>"education"}
+                   POST /education          {:action=>"create", :controller=>"education"}
+      new_education GET /education/new      {:action=>"new", :controller=>"education"}
+     edit_education GET /education/:id/edit {:action=>"edit", :controller=>"education"}
+          education GET /education/:id      {:action=>"show", :controller=>"education"}
+                    PUT /education/:id      {:action=>"update", :controller=>"education"}
+                 DELETE /education/:id      {:action=>"destroy", :controller=>"education"}
+
+Gdzie chowa się niejednoznaczność routingu (trasowania)? Jak to zostało poprawione?
 
 Stronę z listą cytatów podmontowujemy jako stronę główną witrynki.
 W tym celu w pliku *routes.rb* edytujemy wiersz z `map.root`:
@@ -248,38 +270,25 @@ Wyniki naszej pracy możemy podejrzeć tutaj:
 Ale po kliknięciu na 'NEW' dostajemy *weird error*.
 Generator wygenerował błędny kod? 
 
-Poprawiamy generator zamieniając w widokach, 
+Poprawiamy generator zamieniając w widokach:
 `education_path` na `education_index_path` oraz 
-kontrolerze w metodzie `destroy` na:
+w kontrolerze w metodzie `destroy` na:
 
     :::ruby
     link_to 'Back', education_index_path
 
-Musimy też podmienić w wygenerowanym formularzu wymienić:
+W wygenerowanym formularzu musimy też podmienić:
 
     :::html_rails
     <% form_for(@education) do |f| %>
 
-na
+na (to było trudne!):
 
     :::html_rails
     <% form_for(:education, :url => education_index_path) do |f| %>
 
-
-I jeszcze raz podglądamy routing aby się przekonać co jest z nim
-nie tak. Gdzie jest „ambiguous”:
-
-    rake routes
-
-Jeśli nie zmienialibyśmy liczby mnogiej, to w wygenerowanych 
-widokach byłoby tak:
-
-    :::ruby
-    link_to 'Back', educations
-
-i nie byłoby problemów, a tak mamy wygenerowany 
-link z `education` i rails oczekuje jakiegoś `id` 
-(dlaczego?, konwencja REST).
+Na koniec, jeszcze raz podglądamy routing, aby przekonać się
+że postąpiliśmy właściwie.
 
 
 ## A co z polskimi literkami?
