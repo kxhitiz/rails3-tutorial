@@ -100,6 +100,19 @@ Jak to się robi, opisano w blogu we wpisie wspomnianym powyżej.
 Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
 [Ruby on Rails Gravatar Plugin](http://mdeering.com/posts/022-ruby-on-rails-gravitar-plugin).
 
+Albo zamiast wtyczki skorzystać z pomysłu przedstawionego
+w [Railscasts \#182](http://railscasts.com/episodes/182-cropping-images).
+W tym screencaście, R. Bates pokazuje jak
+dodać do aplikacji bajerancki interfejs umożliwiający przycinanie 
+obrazków przed umieszczeniem ich w bazie danych.
+Dodać taką funkcjonalność do budowanej aplikacji.
+
+4\. Wersja 3.5 Firefoxa obsługuje 
+[W3C Geolocation API](http://dev.w3.org/geo/api/spec-source.html).
+Korzystając z wtyczki
+[GeoMereLaal](http://github.com/parolkar/geo_mere_laal) 
+dodać Geolocation do aplikacji.
+
 <blockquote>
 <p>
   We send down exactly one .js and one .css file. If you are sending
@@ -108,12 +121,6 @@ Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
 </p>
 <p class="author">— Pivotal Labs</p>
 </blockquote>
-
-4\. Wersja 3.5 Firefoxa obsługuje 
-[W3C Geolocation API](http://dev.w3.org/geo/api/spec-source.html).
-Korzystając z wtyczki
-[GeoMereLaal](http://github.com/parolkar/geo_mere_laal) 
-dodać Geolocation do aplikacji.
 
 5\. Skompresować *static assets* za pomocą wtyczki
 [Asset Packager] [asset-packager]: 
