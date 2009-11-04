@@ -22,7 +22,7 @@ z BlueprintCSS i HAML&SASS.
 **Wykłady:** 
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
-1. {%= link_to "Ruby 1.9", "/ruby19" %}
+1. {%= link_to "Ruby 1.9.1", "/ruby19" %}
 1. {%= link_to "Sprytny kod", "/slick-code" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
 1. {%= link_to "„Leniwiec z o.o.” – klon pastie", "/pastie" %}
