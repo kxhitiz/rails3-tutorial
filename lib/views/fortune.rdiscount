@@ -426,14 +426,14 @@ Teraz do partial mozemy wrzucić więcej kodu:
 nie ma problemu z liczbą pojedynczą i mnogą.
 
 
-> Given sufficient time, what you put off doing 
-> today will get done by itself.
-
 ## Problemy, problemy: znowu czeka nas suszenie kodu
 
 Być może powinnien być jeden model/resource: *Quotation* z dodatkowym
 atrybutem *category*. Ale wtedy routing będzie do bani.
 Dlaczego? Co robić?
+
+> Given sufficient time, what you put off doing 
+> today will get done by itself.
 
 Na razie skorzystamy z frazesu wypisanego obok.
 
