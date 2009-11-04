@@ -461,13 +461,13 @@ Klasyka z railscasts [HTTP Basic
 Authentication](http://railscasts.com/episodes/82-http-basic-authentication/).
 
 
-## Digest HTTP Authentication
-
 > For those that may now know the difference, basic authentication only
 > base 64 encodes the authenticating username and password (making it
 > easily decoded) whereas digest authentication sends an MD5 hash of
 > your username and password. To simplify, digest is more secure than
 > basic.
+
+## Digest HTTP Authentication
 
 W tabelce * platitudes* też jest trochę fajnych cytatów.
 Dla odmiany zabezpieczymy cały kontroler za pomocą digest authentication.
