@@ -1,0 +1,23 @@
+#### {% title "Sprytny kod" %}
+
+# Sprytny kod
+
+<blockquote>
+  {%= image_tag "/images/algorithm.png", :alt => "[Rozwiązanie…]" %}
+</blockquote>
+
+1\. Czytnik RSS
+
+    :::ruby
+    require 'rubygems'
+    require 'hpricot'
+    require 'open-uri'
+
+    tab = Array.new
+    doc = Hpricot(open('http://example.net/feed/combined/'))
+    doc.search("title").select do
+      |x| x.inner_html.match("Stargate|Merlin|House") ? tab << x.inner_html.split('[').first : nil
+    end
+    puts tab.uniq.sort.map { |x| "- " + x} 
+
+2\. …
