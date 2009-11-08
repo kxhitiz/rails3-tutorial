@@ -5,3 +5,10 @@
 <blockquote>
   {%= image_tag "/images/algorithm.png", :alt => "[Rozwiązanie…]" %}
 </blockquote>
+
+1\. Moje kontakty:
+
+ * [Sz. Szypulski](http://rails.gen2.org/2009/11/08/pierwsze-koty-za-ploty/)
+   umieścił swoją aplikację na [githubie](http://github.com/szymonpk/kontakty).
+   Działająca aplikacja można obejrzeć na 
+   [serwerze Szymona](http://kontakty.gen2.org/).
