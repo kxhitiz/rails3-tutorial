@@ -6,9 +6,29 @@
   {%= image_tag "/images/algorithm.png", :alt => "[Rozwiązanie…]" %}
 </blockquote>
 
-1\. Moje kontakty:
+## Moje kontakty
 
  * [Sz. Szypulski](http://rails.gen2.org/2009/11/08/pierwsze-koty-za-ploty/)
    umieścił swoją aplikację na [githubie](http://github.com/szymonpk/kontakty).
-   Działająca aplikacja można obejrzeć na 
-   [serwerze Szymona](http://kontakty.gen2.org/).
+   Można ją obejrzeć na [serwerze Szymona](http://kontakty.gen2.org/).
+   Polecany przeze mnie plugin nie zadziałał, dlatego Szymon użył
+   gemu *Geokit*.
+ * [B. Drzazgowski](http://sigma.inf.ug.edu.pl/~bdrzazgo/rails3/2009/10/25/pierwsze-koty-za-ploty/)
+   również umieścił aplikację na [githubie](http://github.com/Drzazga/kontakty).
+   Bartosz próbował gem *Geolocation*, który nie zadziałał.
+   Następnie użył gemu *Geokit*. Do autentykacji i autoryzacji wykorzystał
+   gemy *Authlogic* oraz *Lockdown* — na razie bez dokumentacji.
+   W blogu warto też zajrzeć do wpisów: 
+   [Fortunki i przyjazny adres](http://sigma.inf.ug.edu.pl/~bdrzazgo/rails3/2009/11/04/fortunki-i-ladny-adres/)
+   oraz [Zapełniamy bazę kontaktami](http://sigma.inf.ug.edu.pl/~bdrzazgo/rails3/2009/11/05/zapelniamy-baze/).
+ * [B. Rożek](http://sigma.inf.ug.edu.pl/~brozek/rails3/) też ma aplikację
+   na [githubie](http://github.com/elboroo/kontakty/). Na razie tylko tyle.
+ * [D. Zmitrowicz](http://sigma.inf.ug.edu.pl/~dzmitrow/rails3/2009/10/28/Pierwsze-koty-za-ploty/)
+   postanowił napisać aplikację ToDo, do pobrania z 
+   [githuba](http://github.com/dogrizz/ToDo/tree/as). Sama aplikacja działa [tutaj](http://gen2.org:3752/).
+ * [Ł. Linczewski]() umieścił aplikację na
+   [heroku](http://posts-linek.heroku.com/posts). I już. Bez słowa komentarza.
+
+Resztę zapraszam na blog 
+[M. Smolińskiego](http://sigma.inf.ug.edu.pl/~msmolins/rails3/).
+Jak mawiał prof. Stanisławski, to by było na tyle [8.11.2009].
