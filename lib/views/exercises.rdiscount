@@ -145,17 +145,16 @@ Przeczytać do czego można użyć tego narzędzia.
   Ken Arnold. [source Wikipedia]</p>
 </blockquote>
 
-## Szlifujemy Fortunkę
 
-1\. Utworzyć nową stronę główną aplikacji.
-  Umieścić na niej po jednym losowym cytacie
-  z każdej kategorii oraz linki do stron
-  z indeksami kategorii.
+## Dodajemy tagowanie
 
-2\. Zaimplementować tagowanie obrazków tak jak to jest pokazane na screencaście 
+Do aplikacji *Kontakty* dodać możliwośc dodawania tagów,
+na przykład takich: praca, rodzina, znajomi, przypadkowi znajomi,
+uczelnia, wojsko, pizzeria itp.
+
+* Zaimplementować tagowanie obrazków tak jak to jest pokazane na screencaście 
   [More on Virtual Attributes](http://railscasts.com/episodes/167-more-on-virtual-attributes).
-
-3\. Jeszcze raz otagować obrazki. Tym razem skorzystać z
+* Jeszcze raz otagować obrazki. Tym razem skorzystać z
   [Acts As Taggable on Steroids Ruby On Rails Plugin With 
   Paginate](http://burm.net/2008/10/08/acts-as-taggable-on-steroids-ruby-on-rails-plugin-with-paginate/)
 
