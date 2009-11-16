@@ -9,14 +9,29 @@
 
 ## Info
 
-[13.10.2009] *jBlog* pojawił się na stronie 
-[Popular Forked Repositories – GitHub](http://github.com/popular/forked).
-Cieszę się, że pomysł zastąpienia notatek w zeszytach notatkami
-w komputerze tak się Wam spodobał!
+[16.11.2009] Do 27.11.2009 proszę o uzupełnienie (i odesłanie) 
+metryczki projektu według wzoru:
+
+* Nazwa projektu: **?**
+* URI projektu: http://sigma.ug.edu.pl:**numer portu**/
+* URI repozytorium Git projektu: **?**
+* Diagram ERD aplikacji: **link**
+* Opis podstawowych funkcjonalności:<br/>
+  *maksymalnie jeden krótki akapit*
+* Lista wykorzystanych w projekcie wtyczek, gemów:
+  - devise (0.4.2)
+  - paperclip (2.3.1.1)
+
+<!-- * <Wkleić wynik działania polecenia: rake stats> -->
 
 [26.10.2009] Proszę usupełnić wpisy na blogach.
 Do 30.10.2009 należy umieścić rozwiązania 
 z BlueprintCSS i HAML&SASS.
+
+[13.10.2009] *jBlog* pojawił się na stronie 
+[Popular Forked Repositories – GitHub](http://github.com/popular/forked).
+Cieszę się, że pomysł zastąpienia notatek w zeszytach notatkami
+w komputerze tak się Wam spodobał!
 
 
 **Wykłady:** 
