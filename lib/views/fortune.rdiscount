@@ -674,10 +674,10 @@ na
     :::html_rails
     <title><%= yield(:title) || "WB_Quotations" -%></title>
 
-W widokach definiujemy tytuł wpisując:
+W widokach definiujemy tytuł wpisując, na przykład:
 
     :::html_rails
-    <% title 'WB_RAILS – Aktywne bazy danych' -%>
+    <% title 'Fortunka: Edukacja' -%>
 
 
 ## Różne
@@ -686,3 +686,5 @@ Skorzystać z wtyczki:
 Bryan Helmkamp,
 [rack-bug](http://github.com/brynary/rack-bug/) —
 debugging toolbar for Rack applications implemented as middleware.
+
+Nie działa z Firefox 3.6beta2?
