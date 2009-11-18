@@ -9,8 +9,8 @@
 
 ## Info
 
-[16.11.2009] Do 27.11.2009 proszę o uzupełnienie (i odesłanie) 
-metryczki projektu według wzoru:
+[16.11.2009] Do 27.11.2009 <span id="defaultCountdown"></span>
+proszę o uzupełnienie (i&nbsp;odesłanie) metryczki projektu według wzoru:
 
 * Nazwa projektu: **?**
 * URI projektu: http://sigma.ug.edu.pl:**numer portu**/
@@ -24,7 +24,7 @@ metryczki projektu według wzoru:
 
 <!-- * <Wkleić wynik działania polecenia: rake stats> -->
 
-[26.10.2009] Proszę usupełnić wpisy na blogach.
+[26.10.2009] Proszę uzupełnić wpisy na blogach.
 Do 30.10.2009 należy umieścić rozwiązania 
 z BlueprintCSS i HAML&SASS.
 
@@ -112,3 +112,13 @@ competition in which teams of skilled web application developers get
 one weekend to design, develop, and deploy the best web property that
 they can, using the power of Ruby and Rails.
 
+<script type="text/javascript">
+$(function () {
+ deadline = new Date(2009, 10, 27);
+ $('#defaultCountdown').countdown({
+   until: deadline, 
+   compact: true, 
+   layout: '<b>{dn}{dl} {hnn}{sep}{mnn}{sep}{snn}</b>',
+   format: 'dHMS'});
+});
+</script>
