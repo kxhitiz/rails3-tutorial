@@ -137,14 +137,21 @@ website design simpler to implement and easier to maintain.”
 Przeczytać do czego można użyć tego narzędzia.
 
 <blockquote>
- <p>
-  {%= image_tag "/images/ken-arnold.jpg", :alt => "[Ken Arnold]" %}
- </p>
- <p>A fortune program first appeared in Version 7 Unix. The most common
-  version on modern systems is the BSD fortune, originally written by
-  Ken Arnold. [source Wikipedia]</p>
+{%= image_tag "/images/martin-fowler.jpg", :alt => "[Martin Fowler]" %}
+<p>
+  Often when you come across something new it can be a good idea to
+  overuse it in order to find out it's boundaries. This is a quite
+  reasonable learning strategy. It's also why people always tend to
+  overuse new technologies or techniques in the early days. People
+  often criticize this but it's a natural part of learning. If you
+  don't push something beyond its boundary of usefulness how do you
+  find where that boundary is? The important thing is to do so in a
+  relatively controlled environment so you can fix things when you
+  find the boundary. (After all until we tried it I thought XML would
+  be a good syntax for build files.)
+</p>
+<p class="author">- Martin Fowler</p>
 </blockquote>
-
 
 ## Dodajemy tagowanie
 
