@@ -151,3 +151,12 @@ li ul {
 .table2 {
   background-color: #ECB39F;
 }
+
+/* countdown */
+
+#defaultCountdown { 
+  background: #F34607;
+  border-width: 0;
+  padding: 2px 4px;
+  -moz-border-radius: 4px;
+}
