@@ -1,15 +1,12 @@
-#### {% title "Ruby 1.9" %}
-
-# Ruby 1.9.1
+#### {% title "Ruby 1.9 w pigułce" %}
 
 <blockquote>
- {%= image_tag "/images/edsger_wybe_dijkstra.jpg", :alt => "[Edsger W. Dijkstra]" %}
- <p>
-  Elegance is not a dispensable luxury but 
-  a quality that decides between success and failure.
- </p>
+ {%= image_tag "/images/in_a_nutshell.jpg", :alt => "[In a Nutshell]" %}
+ <p class="author">[<a href="http://pjkh.com/articles/2009/11/13/ruby-in-a-nutshell">phil•ip 
+  hall•strom</a>]</p>
 </blockquote>
 
+# Ruby 1.9 w pigułce
 
 Na Sigmie jest zainstalowany 
 ruby 1.8.7 (2009-06-08 patchlevel&nbsp;173).
@@ -25,6 +22,14 @@ Ostatnia wrzutka ma numer: 25370.
 
 Wszystkie dane z dnia 16.10.2009.
 
+
+<blockquote>
+ {%= image_tag "/images/edsger_wybe_dijkstra.jpg", :alt => "[Edsger W. Dijkstra]" %}
+ <p>
+  Elegance is not a dispensable luxury but 
+  a quality that decides between success and failure.
+ </p>
+</blockquote>
 
 ## Hasze
 
