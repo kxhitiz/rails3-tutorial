@@ -561,9 +561,8 @@ W pliku *environment.rb* dopisujemy:
     :::ruby 
     require 'will_paginate'
     Rails::Initializer.run do |config|
-      config.gem 'mislav-will_paginate', 
-        :version => '~> 2.3.6', :lib => 'will_paginate', 
-        :source => 'http://gems.github.com'
+      config.gem 'will_paginate', :version => '~> 2.3.6',
+        :source => 'http://gemcutter.org'
     end
 
 Następnie sprawdzamy czy gem jest już zainstalowany w odpowiedniej wersji:
@@ -622,43 +621,34 @@ Attachments](http://burm.net/2008/10/07/the-ruby-on-rails-paperclip-plugin-tutor
 
 Jak zwykle sprawdzamy czy gem jest już zainstalowany:
 
-    gem list
+    gem list | egrep paper
 
 Jeśli nie to instalujemy go tak:
 
-    gem sources -a http://gems.github.com
-    sudo gem install thoughtbot-paperclip
+    gem sources -a http://gemcutter.org
+    sudo gem install paperclip
+    # Successfully installed paperclip-2.3.1.1
+    # 1 gem installed
 
 albo, lepiej, w pliku *environment.rb* dopisujemy:
 
     :::ruby 
     Rails::Initializer.run do |config|
-      config.gem 'thoughtbot-paperclip', :version => '~> 2.2.8', :lib => 'paperclip', 
-        :source => 'http://gems.github.com'
+      config.gem 'paperclip', :version => '~> 2.3.1'
     end
 
-Uwaga: Troszkę się pozmieniało od wakacji. Teraz gemy są na
-*http://gemcutter.com*. Gemy nie są *namespaced* i 
-po instalacji gemu *gemcutter* instalujemy je tak:
-
-    sudo gem install paperclip
-
-Koniec uwagi. Kończymy konfigurację aplikacji instalując brakujące gemy:
-
-    sudo rake gems:install
-
-OK. Chcemy mieć attaczmęt w modelu *Education*. Nazwiemy go *photo*.
+OK. Chcemy mieć attaczmęt w modelu *Platitude*. Nazwiemy go *photo*.
 
 Generujemy migrację:
 
-    script/generate migration AddPhotosToEducation \
+    script/generate migration AddPhotosToPlatitudes \
       photo_file_name:string photo_content_type:string photo_file_size:integer
 
 Migrujemy:
 
     rake db:migrate
 
-W modelu *Education* wpisujemy:
+W modelu *Platitude* wpisujemy:
 
     :::ruby
     # paperclip
@@ -750,4 +740,4 @@ Bryan Helmkamp,
 [rack-bug](http://github.com/brynary/rack-bug/) —
 debugging toolbar for Rack applications implemented as middleware.
 
-Nie działa z Firefox 3.6beta2?
+Nie działa z Firefox 3.6beta2? ale działa z Firefox 3.3.5.
