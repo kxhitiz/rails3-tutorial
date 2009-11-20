@@ -740,4 +740,4 @@ Bryan Helmkamp,
 [rack-bug](http://github.com/brynary/rack-bug/) —
 debugging toolbar for Rack applications implemented as middleware.
 
-Nie działa z Firefox 3.6beta2? ale działa z Firefox 3.3.5.
+Nie działa z Firefox 3.6beta2? ale działa z Firefox 3.5.5.
