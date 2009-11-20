@@ -13,14 +13,22 @@
 proszę o uzupełnienie (i&nbsp;odesłanie) metryczki projektu według wzoru:
 
 * Nazwa projektu: **?**
-* URI projektu: http://sigma.ug.edu.pl:**numer portu**/
+* Link do działającej aplikacji: **?**
+* Link do diagramu ERD aplikacji: **?**
+* URI systemu zarządzania projektem: **?**
 * URI repozytorium Git projektu: **?**
-* Diagram ERD aplikacji: **link**
 * Opis podstawowych funkcjonalności:<br/>
   *maksymalnie jeden krótki akapit*
 * Lista wykorzystanych w projekcie wtyczek, gemów:
   - devise (0.4.2)
   - paperclip (2.3.1.1)
+
+**Uwagi:** 1. Nazwy gemów powyżej są przykładowe. 2. Do zarządzania
+aplikacjami Rails najczęściej są używane 
+[Redmine](http://www.redmine.org/) albo 
+[Retrospectiva](http://retrospectiva.org/wiki/Single-Step-Installer).
+Krótko o instalacji Redmine opowie Szymon Szypulski
+na wykładzie 25.11.2009. Zapraszam!
 
 <!-- * <Wkleić wynik działania polecenia: rake stats> -->
 
