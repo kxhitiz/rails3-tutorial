@@ -420,61 +420,132 @@ nie ma problemu z liczbą pojedynczą i mnogą.
 
 ## Problemy, problemy: znowu czeka nas suszenie kodu
 
+> Given sufficient time, what you put off doing 
+> today will get done by itself.
+
 Być może powinnien być jeden model/resource: *Quotation* z dodatkowym
 atrybutem *category*. Ale wtedy routing będzie do bani.
 Dlaczego? Co robić?
-
-> Given sufficient time, what you put off doing 
-> today will get done by itself.
 
 Na razie skorzystamy z frazesu wypisanego obok.
 
 ## Dodajemy Basic HTTP Authentication
 
 W tabelce *educations* jest trochę fajnych cytatów.
-Nie chcemy aby ktoś nam grzebał w tabelkach.
+Chcemy *nieco* ograniczyć dostęp do naszej aplikacji.
 
     :::ruby
     class EducationController < ApplicationController
-      # USERNAME, PASSWORD = "wbzyl", "sekret"
-      # logger.info("Digest::SHA1: #{Digest::SHA1.hexdigest('sekret')}")
-      USERNAME, PASSWORD = "wbzyl", "a1b9892611956aa13a5ab9ccf01f49662583f2d2"
+      USERNAME, PASSWORD = "wbzyl", "sekret"
       before_filter :authenticate, :only => [:new, :edit, :destroy]
-      ...
+    
     private
       def authenticate
         authenticate_or_request_with_http_basic do |username, password| 
-        #username == USERNAME && password == PASSWORD
-        username == USERNAME && (Digest::SHA1.hexdigest(password) == PASSWORD)
-      end
-    end        
+          (username == USERNAME) && (password == PASSWORD)
+        end
+      end        
 
 > For those that may now know the difference, basic authentication only
-> base 64 encodes the authenticating username and password (making it
+> base 64 encodes the authenticating 'username:password' (making it
 > easily decoded) whereas digest authentication sends an MD5 hash of
 > your username and password. To simplify, digest is more secure than
 > basic.
+>
+> […] the intent of the encoding is to encode non-HTTP-compatible 
+> characters that may be in the user name or password 
+> into those that are HTTP-compatible.
+
+Z tego co jest napisane w ramce obok, wynika że nazwę użytkownika
+i hasło mozemy odczytać, na przykład w taki sposób.
+(Chyba, że korzystamy z SSL.)
+
+Po wysłaniu zapytania/żądania */projects/new* (czyli po kliknięciu w
+link „New task” aplikacji TODO), w panelu Firebuga w zakładce *Sieć*
+rozwijamy zakładkę z *GET new*, gdzie odszukujemy w nagłówkach
+zapytania wiersz z *Authorization*:
+
+    Authorization    Basic d2J6eWw6c2VrcmV0
+
+Teraz na konsoli *irb* wpisujemy:
+
+    :::ruby
+    require 'base64'
+    Base64.decode64('d2J6eWw6c2VrcmV0') # => "wbzyl:sekret"
 
 Klasyka z railscasts [HTTP Basic 
 Authentication](http://railscasts.com/episodes/82-http-basic-authentication/).
 
+Jeśli zechcemy „ukryć” hasło w kodzie kontrolera, to możemy postąpić tak:
+
+    :::ruby
+    class EducationController < ApplicationController
+      USERNAME, PASSWORD = "wbzyl", "a1b9892611956aa13a5ab9ccf01f49662583f2d2"
+      before_filter :authenticate, :only => [:new, :edit, :destroy]
+    
+    private
+      def authenticate
+        authenticate_or_request_with_http_basic do |username, password| 
+          username == USERNAME && (Digest::SHA1.hexdigest(password) == PASSWORD)
+        end
+      end        
+
+> Firefoks pamięta hasła w czymś co się nazywa „Aktywne zalogowania”.
+> Wpisane hasła zawsze możemy usunąć korzystając z menu:
+> *Narzędzia > Wyczyść historię przeglądania* (Ctrl+Shift+Del).
+> (Albo ponownie uruchamiając firefoksa.) 
+
+Tajemniczy napis "a1b9…" przygotowujemy na konsoli *irb* w taki sposób:
+
+    :::ruby
+    require 'digest'
+    Digest::SHA1.hexdigest('sekret')
+
+czyli hasłem nadal jest *sekret*. Oczywiście, nie zmieni to nagłówka
+*Authorization*. Hasło i nazwa użytkownika nadal są przesyłane
+zakodowane w Base64.
+
+<blockquote>
+<p>
+ Digest authentication is intended to supersede unencrypted use of the
+ Basic access authentication, allowing user identity to be established
+ securely <b>without having to send a password in plaintext over the
+ network</b>. Digest authentication is basically an application of MD5
+ cryptographic hashing with usage of nonce values to prevent
+ cryptanalysis.
+</p>
+<p class="author">[<a href="http://en.wikipedia.org/wiki/Digest_access_authentication">Wikipedia</a>]</p>
+</blockquote>
 
 ## Digest HTTP Authentication
 
-W tabelce * platitudes* też jest trochę fajnych cytatów.
-Dla odmiany zabezpieczymy cały kontroler za pomocą digest authentication.
+W tabelce *platitudes* też jest trochę fajnych cytatów. Tutaj, dla
+odmiany, zabezpieczymy cały kontroler za pomocą **digest authentication**.
 
     :::ruby
     class PlatitudesController < ApplicationController
       USERS = { "wbzyl" => "sekret" }
       before_filter :authenticate   
-      ...
+      
       def authenticate
         authenticate_or_request_with_http_digest do |username|
           USERS[username]
         end
       end
-    end
+
+Teraz, w zakładkach Firebuga odszukujemy nagłówek *Authorization*: 
+
+    Authorization    Digest username="wbzyl", 
+      realm="Application", 
+      nonce="MTI1ODcyNTY3NTo4NDU0ZDEyNThhMjZmMmViZWI2MTNmZGZjM2Q0MTFmNQ==", 
+      uri="/", 
+      algorithm=MD5, 
+      response="bc237bf639eab145d7ca63858f1bbcd1", 
+      opaque="71415a7b203e5e8a30d3ceacbe672280", 
+      qop=auth, 
+      nc=00000001, 
+      cnonce="9a39a786e0315244"
+
 
 ## Paginacja
 

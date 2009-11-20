@@ -239,6 +239,24 @@ Widok: *show.html.erb*:
 Reszta widoków jest standardowa.
 
 
+<blockquote>
+<h3>Security Alert!</h3>
+<p>
+  Instalujemy dodatek do Firefoksa o&nbsp;nazwie
+  <a href="http://chrispederick.com/work/web-developer/">Web Developer</a>.
+</p>
+<p>
+  Wchodzimy na stronę aplikacji TODO: <i>http://localhost:3000/</i>.
+  Klikamy na jeden z projektów, np. <i>/projects/2/edit</i>.
+  Na stronie wybranego projektu, klikamy w link „<i>New task</i>”.
+  Po wyświetleniu strony z zadaniami,
+  klikamy w menu „<i>Formularze</i>” na pasku Web Developer
+  gdzie zaznaczamy „<i>Wyświetl szczegóły formularza</i>”.
+  Teraz zmieniamy liczbę w polu <b>task_project_id</b>
+  na inną, <b>przypisując w ten sposób zadanie do innego projektu</b>!
+</p>
+</blockquote>
+
 ## Widoki dla kontrolera *Tasks*
 
 Implemetujemy tylko widoki: *edit.html.erb* i *new.html.erb*.
