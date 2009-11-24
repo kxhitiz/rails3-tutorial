@@ -1,4 +1,4 @@
-# Samouczek do frameworka Rails
+# Samouczek do Rails
 
 <blockquote>
   {%= image_tag "/images/the_thinker.jpg", :alt => "[The Thinker]" %}
