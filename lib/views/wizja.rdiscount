@@ -58,7 +58,9 @@ blog. Przewidywana ilość użytkowników to 50 tysięcy, każdy ma
 wysyła miesięcznie 30 wiadomości.
 
 
-## Opis produktu
+#### {% title "Dokument wizji projektu" %}
+
+# Wizja projektu: <nazwa projektu>
 
 Należy wymienić (można w punktach) główne funkcjonalności
 oferowane przez tworzony system. Należy zaznaczyć, które z nich

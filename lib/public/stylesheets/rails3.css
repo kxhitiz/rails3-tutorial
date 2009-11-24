@@ -152,9 +152,6 @@ pre, code {
 thead th {
   background-color: #ADD8C7;
 }
-li ul {
-  margin-bottom: 1.5em;
-}
 
 .table1 {
   background-color: #EB7C7C;
@@ -171,4 +168,10 @@ li ul {
   border-width: 0;
   padding: 2px 4px;
   -moz-border-radius: 4px;
+}
+
+/* misc */
+
+li ul, li ol {
+  margin: 0.25 1.5em;
 }
