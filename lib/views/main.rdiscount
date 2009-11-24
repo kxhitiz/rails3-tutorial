@@ -36,12 +36,12 @@ realizowanego w zespołach 4–5 osobowych, według wzoru:
 Krótko o instalacji Redmine opowie Szymon Szypulski
 na wykładzie 25.11.2009. Zapraszam! 
 (3) Listę przykładowych projektów
-realizowanych na UJ można znaleźć stronie
+realizowanych na UJ można znaleźć na stronie
 [Agnieszki Figiel](http://epi.agnessa.eu/projects/project-suggestions/).
 (4) Dla serwisu wymagającego logowania przyjmujemy, że 
 admin loguje się za pomocą admin/admin, a użytkownik jako
-user/user. Jeśli serwis przewiduje większą liczbę ról użytkowników,
-informacja na temat ich danych musi znaleźć się powyżej w *Rózne uwagi*.
+user/user. Jeśli serwis przewiduje większą liczbę ról,
+informacja na ich temat musi znaleźć się powyżej w *Różne uwagi*.
 
 <!-- * <Wkleić wynik działania polecenia: rake stats> -->
 
