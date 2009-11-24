@@ -29,17 +29,18 @@ realizowanego w zespołach 4–5 osobowych, według wzoru:
   - paperclip (2.3.1.1)
 * Różne uwagi.
 
-**Uwagi:** 1. Nazwy podane powyżej są przykładowe. 2. Do zarządzania
-aplikacjami Rails najczęściej są używane 
+**Uwagi:** (1) Nazwy podane powyżej są przykładowe. 
+(2) Do zarządzania aplikacjami Rails najczęściej są używane 
 [Redmine](http://www.redmine.org/) albo 
 [Retrospectiva](http://retrospectiva.org/wiki/Single-Step-Installer).
 Krótko o instalacji Redmine opowie Szymon Szypulski
-na wykładzie 25.11.2009. Zapraszam! 3. Listę przykładowych projektów
+na wykładzie 25.11.2009. Zapraszam! 
+(3) Listę przykładowych projektów
 realizowanych na UJ można znaleźć stronie
 [Agnieszki Figiel](http://epi.agnessa.eu/projects/project-suggestions/).
-4\. Dla serwisu wymagającego logowania przyjmujemy, że 
+(4) Dla serwisu wymagającego logowania przyjmujemy, że 
 admin loguje się za pomocą admin/admin, a użytkownik jako
-user/user. Jeśli serwis przewiduje większą ilość ról użytkowników,
+user/user. Jeśli serwis przewiduje większą liczbę ról użytkowników,
 informacja na temat ich danych musi znaleźć się powyżej w *Rózne uwagi*.
 
 <!-- * <Wkleić wynik działania polecenia: rake stats> -->
