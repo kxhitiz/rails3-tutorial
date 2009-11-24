@@ -4,6 +4,16 @@
 
 Wizja projektu.
 
+Pierwszy diagram: 
+
+{%= image_tag "/images/ale-kino/film-kino.png", :alt => "[]<->[]" %}
+
+Drugi diagram:
+
+{%= image_tag "/images/ale-kino/film-seans-kino.png", :alt => "[]<->[]<->[]" %}
+
+Trzeci diagram:
+
 
 ## Kilka odsyłaczy
 
