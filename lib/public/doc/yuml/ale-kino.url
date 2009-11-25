@@ -1,3 +1,6 @@
 http://yuml.me/diagram/scruffy;scale:120/class/[Film]<->[Kino]
 http://yuml.me/diagram/scruffy;scale:120/class/[Film]<-[Seans],[Seans]->[Kino]
 http://yuml.me/diagram/scruffy;scale:120/class/[Film]<-[Recenzja]
+
+[Film|name;minutes]<-[Seans|starts_on;ends_on],[Seans]->[Kino|name]
+[Film|name;minutes]<-[Recenzja|author_name;stars;content]

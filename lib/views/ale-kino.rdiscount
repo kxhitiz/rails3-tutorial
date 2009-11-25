@@ -14,9 +14,17 @@ Drugi diagram:
 
 Trzeci diagram:
 
-{%= image_tag "/images/ale-kino/film-recenzja.png", :alt => "[Film]<->[Recenzja]" %}
+{%= image_tag "/images/ale-kino/film-recenzja.png", :alt => "[Film]<-[Recenzja]" %}
 
-[24.11.2009] Na razie, to by było tyle.
+Czwarty diagram:
+
+{%= image_tag "/images/ale-kino/film-seans-kino-full.png", :alt => "[Film]<-[Seans]->[Kino]" %}
+
+Piąty diagram:
+
+{%= image_tag "/images/ale-kino/film-recenzja-full.png", :alt => "[Film]<-[Recenzja]" %}
+
+[25.11.2009] Na razie, to by było tyle.
 
 
 ## Kilka odsyłaczy
