@@ -1,0 +1,32 @@
+#### {% title "Projekty" %}
+
+# Lista projektów
+
+## Home Sweet Home
+
+Serwis ogłoszeń wynajmu mieszkań.
+
+Autorzy:
+
+* Pętlicki Michał
+* Rusajczyk Monika
+* Smolinski Marian (szef projektu)
+* Sulkowski Marcin
+
+[Link do aplikacji](http://sigma.ug.edu.pl:3333/)
+
+URI repozytorium Git projektu:
+git://github.com/FengSzuji/HomeSweetHome.git
+
+Podstawowe funkcjonalności:
+
+- rejestracja użytkowników (formularz z walidacjami)
+- lokalizator (mapy google)
+- możliwość dodawania zdjęć do ogłoszenia
+- przeglądarka zdjęć dla każdego ogłoszenia
+- wyszukiwarka ogłoszeń wedle kryteriów określonych przez użytkownika
+
+Lista użytych gemów:
+
+
+## Kto następny?
