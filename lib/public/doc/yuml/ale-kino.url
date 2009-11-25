@@ -1,0 +1,3 @@
+http://yuml.me/diagram/scruffy;scale:120/class/[Film]<->[Kino]
+http://yuml.me/diagram/scruffy;scale:120/class/[Film]<-[Seans],[Seans]->[Kino]
+http://yuml.me/diagram/scruffy;scale:120/class/[Film]<-[Recenzja]

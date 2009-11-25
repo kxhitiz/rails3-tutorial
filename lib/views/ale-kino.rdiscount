@@ -4,3 +4,22 @@
 
 Wizja projektu.
 
+Pierwszy diagram: 
+
+{%= image_tag "/images/ale-kino/film-kino.png", :alt => "[Film]<->[Kino]" %}
+
+Drugi diagram:
+
+{%= image_tag "/images/ale-kino/film-seans-kino.png", :alt => "[Film]<-[Seans]->[Kino]" %}
+
+Trzeci diagram:
+
+{%= image_tag "/images/ale-kino/film-recenzja.png", :alt => "[Film]<->[Recenzja]" %}
+
+[24.11.2009] Na razie, to by było tyle.
+
+
+## Kilka odsyłaczy
+
+* [yUML](http://yuml.me/) — gem *yumcmd*, rysowanie diagramów;
+  [rysowanie online, składnia](http://yuml.me/diagram/scruffy/class/draw)
