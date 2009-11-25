@@ -161,9 +161,11 @@ uczelnia, wojsko, pizzeria itp.
 
 * Zaimplementować tagowanie obrazków tak jak to jest pokazane na screencaście 
   [More on Virtual Attributes](http://railscasts.com/episodes/167-more-on-virtual-attributes).
-* Jeszcze raz otagować obrazki. Tym razem skorzystać z
-  [Acts As Taggable on Steroids Ruby On Rails Plugin With 
-  Paginate](http://burm.net/2008/10/08/acts-as-taggable-on-steroids-ruby-on-rails-plugin-with-paginate/)
+* Jeszcze raz otagować obrazki. Tym razem skorzystać z wtyczki/gemu
+  [acts-as-taggable-on](http://github.com/mbleigh/acts-as-taggable-on/).
+  Autorem jest Michael Bleigh. Cytat:
+  A tagging plugin for Rails applications that allows for custom 
+  tagging along dynamic contexts.
 
 
 ## Stylizacja Leniwca
