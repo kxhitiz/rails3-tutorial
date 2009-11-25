@@ -1,17 +1,22 @@
+#### {% title "Wzór dokumentu wizji dla projektu" %}
+
 # Wzór dokumentu wizji
 
-Dokument wizji dla projektu <nazwa projektu>:
+Dokument wizji dla projektu <nazwa projektu>: 
 
-    *Autorzy:*	...
-    *Data:* ...
+* autor
+* autor
+* autor
+
+*Data*
 
 
 ## Wprowadzenie
 
 Dokument dotyczy projektu <nazwa projektu> realizowanego w ramach
-zajęć z Interfejsu Graficznego. Niniejszy dokument służy
-przedstawieniu przeznaczenia tworzonego systemu, jego głównych
-cech i przyjętych założeń.
+zajęć z Architektury serwisów internetowych. Niniejszy dokument służy
+przedstawieniu przeznaczenia tworzonego systemu, jego głównych cech i
+przyjętych założeń.
 
 
 ## Cel
@@ -58,9 +63,7 @@ blog. Przewidywana ilość użytkowników to 50 tysięcy, każdy ma
 wysyła miesięcznie 30 wiadomości.
 
 
-#### {% title "Dokument wizji projektu" %}
-
-# Wizja projektu: <nazwa projektu>
+## Wizja projektu: <nazwa projektu>
 
 Należy wymienić (można w punktach) główne funkcjonalności
 oferowane przez tworzony system. Należy zaznaczyć, które z nich
@@ -104,7 +107,7 @@ wyróżniają się na rynku dostępnych rozwiązań.
   życzenia, trudno odnaleźć poszukiwanych fachowców 
 
 
- 6. Zakres i ograniczenia
+## Zakres i ograniczenia
 
 Należy przedstawić zakres projektu obowiązujący przy pierwszej
 wersji systemu (na zaliczenie). Jeśli przewidujemy istotne
