@@ -9,6 +9,8 @@
 
 ## Info
 
+[25.11.2009] Poniżej dodałem link do listy projektów.
+
 [20.11.2009] Do 27.11.2009 <span id="defaultCountdown"></span>
 proszę o uzupełnienie i&nbsp;odesłanie metryczki projektu
 realizowanego w zespołach 4–5 osobowych, według wzoru:
@@ -75,6 +77,7 @@ w komputerze tak się Wam spodobał!
 * {%= link_to "Listy obecności", "/ls" %}
 * {%= link_to "Ćwiczenia", "/exercises" %}
 * {%= link_to "Odpowiedzi", "/answers" %}
+* {%= link_to "Projekty", "/projekty" %}
 
 
 ## Dokumentacja
