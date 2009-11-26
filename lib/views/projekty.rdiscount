@@ -190,7 +190,8 @@ Różne uwagi:
 Opis podstawowych funkcjonalności:
 
 Projekt wzorowany jest na 
-[podpunkcie 25](http://epi.agnessa.eu/projects/project-suggestions/). 
+[podpunkcie 25](http://epi.agnessa.eu/projects/project-suggestions/)
+aplikacji realizowanej na UJ.
 Nasza aplikacja bedzie prowadziła ewidencje przedmiotów
 pożyczonych(kiedy został przedmiot pożyczony, komu oraz termin zwrotu,
 przypomnienia wysyłania mailem). W aplikacji bedzie podział na dwie
