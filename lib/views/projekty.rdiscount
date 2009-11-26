@@ -6,8 +6,6 @@
 
 Serwis ogłoszeń wynajmu mieszkań.
 
-Autorzy:
-
 * Pętlicki Michał
 * Rusajczyk Monika
 * Smolinski Marian (szef projektu)
@@ -15,18 +13,162 @@ Autorzy:
 
 [Link do aplikacji](http://sigma.ug.edu.pl:3333/)
 
+[Link do diagramu ERD aplikacji](/)
+
+[URI systemu zarządzania projektem](/)
+
 URI repozytorium Git projektu:
-git://github.com/FengSzuji/HomeSweetHome.git
+*git://github.com/FengSzuji/HomeSweetHome.git*
 
 Podstawowe funkcjonalności:
 
-- rejestracja użytkowników (formularz z walidacjami)
-- lokalizator (mapy google)
-- możliwość dodawania zdjęć do ogłoszenia
-- przeglądarka zdjęć dla każdego ogłoszenia
-- wyszukiwarka ogłoszeń wedle kryteriów określonych przez użytkownika
+* rejestracja użytkowników (formularz z walidacjami)
+* lokalizator (mapy google)
+* możliwość dodawania zdjęć do ogłoszenia
+* przeglądarka zdjęć dla każdego ogłoszenia
+* wyszukiwarka ogłoszeń wedle kryteriów określonych przez użytkownika
 
 Lista użytych gemów:
+
+
+## Rozwiąż zadanie
+
+Nasza aplikacja będzie Polską wersją portalu StackOverflow
+zorientowaną bardziej na uczniów/studentów a nie geeków IT.
+
+* Bartosz Drzazgowski
+* Marta Sikora
+* Szymon Szypulski (szef projektu)
+* Dominik Zmitrowicz
+
+[Link do aplikacji](http://rozwiaz-zadanie.pl)
+
+[Link do diagramu ERD aplikacji](/)
+
+[URI systemu zarządzania projektem](http://redmine.gen2.org)
+
+URI repozytorium Git projektu: *git://gen2.org/rozwiaz-zadanie.git*
+
+Podstawowe funkcjonalności:
+
+Użytkownicy będą mogli zadawać pytania/problemy, problemy będą
+zaszeregowane według kategorii/tagów, użytkownicy za odpowiedzi będą
+premiowani, przewidujemy także system odznaczeń za "szczególne"
+osiągnięcia. Użytkownicy będą mogli się mogli ze sobą komunikować za
+pomocą wewnętrznego systemu wiadomości. Kazdy użytkownik będzie mógł
+tez mieć grupę znajomych/przyjaciół, aby móc szybko podejrzeć ich
+problemy/pytania/odpowiedzi.
+
+Lista użytych gemów:
+
+* paperclip 2.1.2
+* authlogic 2.1.3
+* lockdown 1.6.0
+* will_paginate 3.0
+* searchlogic >=2.3.5
+* isbn-tools 0.1.0
+* faker 0.3.1 lub forgery
+* populator 0.2.5
+* cucumber
+* activescaffold
+* clickistrano
+
+List użytych wtyczek:
+
+* recaptcha
+* simple-private-messages
+* acts-as-taggable
+* jrails
+
+
+## Motel z rezerwacją (prawdopodobnie)
+
+* Malinowski Marek (szef)
+* Chałkowski Piotr
+* Mateuszuk Krystian
+* Tarkawian Emil
+* Tchórz Piotr
+* Łukasz Klawiński
+
+
+## botRunner: Do Bots Dream Of Electric Capybaras?
+
+Implementacja znanej gry towarzyskiej, popularnej także na forach
+internetowych, znanej u nas jako
+[Mafia](http://en.wikipedia.org/wiki/Mafia_\(party_game\)),
+*Wilkolak*.
+
+* Karolina Steinborn
+* Kamil Czarnogórski
+* Krzysztof Dycha
+
+[Link do aplikacji](http://botrunner.heroku.com)
+
+[URI systemu zarządzania projektem](http://www.assembla.com/spaces/botrunner/)
+
+URI repozytorium Git projektu: git@heroku.com:botrunner.git
+
+[Link do diagramu ERD aplikacji](http://servitor.x10hosting.com/wwwsqldesigner-2.4/)
+(na razie samo narzędzie, trwają prace nad przystosowaniem go do naszych
+potrzeb)
+
+Lista użytych gemów: 
+
+Opis:
+
+Istotnym elementem jest mozliwosc utworzenia gry z botami
+(czyli wprowadzenie BARDZO uproszczonej AI).
+
+Kluczowa funkcjonalnosc obejmuje:
+Tworzenie konta uzytkownika.
+Tworzenie wlasnych gier ("pokoi"), dolaczanie do takowych, obsluga rozgrywki,
+podsumowanie wynikow, sledzenie statystyk graczy. Ponieważ temat jest
+szeroki celem będziemy koncentrować się wyłącznie na funcjonalności
+niezbędnej by uznać serwis za kompletny.
+
+Informacje dodatkowe:
+Celem projektu NIE JEST zaprojektowanie zaawansowanej AI, jedynie
+stworzenie szkieletu umozliwiajacego ewentualny rozwoj takowej.
+
+
+## ProjektX
+
+Serwis z galeriami zdjęć.
+
+* Jarosław Licau (szef)
+* Marcin Pietraszko
+* Jerzy Pilecki
+
+Link do działającej aplikacji: wkrótce
+
+Link do diagramu ERD aplikacji: wkrótce
+
+[URI systemu zarządzania projektem](http://code.assembla.com/ProjektX/)
+
+[URI repozytorium Git projektu](http://github.com/magilla/ProjektX/)
+
+Opis podstawowych funkcjonalności:
+
+Serwis z galeriami zdjęć, z logowaniem (admin/user), umożliwiający
+użytkownikom tworzenie galerii i zarządzanie nimi. Serwis ma umożliwiać
+nadawanie galeriom "praw widoczności" (public/private), umożliwiać
+opisywanie zdjęć (tylko właściciel) i ich komentowanie (inni
+użytkownicy).
+
+Lista użytych gemów:
+
+* ImageScience lub RMagick lub Mini-magick
+
+Różne uwagi:
+
+* Projekt realizowany w Netbeans, z bazą danych PostgreSQL
+  (najprawdopodobniej aplikacja będzie znajdować się na serwerze Sigma na
+  UG)
+* System zarządzania zawiera w sobie repozytorium SVN, a Github z tym
+  projektem będzie zawierał tylko kopię SVN, niekoniecznie zawsze
+  aktualną.
+* Serwis Assembla zawiera zakładkę Messages, w której można podawać
+  komentarze/wiadomości.
 
 
 ## Kto następny?

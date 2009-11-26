@@ -9,6 +9,15 @@
 
 ## Info
 
+[27.11.2009] Właśnie minął czas zgłaszania projektów.
+Teraz aby zgłosić projekt należy:
+
+* sforkować [notatki do wykładu](http://github.com/wbzyl/rails3-tutorial)
+* na końcu w pliku *lib/views/projekty.rdiscount* dodać opis
+  swojego projektu. **Ważne:** wpisujemy używając notacji
+  Markdown (wzorując się na pierwszym projekcie)
+* wysłać *pull request* do mnie.
+
 [25.11.2009] Poniżej dodałem link do listy projektów.
 
 [20.11.2009] Do 27.11.2009 <span id="defaultCountdown"></span>
@@ -20,7 +29,7 @@ realizowanego w zespołach 4–5 osobowych, według wzoru:
   - A. Wierzba (szef projektu)
   - B. Sosna
   - C. Dąb
-* Link do działającej aplikacji: **?**
+* Link do aplikacji: **?**
 * Link do diagramu ERD aplikacji: **?**
 * URI systemu zarządzania projektem: **?**
 * URI repozytorium Git projektu: **?**
