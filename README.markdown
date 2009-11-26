@@ -16,7 +16,7 @@ Sprawdzamy gdzie w systemie został zainstalowany gem *rails3-tutorial*:
 
     gem which rails3-tutorial
 
-Aplikację uruchamiamy w takis sposób:
+Aplikację uruchamiamy tak:
 
 <pre>rackup /«<i>ścieżka do katalogu z gemem</i>»/lib/config.ru -p 8008
 </pre>
