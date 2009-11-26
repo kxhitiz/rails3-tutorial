@@ -1,14 +1,30 @@
-# My notes about Rails 3
+# Rails 3
 
-This is a modular Sinatra application implemented as Gem.
+Gem z notatkami do wykładu „Architektura serwisów internetowych”.
 
-Install it with:
 
-    gem install rails3-tutorial
+## Instalacja
 
-*rails3-tutorial* depends on several gems, so expect
-a few exceptions to be thrown.
+Wykonać polecenie:
 
-To run app, copy *config.ru* file to any folder and run it:
+    gem install rails3-tutorial -s http://gemcutter.org
 
-    thin --rackup config.ru -p 3000 start
+
+## Uruchamianie
+
+Sprawdzamy gdzie w systemie został zainstalowany gem *rails3-tutorial*:
+
+    gem which rails3-tutorial
+
+Aplikację uruchamiamy w takis sposób:
+
+<pre>rackup /«<i>ścieżka do katalogu z gemem</i>»/lib/config.ru -p 8008
+</pre>
+
+Na przykład:
+
+    rackup rackup /usr/lib/ruby/gems/1.8/gems/rails3-tutorial-0.4.1/lib/config.ru -p 8008
+
+Po uruchomieniu aplikacja jest dostępna z URL:
+
+    http://localhost:8008/

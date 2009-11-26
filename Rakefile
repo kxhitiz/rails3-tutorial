@@ -6,23 +6,22 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name         = "rails3-tutorial"
-    gemspec.summary      = "Prosta aplikacja Sinatry do notatek."    
+    gemspec.summary      = "Notatki do wykladu Architektura serwisow internetowych."    
     gemspec.email        = "matwb@univ.gda.pl"
     gemspec.authors      = ["Wlodek Bzyl"]
     gemspec.homepage     = "http://github.com/wbzyl/rails3-tutorial"
 
     gemspec.description = <<-EOF
-Notatki do frameworka Rails3
+Notatki do wykladu Architektura serwisow internetowych
     EOF
     
-    gemspec.files = FileList['lib/**/*', "TODO", "Rakefile", "config.ru", "VERSION.yml", "rails3-tutorial.gemspec"]
+    gemspec.files = FileList['lib/**/*', "Rakefile", "VERSION.yml", "rails3-tutorial.gemspec"]
     
     gemspec.add_runtime_dependency 'rack' 
     gemspec.add_runtime_dependency 'sinatra'
     gemspec.add_runtime_dependency 'rdiscount'
     gemspec.add_runtime_dependency 'ultraviolet'
-    gemspec.add_runtime_dependency 'coderay'
-    gemspec.add_runtime_dependency 'wbzyl-sinatra-rdiscount'    
+    gemspec.add_runtime_dependency 'sinatra-rdiscount'    
     gemspec.add_runtime_dependency 'rack-codehighlighter'
   
     gemspec.rubyforge_project = 'rails3-tutorial'
