@@ -171,4 +171,31 @@ Różne uwagi:
   komentarze/wiadomości.
 
 
+## Katalog rzeczy pożyczonych
+
+* Artur Jezionek
+* Paweł Olejniczak
+* Szymon Bohdanowicz
+* Łukasz Linczewski
+* Piotr Kiereś
+
+[Link do aplikacji](/)
+
+[Link do diagramu ERD aplikacji](/)
+
+[URI systemu zarządzania projektem](https://www.assembla.com/wiki/show/WBProjectSpace)
+
+[URI repozytorium Git projektu](http://github.com/ajezione/Project4WB)
+
+Opis podstawowych funkcjonalności:
+
+Projekt wzorowany jest na 
+[podpunkcie 25](http://epi.agnessa.eu/projects/project-suggestions/). 
+Nasza aplikacja bedzie prowadziła ewidencje przedmiotów
+pożyczonych(kiedy został przedmiot pożyczony, komu oraz termin zwrotu,
+przypomnienia wysyłania mailem). W aplikacji bedzie podział na dwie
+role: użytkowników(każdy bedzie mógł sie zarejestrować oraz zarządzać
+swoim profilem) oraz administratora(aktywacja konta, blokowanie itp.).
+
+
 ## Kto następny?
