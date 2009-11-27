@@ -10,13 +10,17 @@
 ## Info
 
 [27.11.2009] Właśnie minął czas zgłaszania projektów.
-Teraz aby zgłosić projekt należy:
+Teraz aby **zgłosić projekt** lub **poprawki do opisu projektu** należy:
 
-* sforkować [notatki do wykładu](http://github.com/wbzyl/rails3-tutorial)
-* na końcu w pliku *lib/views/projekty.rdiscount* dodać opis
+* Sklonować notatki do wykładu:
+  `git clone git://github.com/wbzyl/rails3-tutorial.git`.
+* Wykonać polecenie: `cd rails3-tutorial`.
+* w pliku *lib/views/projekty.rdiscount* dodać opis
   swojego projektu. **Ważne:** wpisujemy używając notacji
-  Markdown (wzorując się na pierwszym projekcie)
-* wysłać *pull request* do mnie.
+  Markdown (wzorując się na opisie pierwszego projektu).
+* Wykonać commit: `git commit -m "dodano projekt …"`.
+* Przygotować łatkę: `git format-patch HEAD^`.
+* Wysłać emaila z łatką do mnie.
 
 [25.11.2009] Poniżej dodałem link do listy projektów.
 
