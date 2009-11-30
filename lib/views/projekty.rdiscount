@@ -43,7 +43,7 @@ zorientowaną bardziej na uczniów/studentów a nie geeków IT.
 
 [Link do aplikacji](http://rozwiaz-zadanie.pl)
 
-[Link do diagramu ERD aplikacji](/)
+[Link do diagramu ERD aplikacji](http://redmine.gen2.org/attachments/download/3/asi-crud.png)
 
 [URI systemu zarządzania projektem](http://redmine.gen2.org)
 
@@ -106,7 +106,7 @@ internetowych, znanej u nas jako
 
 [URI systemu zarządzania projektem](http://www.assembla.com/spaces/botrunner/)
 
-URI repozytorium Git projektu: git@heroku.com:botrunner.git
+URI repozytorium Git projektu: *git://git.assembla.com/botrunner.git*
 
 [Link do diagramu ERD aplikacji](http://servitor.x10hosting.com/wwwsqldesigner-2.4/)
 (na razie samo narzędzie, trwają prace nad przystosowaniem go do naszych
@@ -145,7 +145,7 @@ Link do diagramu ERD aplikacji: wkrótce
 
 [URI systemu zarządzania projektem](http://code.assembla.com/ProjektX/)
 
-[URI repozytorium Git projektu](http://github.com/magilla/ProjektX/)
+URI repozytorium Git projektu: *git://github.com/magilla/ProjektX.git*
 
 Opis podstawowych funkcjonalności:
 
@@ -185,7 +185,7 @@ Różne uwagi:
 
 [URI systemu zarządzania projektem](https://www.assembla.com/wiki/show/WBProjectSpace)
 
-[URI repozytorium Git projektu](http://github.com/ajezione/Project4WB)
+URI repozytorium Git projektu: *?* (użytkownik?, hasło?)
 
 Opis podstawowych funkcjonalności:
 
