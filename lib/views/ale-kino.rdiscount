@@ -1,30 +1,261 @@
 #### {% title "Ale kino" %}
 
-# Ale kino!
+# Ale kino! — wizja projektu
 
-Wizja projektu [screenshot'a](http://sigma.inf.ug.edu.pl/~mateuszuk/) teraz działa?
+**Filmy** są wyświetlane w **kinach**. Wygodnie było by wejść na stronę
+z listą filmów wyświetlanych danego dnia.
+Umożliwienie **recenzowania** filmów i przy okazji przydzielanie im
+„gwiazdek” zwiększyły by funkcjonalność serwisu.
 
-Pierwszy diagram: 
+Oczywiście, dodatkowo przy każdym filmie powinnien się pojawić
+czas jego projekcji oraz ocena w gwiazdkach.
+
+
+## Pierwszy kod
+
+Z powyższego opisu wynika, że potrzebujemy trzy modele:
+Film, Kino i Recenzja. 
+
+Zależność między Film i Kino jest wiele-do-wielu:
+film może być wyświetlany w wielu kinach i kino
+może wyświetlać wiele filmów.
 
 {%= image_tag "/images/ale-kino/film-kino.png", :alt => "[Film]<->[Kino]" %}
 
-Drugi diagram:
+Zwyczajowo, zależność wiele-do-wielu zastępujemy dwiema zależnościami
+jeden-do-wielu oraz dodatkową tabelą. Często jest tak, że „pośrednicząca”
+tabela „awansuje” do modelu o ile jest potrzeba zapamiętania
+przy okazji dodatkowych danych. Tak jest i w tym wypadku, ponieważ
+oczywiście należy gdzieś zapisać od/do kiedy dany film będzie wyświetlany
+w konkretnym kinie. Potrzebujemy jeszcze jakiejś nazwy na ten model.
+Wydaje się, że nazwa Seans jest odpowiednia.
 
-{%= image_tag "/images/ale-kino/film-seans-kino.png", :alt => "[Film]<-[Seans]->[Kino]" %}
-
-Trzeci diagram:
-
-{%= image_tag "/images/ale-kino/film-recenzja.png", :alt => "[Film]<-[Recenzja]" %}
-
-Czwarty diagram:
+Teraz mamy następujące zależności jeden-do-wielu: Film jest
+wyświetlany na wielu Seansach oraz w Kinie mamy wiele Seansów.
+A po dodaniu atrybutów wygląda to tak:
 
 {%= image_tag "/images/ale-kino/film-seans-kino-full.png", :alt => "[Film]<-[Seans]->[Kino]" %}
 
-Piąty diagram:
+Po tej analizie abieramy się za wygenerowanie szkieletu aplikacji oraz layoutu:
+
+    rails ale-kino
+    script/generate nifty_layout
+
+oraz trzech rusztowań. Ale zanim je wygenerujemy, nauczymy railsy
+liczby mnogiej rzeczowników: 
+*film*, *kino*, *seans* i przy okazji *recenzja*. 
+W tym celu, w pliku *config/initializers/inflections.rb* wpiszemy:
+
+    :::ruby
+    ActiveSupport::Inflector.inflections do |inflect|
+      inflect.irregular 'kino', 'kina'
+      inflect.irregular 'film', 'filmy'
+      inflect.irregular 'seans', 'seanse'
+      inflect.irregular 'recenzja', 'recenzje'  
+    end
+
+
+## Stawiamy rusztowania
+
+Zaczniemy od kin, nastepnie przejdziemy do filmów, a na koniec
+postawimy rusztowania dla seansów.
+
+### Kino
+
+Listę kin się nie zmienia. Nazwy kin wpiszemy w pliku *db/seed.rb*:
+
+    :::ruby
+    # Gdynia
+    Kino.create(:name => 'Multikino (Silver Screen)')
+    Kino.create(:name => 'Klub Filmowy')
+    # Sopot
+    Kino.create(:name => 'Multikino Sopot')
+    Kino.create(:name => 'Kino Polonia')
+
+Nie będziemy potrzebować widoków. Wygenerujemy tylko model:
+
+    :::ruby
+    script/generate nifty_scaffold kino name:string index
+
+Usuwamy niepotrzebny widok *index.html.erb*, migrujemy
+i wypełniamy tabelkę kina danymi:
+
+    :::ruby
+    rake db:migrate
+    rake db:seed
+
+### Film
+
+Dla filmów będziemy potrzebować kompletnego rusztowania
+ze wszystkimi widokami:
+
+    :::ruby
+    script/generate nifty_scaffold film name:string minutes:integer
+
+Strona główna aplikacji podpinamy widok *views/filmy/index.html.erb*
+dopisując w *config/routes.rb*:
+
+    :::ruby
+    map.root :controller => "filmy"
+
+kasując przy okazji domyślny routing oraz usuwając plik *public/index.html*:
+
+    rm public/index.html
+
+Migrujemy:
+
+    rake db:migrate
+
+i, dopiero teraz, uruchomiamy aplikację sprawdzając w ten sposób czy
+o czymś nie zapomnieliśmy i czy wszystko zostało zrobione tak jak trzeba:
+
+    script/server thin    
+
+Jeśli wszystko działa, to klikamy w link *New film* i widzimy, że
+mamy jeszcze sporo rzeczy do zrobienia. Ale to potem.
+Teraz zabierzemy się za recenzje
+
+### Recenzja
+
+Zależność między modelami: Film i Recenzja jest jeden-do-wielu.
+film może mieć wiele recenzji. Recenzja dotyczy jednego filmu.
+
+{%= image_tag "/images/ale-kino/film-recenzja.png", :alt => "[Film]<-[Recenzja]" %}
+
+Z atrybutami może to wyglądać tak:
 
 {%= image_tag "/images/ale-kino/film-recenzja-full.png", :alt => "[Film]<-[Recenzja]" %}
 
-[25.11.2009] Na razie, to by było tyle.
+Co to praktycznie oznacza? Jak wyglądają tabele *filmy* i *recenzje*?
+jak „zakodowane” jest powiązanie między tabelkami/modelami?
+Skąd się biorą pola *id*? Pole *film_id*?
+
+Zanim się temu przyjrzymy generujemy rusztowanie dla modelu Recenzja.
+Na pewno będziemy potrzebować widoku *new* i chyba *index*
+z listą ostatnio wpisanych recenzji (być może będziemy recenzje
+moderować; pojawi się potrzeba usuwania/banowania recenzji).
+
+    script/generate nifty_scaffold recenzja author_name:string content:text film_id:integer index new
+    rake db:migrate
+
+W modelu *Recenzja* dopisujemy:
+
+    :::ruby
+    class Recenzja < ActiveRecord::Base
+      attr_accessible :author_name, :contents, :film_id  # NEW! od Rails 2.3.5
+      belongs_to :film
+    end
+
+a w modelu *Film*:
+
+    :::ruby
+    class Film < ActiveRecord::Base
+      attr_accessible :name, :minutes  # NEW!
+      has_many :recenzje
+    end
+
+Teraz oglądamy tabelki i wyciągamy wnioski. Uruchamiamy konsolę rails:
+
+    script/console
+    
+i wykonujemy kilka poleceń:
+
+    :::ruby
+    2 + 2
+    # itp.
+    Film.create :name => "Paranormal Activity", :minutes => 120
+    Film.create :name => "Odlot (projekcje 3D)", :minutes => 60
+    film = Film.find 1
+    r = film.recenzje.build
+    r.author_name = "Ja"
+    r.contents = "super!"
+    r.save
+    film.recenzje.create :author_name => "Miki", :contents => "do bani"
+    film.recenzje
+    film.recenzje(1).destroy
+    film.recenzje.all :conditions => {:author_name => "Ja" }
+    film.recenzje.find_by_author_name "Ja"
+    film.recenzje.all :conditions => ["author_name=?", "Ja"]
+    film.recenzje.all :conditions => ["author_name LIKE ?", "Ja"]
+    film.recenzje.all :conditions => ["author_name LIKE ?", "%ik%"]
+
+Przykłady:
+
+* *has_many* (*ActiveRecord::Associations::ClassMethods*)
+* *belongs_to* (jw.)
+
+Podstawowa dokumentacja jest w *Guides* albo 
+a dokumentacji do [API](http://api.rubyonrails.org/).
+
+
+## Seans (has_many :through)
+
+Przypomnienie jak jest umiejscowiony model *Seans*:
+
+{%= image_tag "/images/ale-kino/film-seans-kino.png", :alt => "[Film]<-[Seans]->[Kino]" %}
+
+Dopisujemy w modelach, *Film*:
+
+    :::ruby
+    has_many :seanse
+    has_many :kina, :through => :seanse
+
+*Kino*:
+
+    :::ruby
+    has_many :seanse
+    has_many :filmy, :through => :seanse
+
+i generujemy rusztowanie:
+
+    script/generate model seans kino_id:integer film_id:integer starts_on:date ends_on:date
+
+a następnie dopisujemy do modelu *Seans*:
+
+    :::ruby
+    class Seans < ActiveRecord::Base
+      belongs_to :kino
+      belongs_to :film
+    end
+
+Kilka ważnych pytań:
+
+* Jak dodać film do kina? Tworzymy obiekt Seans i dodajemy do niego Film i Kino.
+* Jak usunąć film z kina? Destroy odopwiednie obiekty Seans.
+
+Wchodzimy na konsolę:
+
+    :::ruby
+    kino = Kino.first
+    kino.filmy << Film.first      # problematyczne, ponieważ
+    kino.seanse                   # nie są ustawione daty: starts_on end_on
+    kino.filmy.delete(Film.first)
+
+Powinnismy postąpić tak:
+
+    :::ruby
+    kino.seanse.create(:film => Film.first, :starts_on => Date.today, :ends_on => 2.weeks.from_now)
+    kino.filmy        # z cache
+    kino.filmy(true)  # przeładuj bazę i pokaż
+
+* Jak wypisać przy filmie daty od/do kiedy jest grany.
+
+Takie coś nie zadziała:
+
+    :::xml
+    <% for film in @kino.filmy %>
+    <h3><%= film.name %></h3>
+    <p>od <%= film.??? %> / do <%= film.??? %></p>
+    <% end %>
+
+bo nie wiadomo co wpisać w miejsce *???*.
+Dlatego powinniśmy postąpić tak:
+
+    :::xml
+    <% for seans in @kino.seanse %>
+    <h3><%= seans.film.name %></h3>
+    <p>od <%= seans.starts_on.to_s(:long) %> / do <%= seans.ends_on.to_s(:long) %></p>
+    <% end %>
 
 
 ## Kilka odsyłaczy

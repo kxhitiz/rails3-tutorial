@@ -2,12 +2,7 @@
 
 # Aplikacja: Blog
 
-Lista aplikacji implementujących blog:
-
-* A ruby on rails blogging app forr the fashionable developer:
-  [Enki](http://www.enkiblog.com/)
-
-Aplikacja jest wykorzystywana w screencastach
+Aplikacja ta jest wykorzystywana w screencastach
 R. Batesa. Repozytorium do ściągnięcia z Githuba:
 
     git://github.com/ryanb/railscasts-episodes.git
@@ -195,8 +190,8 @@ Kontroler *ArticlesController*:
     
 Kontroler *CommentsController*. 
 Ten kontroler nie ma akcji *index* oraz *show*. 
-Dlaczego? Jeśli nie znasz odpowiedzi, oznacza to, że 
-za krótko „bawiłeś” się aplikacją.
+Dlaczego? Czy są jakieś powody dla których przydałby się 
+widok *index*? *show*?
     
     :::ruby
     class CommentsController < ApplicationController
@@ -363,3 +358,10 @@ Gdzie można znaleźć definicję metody *simple_format*.
 Jakie ciekawe metody zawiera *layout_helper.html.erb*?
 
 Jakie pliki powinniśmy jeszcze obejrzeć?
+
+
+## Pokaż mi swoje blogi, blogi…
+
+* A ruby on rails blogging app forr the fashionable developer:
+  [Enki](http://www.enkiblog.com/)
+

@@ -32,3 +32,8 @@ rescue LoadError
   puts "Install it with:"
   puts "  sudo gem install jeweler"
 end
+
+desc "Pull a new version from the github"
+task :deploy do  
+  system "ssh", "wbzyl@sigma.inf.ug.edu.pl", "cd repos/tutorials/rails3-tutorial/ ; git pull" 
+end
