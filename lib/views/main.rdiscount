@@ -82,6 +82,7 @@ w komputerze tak się Wam spodobał!
 1. {%= link_to "„Ale kino”", "/ale-kino" %}
 1. {%= link_to "Autentykacja", "/authentication" %}
 1. {%= link_to "Autoryzacja", "/authorization" %}
+1. {%= link_to "Autoryzacja 2", "/declarative-authorization" %}
 1. {%= link_to "Wyszukiwanie", "/searching" %}
 1. {%= link_to "Caching", "/caching" %}
 
