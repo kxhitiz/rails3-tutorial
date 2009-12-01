@@ -75,14 +75,14 @@ w komputerze tak się Wam spodobał!
 1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
 1. {%= link_to "Sprytny kod", "/slick-code" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
-1. {%= link_to "„Leniwiec z o.o.” – klon pastie", "/pastie" %}
-1. {%= link_to "Aplikacja: Todo", "/todo" %}
-1. {%= link_to "Aplikacja: Blog", "/blog" %}
-1. {%= link_to "Aplikacja: Store", "/store" %}
-1. {%= link_to "„Ale kino”", "/ale-kino" %}
+1. {%= link_to "Aplikacja „Leniwiec” (klon pastie)", "/pastie" %}
+1. {%= link_to "Aplikacja „Todo”", "/todo" %}
+1. {%= link_to "Aplikacja „Blog”", "/blog" %}
+1. {%= link_to "Aplikacja „Store”", "/store" %}
+1. {%= link_to "Aplikacja „Ale kino”", "/ale-kino" %}
 1. {%= link_to "Autentykacja", "/authentication" %}
-1. {%= link_to "Autoryzacja", "/authorization" %}
-1. {%= link_to "Autoryzacja 2", "/declarative-authorization" %}
+1. {%= link_to "Autoryzacja I", "/authorization" %}
+1. {%= link_to "Autoryzacja II", "/declarative-authorization" %}
 1. {%= link_to "Wyszukiwanie", "/searching" %}
 1. {%= link_to "Caching", "/caching" %}
 

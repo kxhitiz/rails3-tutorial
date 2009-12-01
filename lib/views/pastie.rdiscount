@@ -1,6 +1,6 @@
-#### {% title "Leniwiec z o.o." %}
+#### {% title "Leniwiec" %}
 
-# Pastie „Leniwiec z o.o.”
+# Pastie „Leniwiec”
 
 <blockquote>
 {%= image_tag "/images/bradypus.jpg", 
@@ -198,11 +198,11 @@ Od razu też wrzucimy do katalogu *layouts* layout *application.html.erb*:
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
       <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-      <title>Leniwce z o.o.</title>
+      <title>Leniwce</title>
       <%= stylesheet_link_tag 'application', 'uv' %>
     </head>
     <body>
-      <h1>Leniwce z o.o.</h1>
+      <h1>Leniwce</h1>
       
       <p style="color: green"><%= flash[:notice] %></p>
       
@@ -302,7 +302,7 @@ oraz dopisujemy w pliku *environment.rb*:
       config.gem 'ultraviolet' 
 
 
-## Następna wersja „Leniwca z o.o.”
+## Następna wersja „Leniwca”
 
 Zaimplementujemy wyszukiwanie fragmentów kodu zawierających podaną
 frazę. Jak takie rzeczy się robi można podejrzeć na screencaście
