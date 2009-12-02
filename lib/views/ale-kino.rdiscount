@@ -36,7 +36,7 @@ A po dodaniu atrybutów wygląda to tak:
 
 {%= image_tag "/images/ale-kino/film-seans-kino-full.png", :alt => "[Film]<-[Seans]->[Kino]" %}
 
-Po tej analizie abieramy się za wygenerowanie szkieletu aplikacji oraz layoutu:
+Po tej analizie zabieramy się za wygenerowanie szkieletu aplikacji oraz layoutu:
 
     rails ale-kino
     script/generate nifty_layout
@@ -75,7 +75,7 @@ Listę kin się nie zmienia. Nazwy kin wpiszemy w pliku *db/seed.rb*:
 Nie będziemy potrzebować widoków. Wygenerujemy tylko model:
 
     :::ruby
-    script/generate nifty_scaffold kino name:string index
+    script/generate model kino name:string
 
 Usuwamy niepotrzebny widok *index.html.erb*, migrujemy
 i wypełniamy tabelkę kina danymi:
@@ -131,11 +131,13 @@ jak „zakodowane” jest powiązanie między tabelkami/modelami?
 Skąd się biorą pola *id*? Pole *film_id*?
 
 Zanim się temu przyjrzymy generujemy rusztowanie dla modelu Recenzja.
-Na pewno będziemy potrzebować widoku *new* i chyba *index*
-z listą ostatnio wpisanych recenzji (być może będziemy recenzje
-moderować; pojawi się potrzeba usuwania/banowania recenzji).
+Na pewno będziemy potrzebować widoku *new* (dlaczego?) 
+i chyba *index* z listą ostatnio wpisanych recenzji 
+(być może będziemy recenzje moderować; 
+pojawi się potrzeba usuwania/banowania recenzji).
 
-    script/generate nifty_scaffold recenzja author_name:string content:text film_id:integer index new
+    script/generate nifty_scaffold recenzja \
+      author_name:string content:text film_id:integer index new
     rake db:migrate
 
 W modelu *Recenzja* dopisujemy:
@@ -206,11 +208,7 @@ Dopisujemy w modelach, *Film*:
     has_many :seanse
     has_many :filmy, :through => :seanse
 
-i generujemy rusztowanie:
-
-    script/generate model seans kino_id:integer film_id:integer starts_on:date ends_on:date
-
-a następnie dopisujemy do modelu *Seans*:
+Na koniec dopisujemy do modelu *Seans*:
 
     :::ruby
     class Seans < ActiveRecord::Base
@@ -218,23 +216,31 @@ a następnie dopisujemy do modelu *Seans*:
       belongs_to :film
     end
 
-Kilka ważnych pytań:
+i generujemy rusztowanie:
+
+    script/generate model seans kino_id:integer film_id:integer \
+      starts_on:date ends_on:date
+
+Jeśli zapomnimy o modelu Seans, to trudno będzie znaleźć odpowiedzi
+na poniższe pytania:
 
 * Jak dodać film do kina? Tworzymy obiekt Seans i dodajemy do niego Film i Kino.
 * Jak usunąć film z kina? Destroy odopwiednie obiekty Seans.
 
-Wchodzimy na konsolę:
+Jak to się robi? Przetrenujemy to konsoli:
 
     :::ruby
     kino = Kino.first
     kino.filmy << Film.first      # problematyczne, ponieważ
     kino.seanse                   # nie są ustawione daty: starts_on end_on
-    kino.filmy.delete(Film.first)
+    kino.filmy.delete(Film.first) # wracamy do sytuacji wyjściowej
 
-Powinnismy postąpić tak:
+Jak ustawić daty? Na przykład tak:
 
     :::ruby
-    kino.seanse.create(:film => Film.first, :starts_on => Date.today, :ends_on => 2.weeks.from_now)
+    kino.seanse.create(:film => Film.first, \
+      :starts_on => Date.today, \
+      :ends_on => 2.weeks.from_now)
     kino.filmy        # z cache
     kino.filmy(true)  # przeładuj bazę i pokaż
 
@@ -256,6 +262,13 @@ Dlatego powinniśmy postąpić tak:
     <h3><%= seans.film.name %></h3>
     <p>od <%= seans.starts_on.to_s(:long) %> / do <%= seans.ends_on.to_s(:long) %></p>
     <% end %>
+
+
+## Piszemy widoki
+
+Zaczniemy od?
+
+
 
 
 ## Kilka odsyłaczy
