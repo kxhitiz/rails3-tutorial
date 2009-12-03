@@ -278,12 +278,15 @@ Tak jest ok:
     kino.filmy        # z cache
     kino.filmy(true)  # przeładuj bazę i pokaż
 
-* Jak usunąć film z kina?
+* Jak usunąć wszystkie seanse z konkretnym filmem z kina? 
+  (nie usuwając samego filmu)
 
 Aby usunąć *Film.first* z *Kina.first*, można postąpić na przykład tak:
 
     :::ruby
-    kino.seanse.all
+    Kino.first.seanse.all
+    Seans.destroy(Kino.first.seanse.find_all_by_film_id(Film.first))
+    Seans.all
 
 Dopisujemy kilka seansów do *db/seed.rb*:
 
