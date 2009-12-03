@@ -16,7 +16,7 @@ czas jego projekcji oraz ocena w gwiazdkach.
 Z powyższego opisu wynika, że potrzebujemy trzy modele:
 Film, Kino i Recenzja. 
 
-Zależność między Film i Kino jest wiele-do-wielu:
+Zależność między modelami Film i Kino jest wiele-do-wielu:
 film może być wyświetlany w wielu kinach i kino
 może wyświetlać wiele filmów.
 
@@ -115,10 +115,19 @@ Jeśli wszystko działa, to klikamy w link *New film* i widzimy, że
 mamy jeszcze sporo rzeczy do zrobienia. Ale to potem.
 Teraz zabierzemy się za recenzje
 
+Dopisujemy kilka filmów do pliku *db/seed.rb*:
+
+    :::ruby
+    Film.create :name => "500 dni miłości", :minutes => 90
+    Film.create :name => "Granice miłości", :minutes => 60
+    Film.create :name => "Papierowy żołnierz", :minutes => 90
+    Film.create :name => "Paranormal Activity", :minutes => 120
+
+
 ### Recenzja
 
 Zależność między modelami: Film i Recenzja jest jeden-do-wielu.
-film może mieć wiele recenzji. Recenzja dotyczy jednego filmu.
+Film może mieć wiele recenzji. Recenzja dotyczy jednego filmu.
 
 {%= image_tag "/images/ale-kino/film-recenzja.png", :alt => "[Film]<-[Recenzja]" %}
 
@@ -127,24 +136,24 @@ Z atrybutami może to wyglądać tak:
 {%= image_tag "/images/ale-kino/film-recenzja-full.png", :alt => "[Film]<-[Recenzja]" %}
 
 Co to praktycznie oznacza? Jak wyglądają tabele *filmy* i *recenzje*?
-jak „zakodowane” jest powiązanie między tabelkami/modelami?
+Jak „zakodowane” jest powiązanie między tabelkami/modelami?
 Skąd się biorą pola *id*? Pole *film_id*?
 
 Zanim się temu przyjrzymy generujemy rusztowanie dla modelu Recenzja.
-Na pewno będziemy potrzebować widoku *new* (dlaczego?) 
-i chyba *index* z listą ostatnio wpisanych recenzji 
-(być może będziemy recenzje moderować; 
-pojawi się potrzeba usuwania/banowania recenzji).
+Będziemy potrzebować widoku *new* (czy aby na pewno?) 
+i chyba *index* z listą ostatnio wpisanych recenzji.
+Przyda się jeśli będziemy recenzje moderować.
 
     script/generate nifty_scaffold recenzja \
-      author_name:string content:text film_id:integer index new
+      author_name:string content:text stars:integer \
+      film_id:integer index new
     rake db:migrate
 
 W modelu *Recenzja* dopisujemy:
 
     :::ruby
     class Recenzja < ActiveRecord::Base
-      attr_accessible :author_name, :contents, :film_id  # NEW! od Rails 2.3.5
+      attr_accessible :author_name, :content, :film_id  # NEW! od Rails 2.3.5
       belongs_to :film
     end
 
@@ -163,20 +172,23 @@ Teraz oglądamy tabelki i wyciągamy wnioski. Uruchamiamy konsolę rails:
 i wykonujemy kilka poleceń:
 
     :::ruby
-    2 + 2
-    # itp.
     Film.create :name => "Paranormal Activity", :minutes => 120
     Film.create :name => "Odlot (projekcje 3D)", :minutes => 60
-    film = Film.find 1
-    r = film.recenzje.build
-    r.author_name = "Ja"
-    r.contents = "super!"
-    r.save
-    film.recenzje.create :author_name => "Miki", :contents => "do bani"
+    film = Film.find(1)
+    recenzja = film.recenzje.build(:author_name => "Miki", :content => "super!")
+    recenzja.save
+    film.recenzje.create(:author_name => "Miki", :stars => 1)
     film.recenzje
-    film.recenzje(1).destroy
-    film.recenzje.all :conditions => {:author_name => "Ja" }
-    film.recenzje.find_by_author_name "Ja"
+    film.recenzje(1).destroy(1)
+
+Wyszukiwanie na kilka sposobów:
+
+    :::ruby
+    film.recenzje.all(:conditions => {:author_name => "Miki" })
+    film.recenzje.find_by_author_name("Miki")
+
+i jeszcze kilka sposobów:
+
     film.recenzje.all :conditions => ["author_name=?", "Ja"]
     film.recenzje.all :conditions => ["author_name LIKE ?", "Ja"]
     film.recenzje.all :conditions => ["author_name LIKE ?", "%ik%"]
@@ -189,6 +201,15 @@ Przykłady:
 Podstawowa dokumentacja jest w *Guides* albo 
 a dokumentacji do [API](http://api.rubyonrails.org/).
 
+Do pliku *db/seed.rb* dopiszemy po jednej recenzji dla pierwszych
+dwóch filmów:
+
+    :::ruby
+    f1 = Film.find(1)
+    f2 = Film.find(2)
+    f1.recenzje.create :author_name => "Fiki", :contents => "strata czasu", :stars => 1
+    f2.recenzje.create :author_name => "Miki", :contents => "genialne!", :stars => 5
+
 
 ## Seans (has_many :through)
 
@@ -196,19 +217,25 @@ Przypomnienie jak jest umiejscowiony model *Seans*:
 
 {%= image_tag "/images/ale-kino/film-seans-kino.png", :alt => "[Film]<-[Seans]->[Kino]" %}
 
-Dopisujemy w modelach, *Film*:
+Dopisujemy do modelu *Kino*:
 
     :::ruby
-    has_many :seanse
-    has_many :kina, :through => :seanse
-
-*Kino*:
-
-    :::ruby
-    has_many :seanse
     has_many :filmy, :through => :seanse
+    has_many :seanse, :dependent => :destroy  # a to po co?
 
-Na koniec dopisujemy do modelu *Seans*:
+Jeśli usuniemy kino, to powinniśmy jednocześnie usunąć
+wszystkie seanse tego filmu właśnie co usuniętym kinie.
+
+Do modelu *Film*:
+
+    :::ruby
+    has_many :kina, :through => :seanse
+    has_many :seanse, :dependent => :destroy
+
+Jeśli usuniemy film, to powinniśmy jednocześnie usunąć
+wszystkie seanse na których jest on wyświetlany.
+
+i na koniec, dopisujemy do modelu *Seans*:
 
     :::ruby
     class Seans < ActiveRecord::Base
@@ -216,33 +243,65 @@ Na koniec dopisujemy do modelu *Seans*:
       belongs_to :film
     end
 
-i generujemy rusztowanie:
+Pozostało jeszcze wygenerować rusztowanie:
 
     script/generate model seans kino_id:integer film_id:integer \
       starts_on:date ends_on:date
 
+### Problemy z relacjami wiele-do-wielu 
+
 Jeśli zapomnimy o modelu Seans, to trudno będzie znaleźć odpowiedzi
 na poniższe pytania:
 
-* Jak dodać film do kina? Tworzymy obiekt Seans i dodajemy do niego Film i Kino.
-* Jak usunąć film z kina? Destroy odopwiednie obiekty Seans.
+* Jak dodać film do kina? 
 
-Jak to się robi? Przetrenujemy to konsoli:
+Jak to zrobić? Przetrenujemy to konsoli:
 
     :::ruby
     kino = Kino.first
-    kino.filmy << Film.first      # problematyczne, ponieważ
-    kino.seanse                   # nie są ustawione daty: starts_on end_on
-    kino.filmy.delete(Film.first) # wracamy do sytuacji wyjściowej
+    kino.filmy << Film.first # problematyczne, ponieważ
+    kino.seanse              # nie są ustawione daty: starts_on end_on
+    kino.seanse.last.destroy # powracamy do sytuacji wyjściowej
+    kino.seanse              # z cache
+    kino.seanse(true)        # przeładuj bazę i pokaż
 
-Jak ustawić daty? Na przykład tak:
+Tak jest ok:
 
     :::ruby
-    kino.seanse.create(:film => Film.first, \
-      :starts_on => Date.today, \
-      :ends_on => 2.weeks.from_now)
+    kino = Kino.first
+    kino.seanse.create(:film => Film.first, 
+      :starts_on => 8.weeks.ago, 
+      :ends_on => 4.weeks.ago) # bardzo sprytne! dlaczego?
+    kino.seanse.create(:film => Film.first, 
+      :starts_on => 2.weeks.ago, 
+      :ends_on => 6.weeks.from_now)
     kino.filmy        # z cache
     kino.filmy(true)  # przeładuj bazę i pokaż
+
+* Jak usunąć film z kina?
+
+Aby usunąć *Film.first* z *Kina.first*, można postąpić na przykład tak:
+
+    :::ruby
+    kino.seanse.all
+
+Dopisujemy kilka seansów do *db/seed.rb*:
+
+    :::ruby
+    kino = Kino.first
+    film = Film.first
+    kino.seanse.create(:film => film, :starts_on => 8.weeks.ago, :ends_on => 4.weeks.ago)
+    kino.seanse.create(:film => film, :starts_on => 2.weeks.ago, :ends_on => 6.weeks.from_now)
+    film = Film.last
+    kino.seanse.create(:film => film, :starts_on => 6.weeks.from_now, :ends_on => 8.weeks.from_now)
+    kino = Kino.last
+    kino.seanse.create(:film => film, :starts_on => 4.weeks.ago, :ends_on => 4.weeks.from_now)
+    kino.seanse.create(:film => film, :starts_on => 6.weeks.ago, :ends_on => 2.weeks.ago)
+
+
+## Piszemy widoki
+
+Zaczniemy od? Nie za bardzo wiadomo od czego?
 
 * Jak wypisać przy filmie daty od/do kiedy jest grany.
 
@@ -262,12 +321,6 @@ Dlatego powinniśmy postąpić tak:
     <h3><%= seans.film.name %></h3>
     <p>od <%= seans.starts_on.to_s(:long) %> / do <%= seans.ends_on.to_s(:long) %></p>
     <% end %>
-
-
-## Piszemy widoki
-
-Zaczniemy od?
-
 
 
 
