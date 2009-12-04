@@ -304,7 +304,118 @@ Dopisujemy kilka seansów do *db/seed.rb*:
 
 ## Piszemy widoki
 
-Zaczniemy od? Nie za bardzo wiadomo od czego?
+Zaczniemy od? Nie za bardzo wiadomo od czego? Może „od początku”
+czyli od strony głównej, czyli strony */filmy/index*.
+
+### /filmy/index
+
+Widok został wygenerowany automatycznie i strona ta wygląda ona tak:
+
+{%= image_tag "/images/ale-kino/filmy-index-scaffold.png", :alt => "/filmy/index (scaffold)" %}
+
+Chcemy ją zmienić na taką:
+
+{%= image_tag "/images/ale-kino/filmy-index-1.png", :alt => "/filmy/index (scaffold)" %}
+
+*Uwaga:* później dodamy autoryzację i udostępnimy *Edycję* i
+*Usuwanie* tylko adminowi.
+
+    :::html_rails
+    <% title "Filmy" %>
+    <%= render :partial => @filmy %>
+    <p><%= link_to "Nowy film", new_film_path %></p>
+
+Czyli prawie cały widok znajdzie się w widoku częściowym.
+Dodany kilka elementów *div* aby łatwiej było stylizować stronę. 
+
+    :::html_rails
+    <div class="film">
+      <div class="name"><%= link_to h(film.name), film_path(film) %></div>
+      <div class="minutes">Czas: <%= film.minutes %> min.</div>
+      <% unless film.recenzje.empty? %>
+      <div class="recenzje">
+        <%= display_stars(film.average_stars) %>
+        (<%= link_to "zobacz recenzje", film_path(:id => film, :anchor => 'recenzje') %>)
+      </div>
+      <% end %>
+        <div class="actions">
+          <%= link_to "Edycja", edit_film_path(film) %> |
+          <%= link_to "Usuń", film, :confirm => "Jesteś pewien?", :method => :delete %>
+        </div>
+    </div>
+
+Za liczbę wyświetlanych gwiazdek odpowiedzialna jest metoda
+*average_stars* modelu *Film*:
+
+    :::ruby
+    class Film < ActiveRecord::Base
+      def average_stars
+        recenzje.average(:stars)
+      end
+
+Gwiazdki wyświetlamy korzystając z funkcji pomocniczej *display_stars*.
+Kod tej metody jest „wielowarstwowy”:
+
+    :::ruby
+    module ApplicationHelper
+      def display_stars(stars)
+        content_tag :div, star_images(stars || 0), :class => 'stars'
+      end
+      def star_images(stars)
+        (0...5).map do |n|
+          star_image_tag(((stars-n)*2).round)
+        end.join
+      end
+      def star_image_tag(value)
+        image_tag "/images/#{star_image_name(value)}.gif", :size => '15x15'
+      end
+      def star_image_name(value)
+        if value <= 0
+          'small_empty_star'
+        elsif value == 1
+          'small_half_star'
+        else
+          'small_full_star'
+        end
+      end
+    end
+
+Na koniec stylizujemy stronę dopisując do *application.css*:
+
+    :::css
+    .film {
+      margin: 1em 0;
+    }
+    .film .name {
+      font-size: 140%;
+      margin-bottom: 0.25em;
+    }
+    .film .minutes {
+      font-size: 100%;
+      font-style: italic;
+      margin-bottom: 0.25em;
+    }
+    .film .recenzje .stars {
+      display: inline;
+    }
+    .film .actions {
+      margin-top: 0.25em;
+    }
+
+### /filmy/:id
+
+Teraz klikamy w link *film_path(film)*. Popracujemy nad tą stroną.
+Z szablony mamy coś takiego:
+
+{%= image_tag "/images/ale-kino/filmy-show-scaffold.png", :alt => "GET /filmy/:id (scaffold)" %}
+
+A powinno to wyglądać jakoś tak:
+
+{%= image_tag "/images/ale-kino/filmy-show-1.png", :alt => "GET /filmy/:id" %}
+
+
+
+## TODO
 
 * Jak wypisać przy filmie daty od/do kiedy jest grany.
 
