@@ -84,6 +84,7 @@ w komputerze tak się Wam spodobał!
 1. {%= link_to "Autoryzacja I", "/authorization" %}
 1. {%= link_to "Autoryzacja II", "/declarative-authorization" %}
 1. {%= link_to "Wyszukiwanie", "/searching" %}
+1. {%= link_to "Bezpieczeństwo", "/security" %}
 1. {%= link_to "Caching", "/caching" %}
 
 **Laboratoria:**
