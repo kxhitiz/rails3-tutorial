@@ -15,7 +15,7 @@ Serwis ogłoszeń wynajmu mieszkań.
 
 [Link do diagramu ERD aplikacji](/)
 
-[URI systemu zarządzania projektem](/)
+[URI systemu zarządzania projektem](http://www.assembla.com/spaces/milestones/all/HomeSweetHome)
 
 URI repozytorium Git projektu:
 *git://github.com/FengSzuji/HomeSweetHome.git*
@@ -30,6 +30,8 @@ Podstawowe funkcjonalności:
 
 Lista użytych gemów:
 
+* authlogic 2.1.3
+* geokit 1.5.0
 
 ## Rozwiąż zadanie
 
