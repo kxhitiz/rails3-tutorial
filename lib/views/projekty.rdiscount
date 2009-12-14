@@ -201,4 +201,43 @@ role: użytkowników(każdy bedzie mógł sie zarejestrować oraz zarządzać
 swoim profilem) oraz administratora(aktywacja konta, blokowanie itp.).
 
 
+## ArtMasters
+
+* Karol Domagała (kierownik projektu)
+* Grzegorz Madejski 
+* Tomasz Widanka 
+* Bogusław Rożek 
+
+[Link do działającej aplikacji](http://153.19.198.105:3000) (nie działa)
+
+[Link do diagramu ERD aplikacji](http://153.19.198.105:3001/attachments/download/1/diagram.png)
+
+[URI systemu zarządzania projektem](http://153.19.198.105:3001)
+
+[URI repozytorium Git projektu](http://github.com/kdomagal/artMasters/)
+
+Podstawowe funkcjonalności:
+
+Portal dla grafików i fotografów – tych amatorskich jak i profesjonalnych. 
+Umożliwia:
+
+* upload zdjęć i prac graficznych z opisami,
+* komentarze i oceny,
+* tagowanie,
+* grupowanie w kategorie,
+* ustawianie widoczności zdjęć (publiczne/prywatne/komercyjne),
+* sprzedaż zdjęć,
+* przeglądanie galerii innych użytkowników (tylko zdjęcia publiczne) 
+  i podgląd zdjęć komercyjnych.
+   
+Lista wykorzystanych w projekcie wtyczek, gemów:
+
+* OWOCOWE :) [trwa burza mózgów]
+	
+Projekt celuje w grupę młodych grafików i fotografów, chcących
+rozwijać swoje zdolności i zarobić na nich. Oprócz nich zarejestrować
+może się każdy, kto chce umieszczać ciekawe zdjęcia, albumy rodzinne,
+z wycieczek itp.
+
+
 ## Kto następny?
