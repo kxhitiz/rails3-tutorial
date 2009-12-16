@@ -234,11 +234,41 @@ Umożliwia:
 Lista wykorzystanych w projekcie wtyczek, gemów:
 
 * OWOCOWE :) [trwa burza mózgów]
+
+
+## PhotoSpace
 	
 Projekt celuje w grupę młodych grafików i fotografów, chcących
 rozwijać swoje zdolności i zarobić na nich. Oprócz nich zarejestrować
 może się każdy, kto chce umieszczać ciekawe zdjęcia, albumy rodzinne,
 z wycieczek itp.
+
+* Olga Juhas
+* Kamil Belau
+* Dorota Szymichowska
+
+* [Link do aplikacji](http://photospace.heroku.com)
+
+* [Link do diagramu ERD aplikacji](http://www.assembla.com/spaces/photospace/documents/images)
+
+* [URI systemu zarządzania projektem](http://www.assembla.com/wiki/show/photospace)
+
+* [URI repozytorium Git projektu](http://github.com/ojuhas/photospace)
+
+Opis podstawowych funkcjonalności:
+
+PhotoSpace serwis dla pasjonatów sztuki wyrażonej poprzez
+fotografię. Jej głównym celem dodawanie, przeglądanie oraz usuwanie
+zdjęć pod względem użytkowania. Aplikacja zakłada też wyszukiwanie
+zdjęć pod względem tematycznym, na zasadzie słów kluczowych. Umożliwia
+także dodawanie komentarzy pod każdym z dodanych zdjęć. Nad całością
+usługi będzie czuwał admin, który będzie miał wszelkie prawa dostępu
+do kont edycji ect. Społeczność serwisu będzie miała możliwosc oceny
+zdjęć
+
+Lista wykorzystanych w projekcie wtyczek, gemów:
+
+* (w trakcie)
 
 
 ## Kto następny?
