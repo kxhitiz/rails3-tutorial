@@ -295,9 +295,8 @@ Lista wykorzystanych w projekcie wtyczek, gemów:
 
 * pony
 * [acts_as_commentable](http://juixe.com/svn/acts_as_commentable)
-* [ajaxful-rating](git://github.com/edgarjs/ajaxful-rating.git)
-  [acts_as_rateable](git://github.com/azabaj/acts_as_rateable.git)
-* [acts-as-taggable-on](git://github.com/mbleigh/acts-as-taggable-on.git)
+* ajaxful-rating, acts_as_rateable
+* acts-as-taggable-on
 
 
 ## Kto następny?
