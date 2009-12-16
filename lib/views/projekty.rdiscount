@@ -270,5 +270,34 @@ Lista wykorzystanych w projekcie wtyczek, gemów:
 
 * (w trakcie)
 
+## Sahara
+
+* Jan Siegel
+* Michał Siemaszkiewicz
+* Michał Tupacz
+* Bartosz Sojka
+
+[Link do aplikacji](http://suhara.heroku.com)
+
+[Link do diagramu ERD aplikacji](/)
+
+[URI systemu zarządzania projektem](http://www.assembla.com/spaces/saharaproject)
+
+Opis podstawowych funkcjonalności:
+
+System umożliwiający dodawanie
+sucharów przez zarejestrowanych użytkowników.
+Udostępnienie użytkownikom możliwości głosowania na „beton tygodnia”.
+Możliwość tagowania każdego suchara i wyszukiwania sucharów po
+tagach.
+
+Lista wykorzystanych w projekcie wtyczek, gemów:
+
+* pony
+* [acts_as_commentable](http://juixe.com/svn/acts_as_commentable)
+* [ajaxful-rating](git://github.com/edgarjs/ajaxful-rating.git)
+  [acts_as_rateable](git://github.com/azabaj/acts_as_rateable.git)
+* [acts-as-taggable-on](git://github.com/mbleigh/acts-as-taggable-on.git)
+
 
 ## Kto następny?
