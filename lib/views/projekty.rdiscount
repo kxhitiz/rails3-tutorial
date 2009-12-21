@@ -299,4 +299,32 @@ Lista wykorzystanych w projekcie wtyczek, gemów:
 * acts-as-taggable-on
 
 
+## BZIL: Bardzo Zwyczajny Integrator Ludzi
+
+* Jacek Dzido
+* Maciek Maćkowski
+* Łukasz Słomka
+* Daniel Sochański
+
+[Link do aplikacji](http://www.sigma.inf.ug.edu.pl:8034/)
+
+[Link do diagramu ERD aplikacji](http://sigma.inf.ug.edu.pl/~mmackows/priv/asi/asi.png)
+
+[URI systemu zarządzania projektem](http://www.redmine.org/)
+
+[URL repozytorium Git projektu](http://github.com/maqmaq/BZIL)
+
+Opis podstawowych funkcjonalności:
+
+Aplikacja wspomagająca proces organizacji spotkań grupy osób. 
+Informuje o nowych spotkaniach, umożliwia zapisanie się na nie, 
+lub wyrażenie zainteresowania spotkaniem oraz skomentowanie wydarzenia.
+
+Lista wykorzystanych w projekcie wtyczek, gemów:
+
+* blueprint-css (0.9.1 )
+* formtastic (0.9.4)
+* ActsAsTaggableOn
+* Ruby on Rails Gravatar Plugin
+
 ## Kto następny?
