@@ -9,6 +9,8 @@
 
 ## Info
 
+[22.12.2009] Dodano harmonogram prezentacji.
+
 [12.12.2009] Opisy projektów wpisane w notacji
 Markdown można też przesłać emailem.
 
@@ -71,8 +73,75 @@ z BlueprintCSS i HAML&SASS.
 Cieszę się, że pomysł zastąpienia notatek w zeszytach notatkami
 w komputerze tak się Wam spodobał!
 
+## Prezentacje projektów
 
-**Wykłady:** 
+**Uwaga:** Poniżej wpisałem orientacyjne godziny rozpoczęcia referatów.
+
+<table class="span-14" summary="harmonogram">
+  <colgroup>
+    <col class="table1"/>
+    <col class="table2"/>
+  </colgroup>
+  <caption><em>Harmonogram prezentacji</em></caption>
+  <thead>
+   <tr>
+    <th class="span-5">kiedy</th>
+    <th class="span-9">tytuł</th>
+   </tr>
+  </thead>
+
+<tbody>
+
+ <tr>
+ <td>10:15–10:40 (6.01)</td>
+ <td>Home Sweet Home</td>
+ </tr>
+
+ <tr>
+ <td>10:40–11:05 (6.01)</td>
+ <td>Rozwiąż zadanie</td>
+ </tr>
+
+ <tr>
+ <td>11:05–11:30 (6.01)</td>
+ <td>Motel z rezerwacją (prawdopodobnie)</td>
+ </tr>
+
+ <tr>
+ <td>11.30–11:55 (6.01)</td>
+ <td>ProjektX</td>
+ </tr>
+
+ <tr>
+ <td>10:15–10:40 (13.01)</td>
+ <td>Katalog rzeczy pożyczonych</td>
+ </tr>
+
+ <tr>
+ <td>10:40–11:05 (13.01)</td>
+ <td>PhotoSpace</td>
+ </tr>
+
+ <tr>
+ <td>11:05–11:30 (13.01)</td>
+ <td>Sahara</td>
+ </tr>
+
+ <tr>
+ <td>11.30–11:55 (13.01)</td>
+ <td>BZIL: Bardzo Zwyczajny Integrator Ludzi</td>
+ </tr>
+
+ <tr>
+ <td>10:15–10:40 (20.01)</td>
+ <td>???</td>
+ </tr>
+
+</tbody>
+</table>
+
+
+## Wykłady
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
 1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
@@ -90,7 +159,8 @@ w komputerze tak się Wam spodobał!
 1. {%= link_to "Bezpieczeństwo", "/security" %}
 1. {%= link_to "Caching", "/caching" %}
 
-**Laboratoria:**
+
+## Laboratoria
 
 * {%= link_to "Listy obecności", "/ls" %}
 * {%= link_to "Ćwiczenia", "/exercises" %}
