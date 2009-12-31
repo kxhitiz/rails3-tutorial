@@ -105,7 +105,7 @@ internetowych, znanej u nas jako
 * Kamil Czarnogórski
 * Krzysztof Dycha
 
-[Link do aplikacji](http://botrunner.heroku.com)
+[Link do aplikacji](http://sigma.inf.ug.edu.pl:8985/)
 
 [URI systemu zarządzania projektem](http://www.assembla.com/spaces/botrunner/)
 
@@ -116,6 +116,8 @@ URI repozytorium Git projektu: *git://git.assembla.com/botrunner.git*
 potrzeb)
 
 Lista użytych gemów: 
+
+* [juggernaut](http://juggernaut.rubyforge.org/)
 
 Opis:
 
