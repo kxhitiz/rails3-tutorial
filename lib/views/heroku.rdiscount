@@ -1,0 +1,28 @@
+#### {% title "Heroku" %}
+
+# Krok po kroku heroku
+
+Zaczynamy od zarejestrowania się w Heroku:
+zakładak *Sign up*, free plan *Blossom*
+(do 20 Mb). Następnie instalujemy gem *heroku*:
+
+    sudo gem install heroku
+
+## Pierwsza aplikacja (PostgreSQL)
+
+
+## Adds-on
+
+Dodajemy Exceptional add-on.
+
+## Autoryzacja
+
+Devise? Authlogic + Cancan?
+
+## Emails via Gmail add-on
+
+Do 200 emaili/dzień.
+
+## CNAME
+
+Z *home.pl*.
