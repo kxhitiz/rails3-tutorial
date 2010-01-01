@@ -147,6 +147,7 @@ w komputerze tak się Wam spodobał!
 1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
 1. {%= link_to "Sprytny kod", "/slick-code" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
+1. {%= link_to "Heroku krok po kroku", "/heroku" %}
 1. {%= link_to "Aplikacja „Leniwiec” (klon pastie)", "/pastie" %}
 1. {%= link_to "Aplikacja „Todo”", "/todo" %}
 1. {%= link_to "Aplikacja „Blog”", "/blog" %}
