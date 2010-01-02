@@ -3,12 +3,120 @@
 # Krok po kroku heroku
 
 Zaczynamy od zarejestrowania się w Heroku:
-zakładak *Sign up*, free plan *Blossom*
-(do 20 Mb). Następnie instalujemy gem *heroku*:
+zakładka *Sign up*, wybieramy „free plan” *Blossom*
+(do 20 Mb). Następnie instalujemy gemy:
 
-    sudo gem install heroku
+    sudo gem install heroku tap
+
+oraz adaptery dla aplikacji rails:
+
+    sudo gem install postgres do_postgres pg
+
 
 ## Pierwsza aplikacja (PostgreSQL)
+
+Generujemy szkielet aplikacji:
+
+    rails notes -d postgresql
+
+W pliku konfiguracyjnym *config/database.yml* bazy danych,
+w sekcjach development, production i test poprzedzamy
+unikalnym prefixem (np. swoją nazwą użytkownika) klucz *database*
+oraz zmieniamy nazwę użytkownika *notes* na swoją
+nazwę użytkownika bazy PostgreSQL oraz jeśli to konieczne
+wpisujemy hasło:
+
+    development:
+      adapter: postgresql
+      encoding: unicode
+      database: wbzyl_notes_development
+      pool: 5
+      username: wbzyl
+      password: railz!
+
+Tworzymy bazy danych:
+
+    createdb wbzyl_notes_development
+    createdb wbzyl_notes_production
+
+Tworzymy model:
+
+    script/generate scaffold notes subject:string body:text
+
+I migrujemy:
+
+    rake db:migrate RAILS_ENV=production
+    rake db:migrate
+
+Tworzymy w głównym katatalogu aplikacji „gem manifest file” 
+o nazwie *.gems* z następującą zawartością:
+
+    s3
+    warden --version '=0.6.5' 
+    devise --version '=0.7.5'
+
+Dopisujemy te gemy w pliku *config/environment.rb*:
+
+    config.gem "aws-s3", :lib => "aws/s3"
+    config.gem "warden", :version => '=0.6.5'
+    config.gem "devise", :version => '=0.7.5'
+
+
+## Wdrażamy aplikację na Heroku
+
+Tworzymy git repo:
+
+    git init
+    git add .
+    git commit -m "pierwsza wrzutka"
+
+Następnie:
+
+    heroku create
+    Enter your Heroku credentials.
+    Email: matwb@univ.gda.pl
+    Password: 
+    Uploading ssh public key /home/wbzyl/.ssh/id_rsa.pub
+    Created http://floating-mist-18.heroku.com/ | git@heroku.com:floating-mist-18.git
+    Git remote heroku added
+
+Można też spróbować tak:
+
+    heroku create wbnotes
+
+ale nie mamy gwarancji, że takiej aplikacji już nie wdrożono
+na heroku (błąd: *name already taken*).
+
+I dalej:
+
+    git push heroku master
+    -----> Heroku receiving push
+    -----> Installing gem s3 from http://gemcutter.org, http://gems.rubyforge.org
+           Successfully installed trollop-1.15
+           Successfully installed s3-0.2.3
+           2 gems installed
+    -----> Installing gem warden 0.6.5 from http://gemcutter.org, http://gems.rubyforge.org
+           Successfully installed warden-0.6.5
+           1 gem installed
+    -----> Installing gem devise 0.7.5 from http://gemcutter.org, http://gems.rubyforge.org
+           Successfully installed devise-0.7.5
+           1 gem installed
+    -----> Rails app detected
+           Compiled slug size is 316K
+    -----> Launching............ done
+           http://floating-mist-18.heroku.com deployed to Heroku
+    To git@heroku.com:floating-mist-18.git
+     * [new branch]      master -> master
+
+Zmiana nazwy aplikacji. Po zalogowaniu na heroku, wchodzimy na stronę ze
+swoimi aplikacjami, wybieramy aplikację *floating-mist-18*,
+klikamy w zakładkę *General Info* i w formularzu zmieniamy nazwę.
+
+    git remote rm heroku
+    git remote add heroku git@heroku.com:wbnotes.git
+
+
+## Ograniczenia „cloud computing”
 
 
 ## Adds-on
