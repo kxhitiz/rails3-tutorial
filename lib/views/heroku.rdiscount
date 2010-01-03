@@ -115,6 +115,23 @@ klikamy w zakładkę *General Info* i w formularzu zmieniamy nazwę.
     git remote rm heroku
     git remote add heroku git@heroku.com:wbnotes.git
 
+Dalej:
+
+    heroku db:migrate
+
+i już możemy wejść na stronę 
+
+    http://wbznotes.heroku.com
+
+## Konsola Heroku 
+
+Zaczynamy od:
+
+    heroku help
+
+Następnie 
+
+    heroku console
 
 ## Ograniczenia „cloud computing”
 
@@ -122,6 +139,9 @@ klikamy w zakładkę *General Info* i w formularzu zmieniamy nazwę.
 ## Adds-on
 
 Dodajemy Exceptional add-on.
+
+EMail: basic.
+
 
 ## Autoryzacja
 

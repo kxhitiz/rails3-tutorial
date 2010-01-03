@@ -498,21 +498,23 @@ Tworzymy plik *initializers/mail.rb* o następującej zawartości:
 
     :::ruby
     ActionMailer::Base.smtp_settings = {
-      :address => 'sigma.inf.ug.edu.pl',
+      :address => 'inf.ug.edu.pl',
+      :port => 25,
+      :domain => 'ug.edu.pl',
       :user_name => 'wbzyl',
-      #:password => 'sekret'
+      :password => 'sekret',
+      :authentication => :login
     }
-    
-    ActionMailer::Base.delivery_method = :sendmail
-    ActionMailer::Base.sendmail_settings = {
-      :location => '/usr/sbin/sendmail',
-      :arguments => '-i -t'
-    }
+        
+    #ActionMailer::Base.delivery_method = :sendmail
+    #ActionMailer::Base.sendmail_settings = {
+    #  :location => '/usr/sbin/sendmail',
+    #  :arguments => '-i -t'
+    #}
     
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.raise_delivery_errors = true
     ActionMailer::Base.default_charset = 'utf-8'
-
 
 
 ### Resetowanie hasła krok po kroku
