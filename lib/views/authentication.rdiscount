@@ -664,7 +664,7 @@ nazwa bez prefixu *deliver*):
 
     :::ruby
     class Notifier < ActionMailer::Base
-      default_url_options[:host] = "manta.univ.gda.pl:3000"
+      default_url_options[:host] = "sigma.ug.edu.pl:3000"
       
       def password_reset_instructions(user)
         subject    "Password Reset Instructions"
@@ -693,7 +693,7 @@ Szablon emaila, to widok *notifier/password_reset_instructions.erb*:
 
 Link który użytkownik ma kliknąć w emailu będzie wyglądał jakoś tak:
 
-    http://manta.univ.gda.pl:3000/password_resets/6th8mSFwxvG-v2IbbRdY/edit    
+    http://sigma.ug.edu.pl:3000/password_resets/6th8mSFwxvG-v2IbbRdY/edit    
 
 Po kliknięciu wykonana zostanie metoda *edit* klasy *PasswordResetsConttoller*:
 
@@ -745,7 +745,7 @@ metoda *update* klasy *PasswordResetsConttoller*:
 ### Podczepienie "Forgot password" pod Fortunkę
 
 W widoku *layout/application.html.erb* w elemencie *div#user_nav*
-dopisujemy link do "Forgot password":
+dopisujemy link do "Forgot password?":
 
     :::html
     <div id="user_nav">
