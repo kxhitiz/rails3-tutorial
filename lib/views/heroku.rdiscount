@@ -152,7 +152,7 @@ Na *home.pl* panel konfiguracyjny?
 
 ### Exceptional add-on
 
-### Custom Domains i Zerigo DNS adds-on
+### Custom Domains adds-on
 
 Co należy zrobić aby adres **http://fortunka.bzyl.pl**
 był aliasem adresu **http://fortune.heroku.com**.
