@@ -119,18 +119,105 @@ klikamy w zakładkę *General Info* i w formularzu zmieniamy nazwę.
 ## Ograniczenia „cloud computing”
 
 
-## Adds-on
+## Rejestrujemy domenę
 
-Dodajemy Exceptional add-on.
+Na *home.pl* lub *az.pl* możemy zarejestrować jedną domenę PL za
+darmo.
 
-## Autoryzacja
+Ja zarejestrowałem domenę **bzyl.pl**.
 
-Devise? Authlogic + Cancan?
+## Heroku adds-on
+
+### Exceptional add-on
+
+### Custom Domains i Zerigo DNS adds-on
+
+Co należy zrobić aby adres **http://fortunka.bzyl.pl**
+był aliasem adresu **http://fortune.heroku.com**.
+
+Set up your domain with your registrar, then select the subdomain that
+you wish to point at your Heroku app. This could be something like
+myapp.mycompany.com, or the standard www.mydomain.com. CNAME support
+is only valid for hosts, not the root domain. If you need to setup
+yourdomain.com, you must use the setup in the next section.
+
+Configure your DNS provider to make your chosen custom domain name be
+an alias which points to proxy.heroku.com. In DNS terms this is known
+as a CNAME.
+
+Check that your DNS is configured correctly with the host command:
+
+    host www.bzyl.pl
+    
+    www.bzyl.pl is an alias for proxy.heroku.com.
+    proxy.heroku.com has address 174.129.212.2
+    proxy.heroku.com has address 75.101.145.87
+    proxy.heroku.com has address 75.101.163.44
+
+Output of the host command varies by Unix flavor, but it should
+indicate that your domain name is either an alias or CNAME of
+proxy.heroku.com.
+
 
 ## Emails via Gmail add-on
 
 Do 200 emaili/dzień.
 
-## CNAME
+Zob. http://mail.google.com/support/bin/answer.py?hl=en&answer=13287
+
+    # Configure your client to match the settings below:
+    Incoming Mail (POP3) Server - requires SSL: 	pop.gmail.com
+    Use SSL: Yes
+    Port: 995
+    Outgoing Mail (SMTP) Server - requires TLS or SSL: 	smtp.gmail.com (use authentication)
+    Use Authentication: Yes
+    Port for TLS/STARTTLS: 587
+    Port for SSL: 465
+    Account Name: 	your full email address (including @gmail.com or @your_domain.com)
+    Email Address: 	your email address (username@gmail.com or username@your_domain.com)
+    Password: 	your Gmail password
+
+Unless you're using recent mode to download mail to multiple clients,
+make sure you've opted not to leave messages on the server. Your Gmail
+settings determine whether or not messages stay on the server, so this
+setting in your client won't affect how Gmail handles your mail.
+
+Please note that if your client does not support SMTP authentication,
+you won't be able to send mail through your client using your Gmail
+address.
+
+Also, if you're having trouble sending mail but you've confirmed that
+encyrption is active for SMTP in your mail client, try to configure
+your SMTP server on a different port: 465 or 587.
+
+Zob. konfigurowanie MX:
+http://www.google.com/support/a/bin/answer.py?answer=33915
+
+    $ heroku addons:add "custom domains"
+    Adding custom domains to login... done
+    [wbzyl@localhost hello-login]
+    $ heroku domains:add www.bzyl.pl 
+    Added www.bzyl.pl as a custom domain name to login.heroku.com
+    [wbzyl@localhost hello-login]
+    $ heroku domains:add bzyl.pl 
+    Added bzyl.pl as a custom domain name to login.heroku.com
+
+Teraz:
+
+    host bzyl.pl
+    
+    bzyl.pl has address 174.129.212.2
+    bzyl.pl has address 75.101.163.44
+    bzyl.pl has address 75.101.145.87
+    bzyl.pl mail is handled by 10 ASPMX2.GOOGLEMAIL.COM.
+    bzyl.pl mail is handled by 5 ALT2.ASPMX.L.GOOGLE.COM.
+    bzyl.pl mail is handled by 10 ASPMX4.GOOGLEMAIL.COM.
+    bzyl.pl mail is handled by 5 ALT1.ASPMX.L.GOOGLE.COM.
+    bzyl.pl mail is handled by 1 ASPMX.L.GOOGLE.COM.
+    bzyl.pl mail is handled by 10 ASPMX5.GOOGLEMAIL.COM.
+    bzyl.pl mail is handled by 10 ASPMX3.GOOGLEMAIL.COM.
+
+
+## Delegujemy 
 
 Z *home.pl*.
