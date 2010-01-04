@@ -115,6 +115,23 @@ klikamy w zakładkę *General Info* i w formularzu zmieniamy nazwę.
     git remote rm heroku
     git remote add heroku git@heroku.com:wbnotes.git
 
+Dalej:
+
+    heroku db:migrate
+
+i już możemy wejść na stronę 
+
+    http://wbznotes.heroku.com
+
+## Konsola Heroku 
+
+Zaczynamy od:
+
+    heroku help
+
+Następnie 
+
+    heroku console
 
 ## Ograniczenia „cloud computing”
 
@@ -157,6 +174,9 @@ Check that your DNS is configured correctly with the host command:
 Output of the host command varies by Unix flavor, but it should
 indicate that your domain name is either an alias or CNAME of
 proxy.heroku.com.
+
+
+## Autoryzacja
 
 
 ## Emails via Gmail add-on
