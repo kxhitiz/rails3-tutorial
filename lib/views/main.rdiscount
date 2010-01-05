@@ -113,28 +113,33 @@ w komputerze tak się Wam spodobał!
  </tr>
 
  <tr>
- <td>10:15–10:40 (13.01)</td>
+ <td>10:15–10:45 (13.01)</td>
  <td>Katalog rzeczy pożyczonych</td>
  </tr>
 
  <tr>
- <td>10:40–11:05 (13.01)</td>
+ <td>10:44–11:15 (13.01)</td>
  <td>PhotoSpace</td>
  </tr>
 
  <tr>
- <td>11:05–11:30 (13.01)</td>
+ <td>11:15–11:45 (13.01)</td>
+ <td>botRunner</td>
+ </tr>
+
+ <tr>
+ <td>11:45–12:15 (13.01)</td>
+ <td>Katalog rzeczy pożyczonych 2</td>
+ </tr>
+
+ <tr>
+ <td>11:15–11:45 (18.01)</td>
  <td>Sahara</td>
  </tr>
 
  <tr>
- <td>11.30–11:55 (13.01)</td>
+ <td>11.45–12:15 (18.01)</td>
  <td>BZIL: Bardzo Zwyczajny Integrator Ludzi</td>
- </tr>
-
- <tr>
- <td>10:15–10:40 (20.01)</td>
- <td>???</td>
  </tr>
 
 </tbody>
@@ -186,12 +191,18 @@ Know your options! wejdź na [The Ruby Toolbox](http://ruby-toolbox.com/).
 source happenings.
 
 
+## Gazeta codzienna…
+
+* [Rubyflow](http://rubyflow.com)
+
+
 ## Screencasty
 
-* Ryan Bates. [Railscasts](http://railscasts.com/).
+* Ryan Bates. [Railscasts](http://railscasts.com/)
 * [Rails Performance Resources](http://railslab.newrelic.com/) —
-  Expert advice on tuning and optimizing your Rails app.
-* Remi Taylor. [i hack codez](http://remi.org/).
+  Expert advice on tuning and optimizing your Rails app
+* [Learnivore: Ruby/Rails/iPhone screencasts](http://www.learnivore.com/search)
+* Remi Taylor. [i hack codez](http://remi.org/)
 
 
 ## Podręczniki do języka Ruby
