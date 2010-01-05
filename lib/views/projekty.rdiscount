@@ -329,4 +329,25 @@ Lista wykorzystanych w projekcie wtyczek, gemów:
 * ActsAsTaggableOn
 * Ruby on Rails Gravatar Plugin
 
-## Kto następny?
+
+## Lendrow: Lending in Really Obvious Way
+
+* A. Michał Kaliszuk (szef projektu)
+* B. Wojciech Pliszka
+* C. Dawid Nowak
+* D. Piotr Chwiećko
+
+[Link do aplikacji](http://lendrow.heroku.com)
+
+[Link do diagramu ERD](http://sigma.inf.ug.edu.pl/~mkaliszu/lendrow/erd.jpg)
+
+[URI systemu zarządzania
+projektem](http://sigma.inf.ug.edu.pl/~mkaliszu/lendrow/redmine)
+
+[URI repozytorium Git projektu](http://github.com/afro001/lendrow)
+
+Opis podstawowych funkcjonalności:
+
+Ewidencja przedmiotów (książek, płyt, pieniędzy) pożyczonych komuś i od
+kogoś, oczekiwane terminy zwrotu, przypomnienia emailowe dotyczące terminu
+zwrotu - pomysł Agnieszki Figiel.
