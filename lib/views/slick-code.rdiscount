@@ -9,7 +9,7 @@
 
 ## Ruby
 
-1\. [O. Szrajer] Czytnik RSS.
+1\. O. Szrajer. Czytnik RSS.
 
     :::ruby
     require 'rubygems'
@@ -28,6 +28,38 @@ Przykład z kategorii „scraping”. Zobacz też:
  * [Screen Scraping with ScrAPI](http://railscasts.com/episodes/173-screen-scraping-with-scrapi)
 
 
+2\. Greg Willits. 
+[Random Id](http://www.railsdev.ws/blog/11/custom-validations-in-rails/)
+
+    :::ruby
+    class Numeric
+      def random_id
+        (1..self).collect do
+         (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr 
+         end.join
+      end   
+    end
+    # przykład
+    16.random_id
+
+
 ## Rails 3
 
-1\. …
+1\. Greg Willits. 
+[Custom Validations](http://www.railsdev.ws/blog/11/custom-validations-in-rails/)
+
+    :::ruby
+    module ActiveRecord
+      module Validations
+        module ClassMethods
+          def validates_as_alpha_numeric_underscore(*attr_names)
+            configuration = {
+              :message   => 'accepts only a-z, A-Z, 0-9, and underscores',
+              :with      => /^[a-zA-Z0-9\_]*?$/
+            }
+            configuration.update(attr_names.pop) if attr_names.last.is_a?(Hash)
+            validates_format_of attr_names, configuration
+          end
+        end
+      end
+    end
