@@ -353,3 +353,37 @@ Opis podstawowych funkcjonalności:
 Ewidencja przedmiotów (książek, płyt, pieniędzy) pożyczonych komuś i od
 kogoś, oczekiwane terminy zwrotu, przypomnienia emailowe dotyczące terminu
 zwrotu - pomysł Agnieszki Figiel.
+
+
+## Szybka Praca Domowa
+
+Naszym celem jest stworzenie platformy ułatwiającej realizację typowych
+zadań domowych dla uczniów języków obcych.
+
+* Paweł Krzemiński (szef projektu)
+* Karol Szelożyński
+* Paweł Rutkowski
+* Tomek Stawikowski
+
+[Link do aplikacji](http://spd.heroku.com/)
+
+[Link do diagramu ERD
+aplikacji](http://sigma.inf.ug.edu.pl/~pkrzemin/projektASI/diagramASI.jpg)
+
+[URI systemu zarządzania projektem](http://www.assembla.com/space/spd)
+
+[URI repozytorium Git projektu](http://github.com/SPD/SPD)
+
+Podstawowe funkcjonalności:
+
+Użytkownicy będą się logować wybierając opcję "Nauczyciel" bądź "Uczeń".
+Nauczyciele będą mogli tworzyć zadania, uczniowie zaś zapisywać się do ich
+rozwiązania. Przygotowane będą zadania dwóch typów: tłumaczenie pojedyńczych
+słówek oraz uzupełnianie luk w zdaniu. Rozwiązanie zadania będzie się
+automatycznie sprawdzało i uczeń natychmiast otrzyma wynik po wysłaniu
+rozwiązania. Dostęp do zadań będzie chroniony hasłem. Na koncie nauczyciela
+będą widoczne wyniki poszczególnych uczniów.
+
+Lista użytych gemów:
+* Authlogic
+* Searchlogic
