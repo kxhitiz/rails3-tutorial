@@ -28,3 +28,14 @@ Na przykład:
 Po uruchomieniu aplikacja jest dostępna z URL:
 
     http://localhost:8008/
+
+
+## Layout
+
+Korzystam z frameworka [BlueprintCSS] [].
+Ten tutorial ma taki layout:
+
+![page layout](http://github.com/wbzyl/rails3-tutorial/raw/master/images/layout.png)
+
+
+[blueprintcss]: http://www.blueprintcss.org/ "Blueprint: A CSS Framework"
