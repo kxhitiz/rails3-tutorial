@@ -23,7 +23,7 @@ Aplikację uruchamiamy tak:
 
 Na przykład:
 
-    rackup /usr/lib/ruby/gems/1.8/gems/rails3-tutorial-0.4.1/lib/config.ru -p 8008
+    rackup /usr/lib/ruby/gems/1.8/gems/rails3-tutorial-0.4.2/lib/config.ru -p 8008
 
 Po uruchomieniu aplikacja jest dostępna z URL:
 
