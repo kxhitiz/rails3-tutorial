@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-tutorial}
-  s.version = "0.4.1"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wlodek Bzyl"]
-  s.date = %q{2009-11-26}
+  s.date = %q{2010-01-14}
   s.description = %q{Notatki do wykladu Architektura serwisow internetowych
 }
   s.email = %q{matwb@univ.gda.pl}
@@ -29,6 +29,10 @@ Gem::Specification.new do |s|
      "lib/public/images/ale-kino/film-recenzja.png",
      "lib/public/images/ale-kino/film-seans-kino-full.png",
      "lib/public/images/ale-kino/film-seans-kino.png",
+     "lib/public/images/ale-kino/filmy-index-1.png",
+     "lib/public/images/ale-kino/filmy-index-scaffold.png",
+     "lib/public/images/ale-kino/filmy-show-1.png",
+     "lib/public/images/ale-kino/filmy-show-scaffold.png",
      "lib/public/images/algorithm.png",
      "lib/public/images/binary-logic.gif",
      "lib/public/images/bradypus.jpg",
@@ -79,10 +83,12 @@ Gem::Specification.new do |s|
      "lib/views/authorization.rdiscount",
      "lib/views/blog.rdiscount",
      "lib/views/caching.rdiscount",
+     "lib/views/declarative-authorization.rdiscount",
      "lib/views/exercises.rdiscount",
      "lib/views/favicon.ico.rdiscount",
      "lib/views/firefox.rdiscount",
      "lib/views/fortune.rdiscount",
+     "lib/views/heroku.rdiscount",
      "lib/views/intro.rdiscount",
      "lib/views/layout.rdiscount",
      "lib/views/ls.rdiscount",
@@ -92,6 +98,7 @@ Gem::Specification.new do |s|
      "lib/views/questions.rdiscount",
      "lib/views/ruby19.rdiscount",
      "lib/views/searching.rdiscount",
+     "lib/views/security.rdiscount",
      "lib/views/slick-code.rdiscount",
      "lib/views/store.rdiscount",
      "lib/views/todo.rdiscount",
