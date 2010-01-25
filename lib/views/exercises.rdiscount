@@ -94,7 +94,11 @@ So I’ve started to try and make any «HTML Template» into a
 
 Wyszukać w sieci darmowy szablon, albo przygotować go
 samemu. Zainstalować za go pomocą programu *install_theme*.
-Jak to się robi, opisano w blogu we wpisie wspomnianym powyżej.
+
+Krótki przewodnik po *install_theme* napisała
+Agnieszka Steinborn, [Szablony HTML dla 
+Rails](http://sigma.ug.edu.pl/~ksteinborn/rails3/2010/01/16/Szablony-HTML-dla-Rails/).
+
 
 3\. Dodać *gravatary* do aplikacji (użyć migracji). 
 Skorzystać z jakiegoś gemu lub jakiejś wtyczki, na przykład
