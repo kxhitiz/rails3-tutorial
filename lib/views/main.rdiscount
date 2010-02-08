@@ -57,12 +57,6 @@ admin loguje się za pomocą admin/admin, a użytkownik jako
 user/user. Jeśli serwis przewiduje większą liczbę ról,
 informacja na ich temat musi znaleźć się powyżej w *Różne uwagi*.
 
-<!-- * <Wkleić wynik działania polecenia: rake stats> -->
-
-[26.10.2009] Proszę uzupełnić wpisy na blogach.
-Do 30.10.2009 należy umieścić rozwiązania 
-z BlueprintCSS i HAML&SASS.
-
 [13.10.2009] *jBlog* pojawił się na stronie 
 [Popular Forked Repositories – GitHub](http://github.com/popular/forked).
 Cieszę się, że pomysł zastąpienia notatek w zeszytach notatkami
@@ -88,7 +82,6 @@ w komputerze tak się Wam spodobał!
 
 **Laboratoria:**
 
-* {%= link_to "Listy obecności", "/ls" %}
 * {%= link_to "Ćwiczenia", "/exercises" %}
 * {%= link_to "Odpowiedzi", "/answers" %}
 * {%= link_to "Projekty", "/projekty" %}
