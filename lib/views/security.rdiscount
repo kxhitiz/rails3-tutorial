@@ -1,0 +1,16 @@
+#### {% title "Bezpieczeństwo" %}
+
+# Bezpieczeństwo w Ruby on Rails
+
+Hej!
+
+## The Tools of the Trade
+
+Instalujemy rozszerzenie [Tamper Data][]
+
+
+
+#### Linki
+
+[tamper data]: https://addons.mozilla.org/pl/firefox/addon/966 "Tamper Data".
+[burp suite]: http://www.portswigger.net/

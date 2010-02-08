@@ -23,8 +23,19 @@ Aplikację uruchamiamy tak:
 
 Na przykład:
 
-    rackup rackup /usr/lib/ruby/gems/1.8/gems/rails3-tutorial-0.4.1/lib/config.ru -p 8008
+    rackup /usr/lib/ruby/gems/1.8/gems/rails3-tutorial-0.4.2/lib/config.ru -p 8008
 
 Po uruchomieniu aplikacja jest dostępna z URL:
 
     http://localhost:8008/
+
+
+## Layout
+
+Korzystam z frameworka [BlueprintCSS] [].
+Ten tutorial ma taki layout:
+
+![page layout](http://github.com/wbzyl/rails3-tutorial/raw/master/images/layout.png)
+
+
+[blueprintcss]: http://www.blueprintcss.org/ "Blueprint: A CSS Framework"

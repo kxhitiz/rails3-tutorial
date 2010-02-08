@@ -1,0 +1,248 @@
+#### {% title "Heroku" %}
+
+# Krok po kroku heroku
+
+Zaczynamy od zarejestrowania się w Heroku:
+zakładka *Sign up*, wybieramy „free plan” *Blossom*
+(do 20 Mb). Następnie instalujemy gemy:
+
+    sudo gem install heroku tap
+
+oraz adaptery dla aplikacji rails:
+
+    sudo gem install postgres do_postgres pg
+
+
+## Pierwsza aplikacja (PostgreSQL)
+
+Generujemy szkielet aplikacji:
+
+    rails notes -d postgresql
+
+W pliku konfiguracyjnym *config/database.yml* bazy danych,
+w sekcjach development, production i test poprzedzamy
+unikalnym prefixem (np. swoją nazwą użytkownika) klucz *database*
+oraz zmieniamy nazwę użytkownika *notes* na swoją
+nazwę użytkownika bazy PostgreSQL oraz jeśli to konieczne
+wpisujemy hasło:
+
+    development:
+      adapter: postgresql
+      encoding: unicode
+      database: wbzyl_notes_development
+      pool: 5
+      username: wbzyl
+      password: railz!
+
+Tworzymy bazy danych:
+
+    createdb wbzyl_notes_development
+    createdb wbzyl_notes_production
+
+Tworzymy model:
+
+    script/generate scaffold notes subject:string body:text
+
+I migrujemy:
+
+    rake db:migrate RAILS_ENV=production
+    rake db:migrate
+
+Tworzymy w głównym katatalogu aplikacji „gem manifest file” 
+o nazwie *.gems* z następującą zawartością:
+
+    s3
+    warden --version '=0.6.5' 
+    devise --version '=0.7.5'
+
+Dopisujemy te gemy w pliku *config/environment.rb*:
+
+    config.gem "aws-s3", :lib => "aws/s3"
+    config.gem "warden", :version => '=0.6.5'
+    config.gem "devise", :version => '=0.7.5'
+
+
+## Wdrażamy aplikację na Heroku
+
+Tworzymy git repo:
+
+    git init
+    git add .
+    git commit -m "pierwsza wrzutka"
+
+Następnie:
+
+    heroku create
+    Enter your Heroku credentials.
+    Email: matwb@univ.gda.pl
+    Password: 
+    Uploading ssh public key /home/wbzyl/.ssh/id_rsa.pub
+    Created http://floating-mist-18.heroku.com/ | git@heroku.com:floating-mist-18.git
+    Git remote heroku added
+
+Można też spróbować tak:
+
+    heroku create wbnotes
+
+ale nie mamy gwarancji, że takiej aplikacji już nie wdrożono
+na heroku (błąd: *name already taken*).
+
+I dalej:
+
+    git push heroku master
+    -----> Heroku receiving push
+    -----> Installing gem s3 from http://gemcutter.org, http://gems.rubyforge.org
+           Successfully installed trollop-1.15
+           Successfully installed s3-0.2.3
+           2 gems installed
+    -----> Installing gem warden 0.6.5 from http://gemcutter.org, http://gems.rubyforge.org
+           Successfully installed warden-0.6.5
+           1 gem installed
+    -----> Installing gem devise 0.7.5 from http://gemcutter.org, http://gems.rubyforge.org
+           Successfully installed devise-0.7.5
+           1 gem installed
+    -----> Rails app detected
+           Compiled slug size is 316K
+    -----> Launching............ done
+           http://floating-mist-18.heroku.com deployed to Heroku
+    To git@heroku.com:floating-mist-18.git
+     * [new branch]      master -> master
+
+Zmiana nazwy aplikacji. Po zalogowaniu na heroku, wchodzimy na stronę ze
+swoimi aplikacjami, wybieramy aplikację *floating-mist-18*,
+klikamy w zakładkę *General Info* i w formularzu zmieniamy nazwę.
+
+    git remote rm heroku
+    git remote add heroku git@heroku.com:wbnotes.git
+
+Dalej:
+
+    heroku db:migrate
+
+i już możemy wejść na stronę 
+
+    http://wbznotes.heroku.com
+
+## Konsola Heroku 
+
+Zaczynamy od:
+
+    heroku help
+
+Następnie 
+
+    heroku console
+
+## Ograniczenia „cloud computing”
+
+
+## Rejestrujemy domenę
+
+Na *home.pl* lub *az.pl* możemy zarejestrować jedną domenę PL za
+darmo.
+
+Ja zarejestrowałem na *az.pl* domenę **bzyl.pl**.
+[Panel Konfiguracyjny](https://nask.az.pl/produkcyjny/TotalDnsRecord.do).
+
+Na *home.pl* panel konfiguracyjny?
+
+
+
+## Heroku adds-on
+
+### Exceptional add-on
+
+### Custom Domains adds-on
+
+Co należy zrobić aby adres **http://fortunka.bzyl.pl**
+był aliasem adresu **http://fortune.heroku.com**.
+
+Set up your domain with your registrar, then select the subdomain that
+you wish to point at your Heroku app. This could be something like
+myapp.mycompany.com, or the standard www.mydomain.com. CNAME support
+is only valid for hosts, not the root domain. If you need to setup
+yourdomain.com, you must use the setup in the next section.
+
+Configure your DNS provider to make your chosen custom domain name be
+an alias which points to proxy.heroku.com. In DNS terms this is known
+as a CNAME.
+
+Check that your DNS is configured correctly with the host command:
+
+    host www.bzyl.pl
+    
+    www.bzyl.pl is an alias for proxy.heroku.com.
+    proxy.heroku.com has address 174.129.212.2
+    proxy.heroku.com has address 75.101.145.87
+    proxy.heroku.com has address 75.101.163.44
+
+Output of the host command varies by Unix flavor, but it should
+indicate that your domain name is either an alias or CNAME of
+proxy.heroku.com.
+
+
+## Autoryzacja
+
+
+## Emails via Gmail add-on
+
+Do 200 emaili/dzień.
+
+Zob. http://mail.google.com/support/bin/answer.py?hl=en&answer=13287
+
+    # Configure your client to match the settings below:
+    Incoming Mail (POP3) Server - requires SSL: 	pop.gmail.com
+    Use SSL: Yes
+    Port: 995
+    Outgoing Mail (SMTP) Server - requires TLS or SSL: 	smtp.gmail.com (use authentication)
+    Use Authentication: Yes
+    Port for TLS/STARTTLS: 587
+    Port for SSL: 465
+    Account Name: 	your full email address (including @gmail.com or @your_domain.com)
+    Email Address: 	your email address (username@gmail.com or username@your_domain.com)
+    Password: 	your Gmail password
+
+Unless you're using recent mode to download mail to multiple clients,
+make sure you've opted not to leave messages on the server. Your Gmail
+settings determine whether or not messages stay on the server, so this
+setting in your client won't affect how Gmail handles your mail.
+
+Please note that if your client does not support SMTP authentication,
+you won't be able to send mail through your client using your Gmail
+address.
+
+Also, if you're having trouble sending mail but you've confirmed that
+encyrption is active for SMTP in your mail client, try to configure
+your SMTP server on a different port: 465 or 587.
+
+Zob. konfigurowanie MX:
+http://www.google.com/support/a/bin/answer.py?answer=33915
+
+    $ heroku addons:add "custom domains"
+    Adding custom domains to login... done
+    [wbzyl@localhost hello-login]
+    $ heroku domains:add www.bzyl.pl 
+    Added www.bzyl.pl as a custom domain name to login.heroku.com
+    [wbzyl@localhost hello-login]
+    $ heroku domains:add bzyl.pl 
+    Added bzyl.pl as a custom domain name to login.heroku.com
+
+Teraz:
+
+    host bzyl.pl
+    
+    bzyl.pl has address 174.129.212.2
+    bzyl.pl has address 75.101.163.44
+    bzyl.pl has address 75.101.145.87
+    bzyl.pl mail is handled by 10 ASPMX2.GOOGLEMAIL.COM.
+    bzyl.pl mail is handled by 5 ALT2.ASPMX.L.GOOGLE.COM.
+    bzyl.pl mail is handled by 10 ASPMX4.GOOGLEMAIL.COM.
+    bzyl.pl mail is handled by 5 ALT1.ASPMX.L.GOOGLE.COM.
+    bzyl.pl mail is handled by 1 ASPMX.L.GOOGLE.COM.
+    bzyl.pl mail is handled by 10 ASPMX5.GOOGLEMAIL.COM.
+    bzyl.pl mail is handled by 10 ASPMX3.GOOGLEMAIL.COM.
+
+
+## Delegujemy 
+
+Z *home.pl*.

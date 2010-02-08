@@ -9,6 +9,11 @@
 
 ## Info
 
+[22.12.2009] Dodano harmonogram prezentacji.
+
+[12.12.2009] Opisy projektów wpisane w notacji
+Markdown można też przesłać emailem.
+
 [27.11.2009] Właśnie minął czas zgłaszania projektów.
 Teraz aby **zgłosić projekt** lub **poprawki do opisu projektu** należy:
 
@@ -62,13 +67,106 @@ informacja na ich temat musi znaleźć się powyżej w *Różne uwagi*.
 Cieszę się, że pomysł zastąpienia notatek w zeszytach notatkami
 w komputerze tak się Wam spodobał!
 
+## Prezentacje projektów
 
-**Wykłady:** 
+**Uwaga:** Poniżej wpisałem orientacyjne godziny rozpoczęcia referatów.
+
+<table class="span-14" summary="harmonogram">
+  <colgroup>
+    <col class="table1"/>
+    <col class="table2"/>
+  </colgroup>
+  <caption><em>Harmonogram prezentacji</em></caption>
+  <thead>
+   <tr>
+    <th class="span-5">kiedy</th>
+    <th class="span-9">tytuł</th>
+   </tr>
+  </thead>
+
+<tbody>
+
+ <tr>
+ <td>10:15–10:40 (6.01)</td>
+ <td>Home Sweet Home</td>
+ </tr>
+
+ <tr>
+ <td>10:40–11:05 (6.01)</td>
+ <td>Rozwiąż zadanie</td>
+ </tr>
+
+ <tr>
+ <td>11:05–11:30 (6.01)</td>
+ <td>Motel z rezerwacją (prawdopodobnie)</td>
+ </tr>
+
+ <tr>
+ <td></td>
+ <td></td>
+ </tr>
+
+ <tr>
+ <td>10:15–10:30 (13.01)</td>
+ <td>Karp: Katalog rzeczy pożyczonych</td>
+ </tr>
+
+ <tr>
+ <td>10:30–10:45 (13.01)</td>
+ <td>PhotoSpace</td>
+ </tr>
+
+ <tr>
+ <td>10:45–11:00 (13.01)</td>
+ <td>botRunner</td>
+ </tr>
+
+ <tr>
+ <td>11:00–11:15 (13.01)</td>
+ <td>Lendrow: Lending in Really Obvious Way</td>
+ </tr>
+
+ <tr>
+ <td>11:15–11:30 (13.01)</td>
+ <td>ArtMasters</td>
+ </tr>
+
+ <tr>
+ <td>11:30–11:45 (13.01)</td>
+ <td>Szybka Praca Domowa</td>
+ </tr>
+
+ <tr>
+ <td></td>
+ <td></td>
+ </tr>
+
+ <tr>
+ <td>10:15–10:45 (18.01)</td>
+ <td>Sahara</td>
+ </tr>
+
+ <tr>
+ <td>10.45–11:15 (18.01)</td>
+ <td>BZIL: Bardzo Zwyczajny Integrator Ludzi</td>
+ </tr>
+
+ <tr>
+ <td>11.15–11:45 (18.01)</td>
+ <td>ProjektX</td>
+ </tr>
+
+</tbody>
+</table>
+
+
+## Wykłady
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
 1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
 1. {%= link_to "Sprytny kod", "/slick-code" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
+1. {%= link_to "Heroku krok po kroku", "/heroku" %}
 1. {%= link_to "Aplikacja „Leniwiec” (klon pastie)", "/pastie" %}
 1. {%= link_to "Aplikacja „Todo”", "/todo" %}
 1. {%= link_to "Aplikacja „Blog”", "/blog" %}
@@ -78,9 +176,11 @@ w komputerze tak się Wam spodobał!
 1. {%= link_to "Autoryzacja I", "/authorization" %}
 1. {%= link_to "Autoryzacja II", "/declarative-authorization" %}
 1. {%= link_to "Wyszukiwanie", "/searching" %}
+1. {%= link_to "Bezpieczeństwo", "/security" %}
 1. {%= link_to "Caching", "/caching" %}
 
-**Laboratoria:**
+
+## Laboratoria
 
 * {%= link_to "Ćwiczenia", "/exercises" %}
 * {%= link_to "Odpowiedzi", "/answers" %}
@@ -100,16 +200,27 @@ Na początek zaczynamy od przestudiownaia
 
 Know your options! wejdź na [The Ruby Toolbox](http://ruby-toolbox.com/). 
 
-[Changelog](http://thechangelog.com/) keeps you up to date on open 
-source happenings.
+### API
+
+* [YARD](http://yardoc.org/docs)
+* [APIdock](http://apidock.com/)
+* [Rails Searchable API Doc](http://railsapi.com/)
+
+
+## Gazeta codzienna…
+
+* [Rubyflow](http://rubyflow.com)
+* [Changelog](http://thechangelog.com/) keeps you up to date on open 
+  source happenings.
 
 
 ## Screencasty
 
-* Ryan Bates. [Railscasts](http://railscasts.com/).
+* Ryan Bates. [Railscasts](http://railscasts.com/)
 * [Rails Performance Resources](http://railslab.newrelic.com/) —
-  Expert advice on tuning and optimizing your Rails app.
-* Remi Taylor. [i hack codez](http://remi.org/).
+  Expert advice on tuning and optimizing your Rails app
+* [Learnivore: Ruby/Rails/iPhone screencasts](http://www.learnivore.com/search)
+* Remi Taylor. [i hack codez](http://remi.org/)
 
 
 ## Podręczniki do języka Ruby
@@ -124,6 +235,8 @@ source happenings.
 
 * Cody Fauser, James MacAulay, Edward Ocampo-Gooding, John Guenin.
   [Rails in a Nutshell](http://rails-nutshell.labs.oreilly.com/).
+* Michael Hartl.
+  [Ruby on Rails Tutorial. Learn Rails by Example](http://www.railstutorial.org/book).
 
 
 ## Blogi
