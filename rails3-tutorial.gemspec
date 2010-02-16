@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-tutorial}
-  s.version = "0.4.2.0"
+  s.version = "0.4.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wlodek Bzyl"]
@@ -91,7 +91,6 @@ Gem::Specification.new do |s|
      "lib/views/heroku.rdiscount",
      "lib/views/intro.rdiscount",
      "lib/views/layout.rdiscount",
-     "lib/views/ls.rdiscount",
      "lib/views/main.rdiscount",
      "lib/views/pastie.rdiscount",
      "lib/views/projekty.rdiscount",

@@ -101,8 +101,8 @@ Podstawy REST:
    Create, Read, Update i Delete 
    (zwykle skracane do *CRUD*).
 4. Klient i serwer komunikują się ze sobą korzystając
-   protokołu bezstanowego. Oznaczo to, że klient 
-   zwraca się z żądaniemdo serwera. Serwer odpowiada i
+   protokołu bezstanowego. Oznacza to, że klient 
+   zwraca się z żądaniem do serwera. Serwer odpowiada i
    cała konwersacja się kończy.
 
 
