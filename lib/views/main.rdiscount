@@ -14,8 +14,6 @@
 ## Wykłady
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
-1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
-1. {%= link_to "Sprytny kod", "/slick-code" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
 1. {%= link_to "Heroku krok po kroku", "/heroku" %}
 1. {%= link_to "Aplikacja „Leniwiec” (klon pastie)", "/pastie" %}
@@ -30,12 +28,15 @@
 1. {%= link_to "Bezpieczeństwo", "/security" %}
 1. {%= link_to "Caching", "/caching" %}
 
+### Ruby
+
+1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
+1. {%= link_to "Sprytny kod", "/slick-code" %}
 
 ## Laboratoria
 
 * {%= link_to "Ćwiczenia", "/exercises" %}
-* {%= link_to "Odpowiedzi", "/answers" %}
-* {%= link_to "Projekty", "/projekty" %}
+* {%= link_to "Projekty 2009", "/projekty" %}
 
 
 ## Dokumentacja
@@ -57,6 +58,11 @@ Know your options! wejdź na [The Ruby Toolbox](http://ruby-toolbox.com/).
 * [APIdock](http://apidock.com/)
 * [Rails Searchable API Doc](http://railsapi.com/)
 
+### Ruby
+
+* [Rails 3 Beta and RVM](http://railscasts.com/episodes/200-rails-3-beta-and-rvm)
+* [RVM](http://rvm.beginrescueend.com/) – 
+  Ruby Version Manager
 
 ## Gazeta codzienna…
 

@@ -561,8 +561,7 @@ W pliku *environment.rb* dopisujemy:
     :::ruby 
     require 'will_paginate'
     Rails::Initializer.run do |config|
-      config.gem 'will_paginate', :version => '~> 2.3.6',
-        :source => 'http://gemcutter.org'
+      config.gem 'will_paginate'
     end
 
 Następnie sprawdzamy czy gem jest już zainstalowany w odpowiedniej wersji:
@@ -625,16 +624,15 @@ Jak zwykle sprawdzamy czy gem jest już zainstalowany:
 
 Jeśli nie to instalujemy go tak:
 
-    gem sources -a http://gemcutter.org
     sudo gem install paperclip
-    # Successfully installed paperclip-2.3.1.1
+    # Successfully installed paperclip-2.3.1
     # 1 gem installed
 
 albo, lepiej, w pliku *environment.rb* dopisujemy:
 
     :::ruby 
     Rails::Initializer.run do |config|
-      config.gem 'paperclip', :version => '~> 2.3.1'
+      config.gem 'paperclip', :version => '>= 2.3.1'
     end
 
 OK. Chcemy mieć attaczmęt w modelu *Platitude*. Nazwiemy go *photo*.

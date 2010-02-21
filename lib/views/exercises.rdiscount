@@ -113,9 +113,8 @@ Dodać taką funkcjonalność do budowanej aplikacji.
 
 4\. Wersja 3.5 Firefoxa obsługuje 
 [W3C Geolocation API](http://dev.w3.org/geo/api/spec-source.html).
-Korzystając z wtyczki
-[GeoMereLaal](http://github.com/parolkar/geo_mere_laal) 
-dodać Geolocation do aplikacji.
+Korzystając jedengo z gemów polecanych na stronie
+[The Ruby Toolbox](http://www.ruby-toolbox.com/categories/geocoding___maps.html)
 
 <blockquote>
 <p>
