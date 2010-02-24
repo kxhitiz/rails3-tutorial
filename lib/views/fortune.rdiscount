@@ -262,14 +262,17 @@ Wyniki naszej pracy możemy podejrzeć tutaj:
 Ale po kliknięciu na 'NEW' dostajemy *weird error*.
 Generator wygenerował błędny kod? 
 
-Poprawiamy generator zamieniając w widokach:
-`education_path` na `education_index_path` oraz 
-w kontrolerze w metodzie `destroy` na:
+Poprawiamy to co wygenerował generator.
+Zamieniamy w widokach `education_path` na `education_index_path`.
 
-    :::ruby
-    link_to 'Back', education_index_path
+Na początek, sprawdzimy jakich plików to dotyczy:
 
-W wygenerowanym formularzu musimy też podmienić:
+    egrep -w education_path *
+    edit.html.erb:  <%= link_to "View All", education_path %>
+    new.html.erb:<p><%= link_to "Back to List", education_path %></p>
+    show.html.erb:  <%= link_to "View All", education_path %>
+
+W wygenerowanym formularzu w pliku *_form.html.erb* podmieniamy:
 
     :::html_rails
     <% form_for(@education) do |f| %>
@@ -279,8 +282,22 @@ na (to było trudne!):
     :::html_rails
     <% form_for(:education, :url => education_index_path) do |f| %>
 
+Po wykonaniu tych poprawek, w kodzie kontrolera *education_controller.rb*
+w metodzie `destroy` podmieniamy kod:
+
+    :::ruby
+    redirect_to education_url # niepoprawne!
+
+na
+
+    :::ruby
+    redirect_to education_index_url
+
+
 Na koniec, jeszcze raz podglądamy routing, aby przekonać się
-że postąpiliśmy właściwie.
+że postąpiliśmy właściwie. 
+
+Teraz wszystko powinno działać.
 
 
 ## A co z polskimi literkami?
@@ -403,6 +420,83 @@ Uruchamiamy aplikację i edytujemy wpis:
     Oscar Wilde, "The Critic as Artist"
 
 przerzucając nazwę książki do kolumny *Source*.
+
+
+## Dodajemy wyszukiwanie po polu *quotation*
+
+W modelu *Education* dopisujemy:
+
+    :::ruby
+    class Education < ActiveRecord::Base
+      attr_accessible :quotation
+
+      def self.search(search)
+        if search
+          all(:conditions => ['quotation LIKE ?', "%#{search}%"])
+        else
+          all
+        end
+      end
+
+W widoku *index.html.erb* dopisujemy:
+
+    :::html
+    <% form_tag education_index_path, :method => 'get' do %>
+      <p>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search", :name => nil %>
+      </p>
+    <% end %>
+
+W kontrolerze *controller_education.rb* zmieniamy kod metody
+*index*:
+
+    :::ruby
+    def index
+      @education = Education.search(params[:search])
+    end
+
+I już!
+
+
+## Dodajemy tagowanie
+
+Na stronie [The Ruby Toolbox: Rails Tagging](http://ruby-toolbox.com/categories/rails_tagging.html)
+wybieramy najbardziej popularny gem do tagowania:
+[acts-as-taggable-on](http://github.com/mbleigh/acts-as-taggable-on).
+
+Instalujemy gem według instrukcji.
+
+**Uwaga**: generator *acts_as_taggable_on_migration* tworzy migrację z
+modelem *Tagging* (jest to model *polimorficzny*). Po wykonaniu
+migracji nasza aplikacja będzie składać się z **dwóch** modeli.
+
+### Zmiany w kodzie
+
+Model:
+
+    :::ruby
+    class Education < ActiveRecord::Base
+      attr_accessible :quotation, :tag_list
+      acts_as_taggable_on :tags
+      TagList.delimiter = " "
+
+Powyżej ustawiamy *tags delimiter* na spację (domyślnym ogranicznikiem jest przecinek).
+
+Widoki: w formularzu *_form.html.erb* dopisujemy:
+
+    :::html_rails
+    <p>
+      <%= f.label :tag_list %><br />
+      <%= f.text_field :tag_list %>
+    </p>
+
+w *index.html.erb* dopisujemy:
+
+    :::html_rails
+    <td><%=h education.tag_list %></td>
+
+I gotowe! Można sprawdzić jak to działa.
 
 
 ## Generujemy rusztowanie dla modelu Frazes (Komunał)
