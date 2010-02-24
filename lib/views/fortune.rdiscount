@@ -422,7 +422,7 @@ Uruchamiamy aplikację i edytujemy wpis:
 przerzucając nazwę książki do kolumny *Source*.
 
 
-## Dodajemy wyszukiwanie po polu *quotation*
+## Dodajemy wyszukiwanie w fortunkach
 
 W modelu *Education* dopisujemy:
 
