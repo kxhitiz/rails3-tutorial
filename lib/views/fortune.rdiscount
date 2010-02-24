@@ -645,6 +645,7 @@ Teraz, w zakładkach Firebuga odszukujemy nagłówek *Authorization*:
 
 <blockquote>
 {%= image_tag "/images/mislav.jpg", :alt => "[Mislav Marohnić]" %}
+<p class="center"><a href="http://mislav.uniqpath.com/">Mislav Marohnić</a></p>
 </blockquote>
 
 Skorzystamy z gemu

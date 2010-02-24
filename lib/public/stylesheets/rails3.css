@@ -176,3 +176,7 @@ thead th {
 li ul, li ol {
   margin: 0.25 1.5em;
 }
+
+.center {
+  text-align: center;
+}
