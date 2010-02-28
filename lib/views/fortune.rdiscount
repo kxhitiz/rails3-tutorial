@@ -424,7 +424,7 @@ przerzucając nazwę książki do kolumny *Source*.
 
 ## Dodajemy wyszukiwanie w fortunkach
 
-W modelu *Education* dopisujemy:
+Zmieniamy zawartość pliku *models/education.rb*:
 
     :::ruby
     class Education < ActiveRecord::Base
@@ -437,6 +437,7 @@ W modelu *Education* dopisujemy:
           all
         end
       end
+    end
 
 W widoku *index.html.erb* dopisujemy:
 
