@@ -510,6 +510,14 @@ w *index.html.erb* dopisujemy:
 I gotowe! Można sprawdzić jak to działa.
 
 
+## Walidujemy to i owo…
+
+Zaglądamy na stronę z dokumentacją do
+[ActiveRecord::Validations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html).
+
+Dodajemy *validates_presence_of* i może *validates_length_of* do Fortunki.
+
+
 ## Generujemy rusztowanie dla modelu Frazes (Komunał)
 
 Teraz uwzględniamy nową kolumnę.
