@@ -385,5 +385,6 @@ rozwiązania. Dostęp do zadań będzie chroniony hasłem. Na koncie nauczyciela
 będą widoczne wyniki poszczególnych uczniów.
 
 Lista użytych gemów:
+
 * Authlogic
 * Searchlogic

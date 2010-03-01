@@ -7,10 +7,6 @@
   <p class="author">— John von Neumann</p>
 </blockquote>
 
-## Info
-
-[21.02.2010] Zaczynamy!
-
 ## Wykłady
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
@@ -22,11 +18,14 @@
 1. {%= link_to "Aplikacja „Store”", "/store" %}
 1. {%= link_to "Aplikacja „Ale kino”", "/ale-kino" %}
 1. {%= link_to "Autentykacja", "/authentication" %}
-1. {%= link_to "Autoryzacja I", "/authorization" %}
-1. {%= link_to "Autoryzacja II", "/declarative-authorization" %}
 1. {%= link_to "Wyszukiwanie", "/searching" %}
 1. {%= link_to "Bezpieczeństwo", "/security" %}
 1. {%= link_to "Caching", "/caching" %}
+
+<!--
+1. {%= link_to "Autoryzacja I", "/authorization" %}
+1. {%= link_to "Autoryzacja II", "/declarative-authorization" %}
+-->
 
 ### Ruby
 

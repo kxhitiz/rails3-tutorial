@@ -325,12 +325,22 @@ z `config.i18n.default_locale`:
       config.i18n.default_locale = :pl
     end
 
+Następnie plik [pl.yml](http://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/pl.yml)
+(wersja *raw*) zapisujemy w katalogu *config/locales/*.
+**Uwaga:** Tłumaczenia dotyczą komunikatów o błędach, aby je zobaczyć dodajemy
+walidację do modelu.
+
+Angielskie nazwy modeli i atrybutów też możemy przetłumaczyć.
+Jest to opisane w Rails Guides, 
+[Translations for Active Record Models](http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)
+
+
 
 ## Suszymy kod: refaktoryzacja widoków
 
-Wspólny kod z plików *new.html.erb* oraz *edit.html.erb*
-przenosimy do pliku *_form.htm.erb*. Zamiast tego kodu
-wstawiamy w pliku *new.html.erb*:
+W plikach *new.html.erb* oraz *edit.html.erb*
+wykonujemy następujące zmiany (tak aby przycisk 'Submit'
+miał nazwę adekwatną do swojej funkcji):
 
     :::html_rails
     <%= render :partial => "form", 
@@ -342,10 +352,10 @@ a w pliku *edit.html.erb*:
     <%= render :partial => "form", 
           :locals => { :f => f, :button_label => 'Update' } %>
 
-Nie zapominany wymienić w *_form.html.erb*:
+Teraz wymieniamy w pliku *_form.html.erb*:
 
     :::html_rails
-    <%= f.submit ... %>
+    <%= f.submit %>
 
 na:
 
