@@ -1,0 +1,72 @@
+#### {% title "Layouts" %}
+
+# Layouts, czyli układy graficzne
+
+Co oznacza słowo *layout*: 
+
+* makieta, układ graficzny strony, okładki, książki
+* rozmieszczenie, rozplanowanie elementów na stronie
+* rozkład, plan techniczny, kompozycja
+
+*Rails Guides*,
+[Layouts and Rendering in Rails](http://guides.rubyonrails.org/layouts_and_rendering.html) –
+This guide covers the basic layout features of Action Controller and Action View. 
+
+
+## Metody pomocnicze z *nifty_layout*
+
+Plik *app/helpers/layout_helper.rb* zawiera kilka niezmiernie
+użytecznych metod:
+
+    :::ruby
+    module LayoutHelper
+      def title(page_title, show_title = true)
+        @content_for_title = page_title.to_s
+        @show_title = show_title
+      end
+      def show_title?
+        @show_title
+      end
+      def stylesheet(*args)
+        content_for(:head) { stylesheet_link_tag(*args) }
+      end
+      def javascript(*args)
+        content_for(:head) { javascript_include_tag(*args) }
+      end
+    end
+
+Powiązany z nim layout *app/views/layouts/application.html.erb*
+(zmodyfikowany do html5):
+
+    :::html_rails
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <title><%= h(yield(:title) || "Untitled") %></title>
+        <%= stylesheet_link_tag 'application' %>
+        <%= yield(:head) %>
+      </head>
+      <body>
+        <div id="container">
+          <%- flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+          <%- end -%>
+
+          <%- if show_title? -%>
+            <h1><%=h yield(:title) %></h1>
+          <%- end -%>
+
+          <%= yield %>
+        </div>
+      </body>
+    </html>
+
+
+TODO:
+
+1. layouts per controller i application.html.erb layout
+   * dodajemy controler PagesController
+   * kopiujemy application.html.erb na pages.html.erb
+     i modyfikujemy
+   * albo korzystamy z css layout nifty helpers

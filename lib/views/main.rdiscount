@@ -11,6 +11,7 @@
 
 1. {%= link_to "Rozkład jazdy", "/intro" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
+1. {%= link_to "Layouts", "/layouts" %}
 1. {%= link_to "Heroku krok po kroku", "/heroku" %}
 1. {%= link_to "Aplikacja „Leniwiec” (klon pastie)", "/pastie" %}
 1. {%= link_to "Aplikacja „Todo”", "/todo" %}
