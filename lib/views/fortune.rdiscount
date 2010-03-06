@@ -736,40 +736,35 @@ Jak zwykle sprawdzamy czy gem jest już zainstalowany:
 
     gem list | egrep paper
 
-Jeśli nie to instalujemy go tak:
+Jeśli nie to go instalujemy:
 
     sudo gem install paperclip
     # Successfully installed paperclip-2.3.1
     # 1 gem installed
 
-albo, lepiej, w pliku *environment.rb* dopisujemy:
+Teraz w pliku *environment.rb* dopisujemy:
 
     :::ruby 
     Rails::Initializer.run do |config|
       config.gem 'paperclip', :version => '>= 2.3.1'
     end
 
-OK. Chcemy mieć attaczmęt w modelu *Platitude*. Nazwiemy go *photo*.
-
-Generujemy migrację:
+OK. Chcemy dodać obrazki do modelu *Platitude*. 
+Dodamy nowe pole do tabeli *platitudes*. Nazwiemy je *photo*:
 
     script/generate migration AddPhotosToPlatitudes \
       photo_file_name:string photo_content_type:string photo_file_size:integer
-
-Migrujemy:
-
     rake db:migrate
 
-W modelu *Platitude* wpisujemy:
+Następnie w modelu *Platitude* dopisujemy:
 
     :::ruby
-    # paperclip
     has_attached_file :photo, :styles => {
       :thumb=> "100x100#",
       :small  => "150x150>",
     }  
 
-W formularzach umieszczonych w widokach dopisujemy:
+a w formularzach umieszczonych w widokach dopisujemy:
 `html => { :multipart => true }`:
 
     :::html_rails
@@ -804,6 +799,8 @@ W widoku *show.html.erb* dopisujemy:
     <% else %>
     <p> There are no photo's attached, upload one.</p>
     <% end %>
+
+Gotowe!
 
 
 ## Dodajemy middleware: Rack::HtmlTidy
