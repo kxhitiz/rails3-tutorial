@@ -826,6 +826,9 @@ W pliku z metodami pomocniczymi dla całej aplikacji wpisujemy:
       end
     end
 
+albo korzystamy z gotowej metody pomocniczej o tej samej nazwie
+utworzonej za pomocą generatora *nifty_layout*.
+
 W layoutach podmieniamy wygenerowany tytuł
 
     :::html_rails
