@@ -158,7 +158,7 @@ Output of the host command varies by Unix flavor, but it should
 indicate that your domain name is either an alias or CNAME of
 *proxy.heroku.com*.
 
-### Root domain: *wbzyl.pl*
+### Root domain: *bzyl.pl*
 
 Root domains must use A records. Only your root domain (wbzyl.pl)
 may use A records.
