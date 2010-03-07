@@ -1,5 +1,11 @@
 #### {% title "Layouts" %}
 
+# ActiveRecord na konsoli
+
+* ActiveRecord::Base
+* ActiveRecord::Associations::ClassMethods
+
+
 # Layouts, czyli układy graficzne
 
 Co oznacza słowo *layout*: 
