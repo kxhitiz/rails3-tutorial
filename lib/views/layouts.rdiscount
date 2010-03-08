@@ -1,12 +1,6 @@
 #### {% title "Layouts" %}
 
-# ActiveRecord na konsoli
-
-* [ActiveRecord::Base](http://api.rubyonrails.org/classes/ActiveRecord/Base.html)
-* [ActiveRecord::Associations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html)
-* [ActiveRecord::Validations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html)
-
-# Layouts, czyli układy graficzne
+# Layouts – czyli układy graficzne
 
 Co oznacza słowo *layout*: 
 
