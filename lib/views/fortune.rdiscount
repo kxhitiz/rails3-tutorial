@@ -15,30 +15,75 @@ Zaczynamy od wygenerowania szkieletu aplikacji:
 
     rails fortune
 
-Generator rails utworzył wiele katalogów. Po co? 
+Generator rails utworzył katalog *fortune*, a następnie
+w tym katalogu utworzył wiele katalogów. 
+Polecenie *tree* wyświetli je nam wszystkie:
+
+    tree
+
+W wygenerowanym pliku *README* w sekcji „Description of Contents”
+opisano co w tych katalogach będziemy trzymać.
+
+Po przejściu do katalogu *fortune* i uruchomieniu skryptu *script/server*:
 
     cd fortune
+    script/server -p 3000
 
-I juz mozemy przetestować szkielet aplikacji.
-Uruchamiamy cienkiego:
-
-    script/server thin -p 3000
-
-i oglądamy stronę testową:
+Możemy obejrzeć zawartość pliku *public/index.html* pod takim URI:
 
     http://localhost:3000
 
-Plikowi ze stroną, którą oglądamy zmieniamy nazwę 
-na `welcome.html`:
-
-    cd public
-    mv index.html welcome.html
-
-Teraz strona ta dosŧepna jest pod takim url:
+Ponieważ strona Fortunki będzie inna, to albo usuwamy plik *index.html*
+albo zmieniamy mu nazwę na *welcome.html* i wtedy plik ten
+będzie dostępny tutaj:
 
     http://localhost:3000/welcome.html
 
-A stronę główną aplikacji wykonamy za chwilę.
+Usuwamy plik *index.html*:
+
+    rm public/index.html
+
+Teraz wejście na stronę:
+
+    http://localhost:3000
+
+dostajemy stronę: *Action Controller: Exception caught*.
+Oznacza to, że nie aplikacja nie ma głównej strony.
+Przygotujemy ją za chwilę.
+
+
+## Rusztowanie dla modelu *Platitude*
+
+Platitude to po polsku frazes, komunał.
+
+Rusztowanie dla modelu *Platitude* utworzymy za pomocą generatora *scaffold*:
+
+    ./script/generate scaffold Platitude author:string source:string body:text
+
+Wygenerowane rusztowanie jest dostępne z takiego URI:
+
+    http://localhost:3000/platitudes
+
+Wchodzimy na tę stronę, wpisujemy kilka frazesów 
+sprawdzając w ten sposób jak działa wygenerowane
+rusztowanie.
+
+Wykonujemy polecenie
+
+    tree app
+
+aby jeszcze raz obejrzeć co składa się na wygenerowane rusztowanie.
+
+### Liczba pojedyncza a liczba mnoga
+
+W aplikacjach rails stosujemy następującą konwencję: nazwy dla modeli
+generowanych przez generator *scaffold* powinny być rzeczownikami w
+liczbie pojedynczej, a nazwy kontrolerów są rzeczownikami w liczbie
+mnogiej.
+
+Dla rzeczowników niepoliczalnych nie jest to możliwe.
+Generator generuje nieco niedziałającego kodu.
+Przykład jak go naprawić – poniżej *Education*.
 
 
 ## Generujemy rusztowanie dla modelu Education
@@ -516,19 +561,6 @@ Zaglądamy na stronę z dokumentacją do
 [ActiveRecord::Validations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html).
 
 Dodajemy *validates_presence_of* i może *validates_length_of* do Fortunki.
-
-
-## Generujemy rusztowanie dla modelu Frazes (Komunał)
-
-Teraz uwzględniamy nową kolumnę.
-
-    ./script/generate scaffold Platitude author:string source:string quotation:text
-
-Sprawdzamy jak to działa wpisując kilka komunałów.
-
-Wykonujemy jeszcze raz te same kroki co przy modelu *Education*.
-Teraz do partial mozemy wrzucić więcej kodu:
-nie ma problemu z liczbą pojedynczą i mnogą.
 
 
 ## Problemy, problemy: znowu czeka nas suszenie kodu

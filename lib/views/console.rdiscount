@@ -1,0 +1,19 @@
+#### {% title "Konsola aplikacji Rails" %}
+
+# Konsola aplikacji Rails
+
+Zaczynamy od:
+
+* modele i powiązania na konsoli
+* kontroler
+
+Umieszczamy trochę danych w bazie: *seed.rb*,
+gem *faker*, *factory_girl*
+
+## Modele na konsoli
+
+TODO: jeden model, has_many
+
+## Kontroler na konsoli
+
+TODO: ?
