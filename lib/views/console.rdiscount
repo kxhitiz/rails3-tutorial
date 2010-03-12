@@ -1,0 +1,22 @@
+#### {% title "Konsola aplikacji Rails" %}
+
+# Konsola aplikacji Rails
+
+Zaczynamy od umieszczenia danych w bazie za pomocą *seed.rb*.
+Skorzystać z gemów *faker* i *factory_girl*.
+
+
+## Modele na konsoli
+
+* [ActiveRecord::Base](http://api.rubyonrails.org/classes/ActiveRecord/Base.html)
+* [ActiveRecord::Associations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html)
+* [ActiveRecord::Validations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html)
+
+Zacząć od jednego modelu: *Post*.
+Dodać drugi model *Comments* powiązany z pierwszym relacją
+jeden do wielu.
+
+
+## Kontroler na konsoli
+
+TODO: zob. stary tutorial

@@ -15,107 +15,92 @@ Zaczynamy od wygenerowania szkieletu aplikacji:
 
     rails fortune
 
-Generator rails utworzył wiele katalogów. Po co? 
+Generator rails utworzył katalog *fortune*, a następnie
+w tym katalogu utworzył wiele katalogów. 
+Polecenie *tree* wyświetli je nam wszystkie:
+
+    tree
+
+W wygenerowanym pliku *README* w sekcji „Description of Contents”
+opisano co w tych katalogach będziemy trzymać.
+
+Po przejściu do katalogu *fortune* i uruchomieniu skryptu *script/server*:
 
     cd fortune
+    script/server -p 3000
 
-I juz mozemy przetestować szkielet aplikacji.
-Uruchamiamy cienkiego:
-
-    script/server thin -p 3000
-
-i oglądamy stronę testową:
+Możemy obejrzeć zawartość pliku *public/index.html* pod takim URI:
 
     http://localhost:3000
 
-Plikowi ze stroną, którą oglądamy zmieniamy nazwę 
-na `welcome.html`:
-
-    cd public
-    mv index.html welcome.html
-
-Teraz strona ta dosŧepna jest pod takim url:
+Ponieważ strona Fortunki będzie inna, to albo usuwamy plik *index.html*
+albo zmieniamy mu nazwę na *welcome.html* i wtedy plik ten
+będzie dostępny tutaj:
 
     http://localhost:3000/welcome.html
 
-A stronę główną aplikacji wykonamy za chwilę.
+Usuwamy plik *index.html*:
+
+    rm public/index.html
+
+Teraz wejście na stronę:
+
+    http://localhost:3000
+
+dostajemy stronę: *Action Controller: Exception caught*.
+Oznacza to, że nie aplikacja nie ma głównej strony.
+Przygotujemy ją za chwilę.
 
 
-## Generujemy rusztowanie dla modelu Education
+## Rusztowanie dla modelu *Platitude*
 
-Zaczynamy od nauczenia Rails, że liczba mnoga od 
-*education* to *education*.
+Platitude to po polsku frazes, komunał.
 
-**Oj będą problemy!**
+Rusztowanie dla modelu *Platitude* utworzymy za pomocą generatora *scaffold*:
 
-W pliku *inflections.rb* dopisujemy regułę:
+    ./script/generate scaffold Platitude author:string source:string body:text
+
+Wygenerowane rusztowanie jest dostępne z takiego URI:
+
+    http://localhost:3000/platitudes
+
+Wchodzimy na tę stronę, wpisujemy kilka frazesów 
+sprawdzając w ten sposób jak działa wygenerowane
+rusztowanie.
+
+Wykonujemy polecenie
+
+    tree app
+
+aby obejrzeć raz jeszcze wygenerowane rusztowanie.
+
+Stronę z listą frazesów podmontowujemy jako stronę główną aplikacji.
+
+W tym celu w pliku *routes.rb* edytujemy wiersz z `map.root`:
 
     :::ruby
-    # Add new inflection rules using the following format 
-    # (all these examples are active by default):
-    ActiveSupport::Inflector.inflections do |inflect|
-    #   inflect.plural /^(ox)$/i, '\1en'
-    #   inflect.singular /^(ox)en/i, '\1'
-    #   inflect.irregular 'person', 'people'
-    #   inflect.uncountable %w( fish sheep )
-      inflect.uncountable %w( education )
-    end
+    # You can have the root of your site routed with map.root --
+    # just remember to delete public/index.html.
+    map.root :controller => "platitudes"
 
-Teraz podejrzymy jakie generatory są zainstalowane w systemie:
+Teraz:
 
-    ./script/generate
-      
-    Installed Generators
-    ... scaffold ...
-      
-    ./script/generate scaffold
-      
-    Description:
-      Scaffolds an entire resource, from model and migration to controller and
-      views, along with a full test suite. The resource is ready to use as a
-      starting point for your RESTful, resource-oriented application.
+    http://localhost:3000
+
+to to samo co 
+
+    http://localhost:3000/platitudes
 
 
-## Co to jest REST?
+## Generowanie rusztowań
 
-<blockquote>
-{%= image_tag "/images/hfrails_cover.png", :alt => "[Head First Rails]" %}
-<p>
-  If you use REST, your teeth will be brighter,
-  your life will be happier,
-  and all will be goodnes and sunshine with the world.
-</p>
-<p class="author">– David Griffiths</p>
-</blockquote>
+Aby uzyskać pomoc na temat generowania rusztowań, wykonujemy polecenie:
 
-Dłuższy cytat: „**REST** stands for **Represenational State Transfer**
-\[…hmm?!…\] RESTful design really means designing your applications
-to work the way the web was **originally** meant to look.”
+    script/generate scaffold
 
-Podstawy REST:
+Dla przykładu:
 
-1. Dane są zasobami (ang. *resources*). Fortunka to zbiór
-   cytatów, dlatego cytaty są *resources*.
-2. Każdy zasób ma swój unikalny URI.
-3. Na zasobach można wykonywać cztery podstawowe operacje
-   Create, Read, Update i Delete 
-   (zwykle skracane do *CRUD*).
-4. Klient i serwer komunikują się ze sobą korzystając
-   protokołu bezstanowego. Oznacza to, że klient 
-   zwraca się z żądaniem do serwera. Serwer odpowiada i
-   cała konwersacja się kończy.
-
-
-## Wracamy do budowania Fortunki
-
-Model *Education* wygenerujemy tak:
-
-    ./script/generate scaffold Education \
-        author:string quotation:text
-
-Polecenie:
-
-    ./script/generate scaffold Computer ..
+    script/generate scaffold Computer ...
 
 utworzy następujące pliki:
 
@@ -124,7 +109,7 @@ utworzy następujące pliki:
     <col class="table1"/>
     <col class="table2"/>
   </colgroup>
-  <caption><em>Domyślne rusztowanie</em></caption>
+  <caption><em>Domyślne rusztowanie dla modelu <b>Komputer</b></em></caption>
   <thead>
    <tr>
     <th class="span-8">Plik</th>
@@ -135,57 +120,57 @@ utworzy następujące pliki:
 <tbody>
  <tr>
  <td>app/models/computer.rb</td>
- <td>The Computer model</td>
+ <td>kod dla modelu <b>Computer</b></td>
  </tr>
 
  <tr>
- <td>db/migrate/......._create_computers.rb</td>
- <td>Migration to create the computers table in your database</td>
+ <td>db/migrate/..._create_computers.rb</td>
+ <td>migracja tworząca tabelkę <b>computers</b> w bazie danych</td>
  </tr>
 
  <tr>
  <td>app/controllers/computers_controller.rb</td>
- <td>The Computers controller</td>
+ <td>kontroler ComputersController</td>
  </tr>
 
  <tr>
  <td>app/views/computers/index.html.erb</td>
- <td>A view to display an index of all computers</td>
+ <td>widok wypisujący wszystkie dane z tabelki <i>computers</i></td>
  </tr>
 
  <tr>
  <td>app/views/computers/show.html.erb</td>
- <td>A view to display a single computer</td>
+ <td>widok wypisujący dane jednego komputera</td>
  </tr>
 
  <tr>
  <td>app/views/computers/new.html.erb</td>
- <td>A view to create a new computer</td>
+ <td>widok do wpisania danych jednego komputera i ich zapisanie w bazie</td>
  </tr>
 
  <tr>
  <td>app/views/computers/edit.html.erb</td>
- <td>A view to edit an existing computer</td>
+ <td>widok do edycji danych komputera zapisanych w bazie</td>
  </tr>
 
  <tr>
  <td>app/views/layouts/computers.html.erb</td>
- <td>A view to control the overall look and feel of the other computers views</td>
+ <td>układ graficzny dla widoków wyświetlających dane komputerów</td>
  </tr>
 
  <tr>
  <td>public/stylesheets/scaffold.css</td>
- <td>Cascading style sheet to make the scaffolded views look better</td>
+ <td>arkusz stylów dla widoków komputerów</td>
  </tr>
 
  <tr>
  <td>app/helpers/computers_helper.rb</td>
- <td>Helper functions to be used from the computers views</td>
+ <td>funkcje pomocnicze do wykorzystania w widokach komputerów</td>
  </tr>
 
  <tr>
  <td>config/routes.rb</td>
- <td>Edited to include routing information for computers</td>
+ <td>plik routingu z dodanym trasowaniem dla komputerów</td>
  </tr>
 
 <!--
@@ -215,27 +200,38 @@ utworzy następujące pliki:
 </tbody>
 </table>
 
+W aplikacjach rails stosujemy następującą konwencję: nazwy dla modeli
+generowanych przez generator *scaffold* powinny być rzeczownikami w
+liczbie pojedynczej, a nazwy kontrolerów są rzeczownikami w liczbie
+mnogiej.
 
-Migrujemy:
 
-    rake db:create
-    rake db:migrate
+## Liczba pojedyncza a liczba mnoga
 
-Podglądamy routing dla wygenerowane dla **Computers**:
+Jeśli użyjemy generatora z nazwą modelu będącą rzeczownikiem
+niepoliczalnym, to otrzymamy niedziałający kod.
+
+Jak taki kod poprawić zilustrujemy na przykładzie 
+modelu *Education*.
+
+Zaczynamy od nauczenia Rails, że liczba mnoga od 
+*education* to *education*.
+W pliku *inflections.rb* dopisujemy regułę:
+
+    :::ruby
+    ActiveSupport::Inflector.inflections do |inflect|
+      inflect.uncountable %w( education )
+    end
+
+Teraz generujemy rusztowanie:
+
+    ./script/generate scaffold Education author:string body:text
+
+Po wykonaniu polecenia: 
 
     rake routes
 
-wypisuje coś takiego:
-
-        computers GET /computers          {:action=>"index", :controller=>"computers"}
-                 POST /computers          {:action=>"create", :controller=>"computers"}
-     new_computer GET /computers/new      {:action=>"new", :controller=>"computers"}
-    edit_computer GET /computers/:id/edit {:action=>"edit", :controller=>"computers"}
-         computer GET /computers/:id      {:action=>"show", :controller=>"computers"}
-                  PUT /computers/:id      {:action=>"update", :controller=>"computers"}
-               DELETE /computers/:id      {:action=>"destroy", :controller=>"computers"}
-
-Routing dla **Education** (rzeczownik niepoliczalny) wygląda tak:
+otrzymamy routing dla **Education**:
 
     education_index GET /education          {:action=>"index", :controller=>"education"}
                    POST /education          {:action=>"create", :controller=>"education"}
@@ -245,34 +241,70 @@ Routing dla **Education** (rzeczownik niepoliczalny) wygląda tak:
                     PUT /education/:id      {:action=>"update", :controller=>"education"}
                  DELETE /education/:id      {:action=>"destroy", :controller=>"education"}
 
-Gdzie chowa się niejednoznaczność routingu (trasowania)? Jak to zostało poprawione?
+Dla porównania, routing dla rzeczownika policzalnego, np. **Computers** wygląda tak:
 
-Stronę z listą cytatów podmontowujemy jako stronę główną witrynki.
-W tym celu w pliku *routes.rb* edytujemy wiersz z `map.root`:
+        computers GET /computers          {:action=>"index", :controller=>"computers"}
+                 POST /computers          {:action=>"create", :controller=>"computers"}
+     new_computer GET /computers/new      {:action=>"new", :controller=>"computers"}
+    edit_computer GET /computers/:id/edit {:action=>"edit", :controller=>"computers"}
+         computer GET /computers/:id      {:action=>"show", :controller=>"computers"}
+                  PUT /computers/:id      {:action=>"update", :controller=>"computers"}
+               DELETE /computers/:id      {:action=>"destroy", :controller=>"computers"}
 
-    :::ruby
-    # You can have the root of your site routed with map.root --
-    # just remember to delete public/index.html.
-    map.root :controller => "education"
+Gdzie chowa się niejednoznaczność routingu (trasowania)? 
+Jak to zostało poprawione w routingu dla rzeczowników niepoliczalnych?
 
-Wyniki naszej pracy możemy podejrzeć tutaj:
 
-    http://localhost:3000
+## Nawias (Co to jest REST?)
 
-Ale po kliknięciu na 'NEW' dostajemy *weird error*.
-Generator wygenerował błędny kod? 
+<blockquote>
+{%= image_tag "/images/hfrails_cover.png", :alt => "[Head First Rails]" %}
+<p>
+  If you use REST, your teeth will be brighter,
+  your life will be happier,
+  and all will be goodnes and sunshine with the world.
+</p>
+<p class="author">– David Griffiths</p>
+</blockquote>
 
-Poprawiamy to co wygenerował generator.
-Zamieniamy w widokach `education_path` na `education_index_path`.
+Dłuższy cytat: „**REST** stands for **Represenational State Transfer**
+\[…hmm?!…\] RESTful design really means designing your applications
+to work the way the web was **originally** meant to look.”
 
-Na początek, sprawdzimy jakich plików to dotyczy:
+Podstawy REST:
+
+1. Dane są zasobami (ang. *resources*). Fortunka to zbiór
+   cytatów, dlatego cytaty są *resources*.
+2. Każdy zasób ma swój unikalny URI.
+3. Na zasobach można wykonywać cztery podstawowe operacje
+   Create, Read, Update i Delete 
+   (zwykle skracane do *CRUD*).
+4. Klient i serwer komunikują się ze sobą korzystając
+   protokołu bezstanowego. Oznacza to, że klient 
+   zwraca się z żądaniem do serwera. Serwer odpowiada i
+   cała konwersacja się kończy.
+
+
+### Wracamy do modelu Education
+
+Po wejściu na stronę:
+
+        http://localhost:3000/education
+
+i kliknięciu na 'NEW' dostajemy *weird error*.
+Błęd ten powoduje błędny kod wygenerowany przez scaffold generator? 
+
+Aby to poprawić będziemy musieli dokonać zmian w kilku plikach.
+
+Na początek zamieniamy w widokach uri
+`education_path` na `education_index_path`:
 
     egrep -w education_path *
     edit.html.erb:  <%= link_to "View All", education_path %>
     new.html.erb:<p><%= link_to "Back to List", education_path %></p>
     show.html.erb:  <%= link_to "View All", education_path %>
 
-W wygenerowanym formularzu w pliku *_form.html.erb* podmieniamy:
+W wygenerowanym formularzu w pliku podmieniamy:
 
     :::html_rails
     <% form_for(@education) do |f| %>
@@ -293,47 +325,7 @@ na
     :::ruby
     redirect_to education_index_url
 
-
-Na koniec, jeszcze raz podglądamy routing, aby przekonać się
-że postąpiliśmy właściwie. 
-
 Teraz wszystko powinno działać.
-
-
-## A co z polskimi literkami?
-
-Komunikaty o błędach też powinny być po polsku.
-Jak to zrobić? Zaglądamy do katalogu *locales* po 
-wskazówki:
-
-    :::ruby
-    # Sample localization file for English. 
-    # Add more files in this directory for other locales.
-    # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale 
-    # for starting points.
-
-Obejrzenie, krótkiego 
-[screecastu R. Batesa](http://railscasts.com/episodes/138-i18n) 
-też ma sens.
-
-W pliku *environment.rb* odkomentowujemy i edytujemy wiersz
-z `config.i18n.default_locale`:
-
-      # The default locale is :en and all translations 
-      # from config/locales/*.rb,yml are auto loaded.
-      # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
-      config.i18n.default_locale = :pl
-    end
-
-Następnie plik [pl.yml](http://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/pl.yml)
-(wersja *raw*) zapisujemy w katalogu *config/locales/*.
-**Uwaga:** Tłumaczenia dotyczą komunikatów o błędach, aby je zobaczyć dodajemy
-walidację do modelu.
-
-Angielskie nazwy modeli i atrybutów też możemy przetłumaczyć.
-Jest to opisane w Rails Guides, 
-[Translations for Active Record Models](http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)
-
 
 
 ## Suszymy kod: refaktoryzacja widoków
@@ -438,11 +430,11 @@ Zmieniamy zawartość pliku *models/education.rb*:
 
     :::ruby
     class Education < ActiveRecord::Base
-      attr_accessible :quotation
+      attr_accessible :body
 
       def self.search(search)
         if search
-          all(:conditions => ['quotation LIKE ?', "%#{search}%"])
+          all(:conditions => ['body LIKE ?', "%#{search}%"])
         else
           all
         end
@@ -469,6 +461,9 @@ W kontrolerze *controller_education.rb* zmieniamy kod metody
 
 I już!
 
+Jak to samo zrobić w modelu *Platitude*? 
+(liczba pojedyncza i mnoga)
+
 
 ## Dodajemy tagowanie
 
@@ -488,7 +483,7 @@ Model:
 
     :::ruby
     class Education < ActiveRecord::Base
-      attr_accessible :quotation, :tag_list
+      attr_accessible :body, :tag_list
       acts_as_taggable_on :tags
       TagList.delimiter = " "
 
@@ -510,37 +505,13 @@ w *index.html.erb* dopisujemy:
 I gotowe! Można sprawdzić jak to działa.
 
 
-## Walidujemy to i owo…
+## Walidujemy zawartość pola *body*
 
 Zaglądamy na stronę z dokumentacją do
 [ActiveRecord::Validations::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html).
 
 Dodajemy *validates_presence_of* i może *validates_length_of* do Fortunki.
 
-
-## Generujemy rusztowanie dla modelu Frazes (Komunał)
-
-Teraz uwzględniamy nową kolumnę.
-
-    ./script/generate scaffold Platitude author:string source:string quotation:text
-
-Sprawdzamy jak to działa wpisując kilka komunałów.
-
-Wykonujemy jeszcze raz te same kroki co przy modelu *Education*.
-Teraz do partial mozemy wrzucić więcej kodu:
-nie ma problemu z liczbą pojedynczą i mnogą.
-
-
-## Problemy, problemy: znowu czeka nas suszenie kodu
-
-> Given sufficient time, what you put off doing 
-> today will get done by itself.
-
-Być może powinnien być jeden model/resource: *Quotation* z dodatkowym
-atrybutem *category*. Ale wtedy routing będzie do bani.
-Dlaczego? Co robić?
-
-Na razie skorzystamy z frazesu wypisanego obok.
 
 ## Dodajemy Basic HTTP Authentication
 
@@ -803,17 +774,8 @@ W widoku *show.html.erb* dopisujemy:
 Gotowe!
 
 
-## Dodajemy middleware: Rack::HtmlTidy
-
-Jak walidować HTML stron wygenerowanych przez Rails?
-Wchodzenie na stronę [W3C Markup Validation Service](http://validator.w3.org/)
-i ręczne wklejanie adresów jest uciążliwe i męczące.
-Może zainstalować jakiś dodatek do Firefoxa? Może…
-
-A może tak „prześwietlić” wygenerowaną stronę
-HTML Tidy? Jak to zrobić opisałem na
-[github.com](http://github.com/wbzyl/rack-htmltidy/).
-
+> Given sufficient time, what you put off doing 
+> today will get done by itself.
 
 ## Tytuły stron (bardzo ważne)
 
@@ -837,7 +799,7 @@ W layoutach podmieniamy wygenerowany tytuł
 na
 
     :::html_rails
-    <title><%= yield(:title) || "WB_Quotations" -%></title>
+    <title><%= yield(:title) || "WB_Fortune" -%></title>
 
 W widokach definiujemy tytuł wpisując, na przykład:
 
@@ -845,11 +807,13 @@ W widokach definiujemy tytuł wpisując, na przykład:
     <% title 'Fortunka: Edukacja' -%>
 
 
-## Różne
+## Dodajemy middleware: Rack::HtmlTidy
 
-Skorzystać z wtyczki: 
-Bryan Helmkamp,
-[rack-bug](http://github.com/brynary/rack-bug/) —
-debugging toolbar for Rack applications implemented as middleware.
+Jak walidować HTML stron wygenerowanych przez Rails?
+Wchodzenie na stronę [W3C Markup Validation Service](http://validator.w3.org/)
+i ręczne wklejanie adresów jest uciążliwe i męczące.
+Może zainstalować jakiś dodatek do Firefoxa? Może…
 
-Nie działa z Firefox 3.6beta2? ale działa z Firefox 3.5.5.
+A może tak „prześwietlić” wygenerowaną stronę
+HTML Tidy? Jak to zrobić opisałem na
+[github.com](http://github.com/wbzyl/rack-htmltidy/).

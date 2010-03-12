@@ -180,3 +180,7 @@ li ul, li ol {
 .center {
   text-align: center;
 }
+
+table, th, td {
+  vertical-align: top;
+}
