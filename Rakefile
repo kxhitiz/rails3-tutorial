@@ -18,10 +18,10 @@ Notatki do wykladu Architektura serwisow internetowych
     gemspec.files = FileList['lib/**/*', "Rakefile", "VERSION.yml", "rails3-tutorial.gemspec"]
     
     gemspec.add_runtime_dependency 'rack' 
-    gemspec.add_runtime_dependency 'sinatra', '~>0.9.4'
+    gemspec.add_runtime_dependency 'sinatra', '~>0.9'
     gemspec.add_runtime_dependency 'rdiscount'
     gemspec.add_runtime_dependency 'ultraviolet'
-    gemspec.add_runtime_dependency 'sinatra-rdiscount', '~>0.9.4'    
+    gemspec.add_runtime_dependency 'sinatra-rdiscount', '~>0.9'    
     gemspec.add_runtime_dependency 'rack-codehighlighter'
   
     gemspec.rubyforge_project = 'rails3-tutorial'

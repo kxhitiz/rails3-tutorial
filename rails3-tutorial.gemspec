@@ -5,11 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-tutorial}
-  s.version = "0.4.4"
+  s.version = "0.4.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wlodek Bzyl"]
-  s.date = %q{2010-03-07}
+  s.date = %q{2010-03-13}
+>>>>>>> 0c6cfa54746ce64d454b098c11e65ec5b4a8a052
   s.description = %q{Notatki do wykladu Architektura serwisow internetowych
 }
   s.email = %q{matwb@univ.gda.pl}
@@ -83,12 +84,14 @@ Gem::Specification.new do |s|
      "lib/views/authorization.rdiscount",
      "lib/views/blog.rdiscount",
      "lib/views/caching.rdiscount",
+     "lib/views/console.rdiscount",
      "lib/views/declarative-authorization.rdiscount",
      "lib/views/exercises.rdiscount",
      "lib/views/favicon.ico.rdiscount",
      "lib/views/firefox.rdiscount",
      "lib/views/fortune.rdiscount",
      "lib/views/heroku.rdiscount",
+     "lib/views/i18n.rdiscount",
      "lib/views/intro.rdiscount",
      "lib/views/layout.rdiscount",
      "lib/views/layouts.rdiscount",
@@ -119,25 +122,37 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rack>, [">= 0"])
+<<<<<<< HEAD
       s.add_runtime_dependency(%q<sinatra>, ["~> 0.9.4"])
+=======
+      s.add_runtime_dependency(%q<sinatra>, ["~> 0.9"])
+>>>>>>> 0c6cfa54746ce64d454b098c11e65ec5b4a8a052
       s.add_runtime_dependency(%q<rdiscount>, [">= 0"])
       s.add_runtime_dependency(%q<ultraviolet>, [">= 0"])
-      s.add_runtime_dependency(%q<sinatra-rdiscount>, ["~> 0.9.4"])
+      s.add_runtime_dependency(%q<sinatra-rdiscount>, ["~> 0.9"])
       s.add_runtime_dependency(%q<rack-codehighlighter>, [">= 0"])
     else
       s.add_dependency(%q<rack>, [">= 0"])
+<<<<<<< HEAD
       s.add_dependency(%q<sinatra>, ["~> 0.9.4"])
+=======
+      s.add_dependency(%q<sinatra>, ["~> 0.9"])
+>>>>>>> 0c6cfa54746ce64d454b098c11e65ec5b4a8a052
       s.add_dependency(%q<rdiscount>, [">= 0"])
       s.add_dependency(%q<ultraviolet>, [">= 0"])
-      s.add_dependency(%q<sinatra-rdiscount>, ["~> 0.9.4"])
+      s.add_dependency(%q<sinatra-rdiscount>, ["~> 0.9"])
       s.add_dependency(%q<rack-codehighlighter>, [">= 0"])
     end
   else
     s.add_dependency(%q<rack>, [">= 0"])
+<<<<<<< HEAD
     s.add_dependency(%q<sinatra>, ["~> 0.9.4"])
+=======
+    s.add_dependency(%q<sinatra>, ["~> 0.9"])
+>>>>>>> 0c6cfa54746ce64d454b098c11e65ec5b4a8a052
     s.add_dependency(%q<rdiscount>, [">= 0"])
     s.add_dependency(%q<ultraviolet>, [">= 0"])
-    s.add_dependency(%q<sinatra-rdiscount>, ["~> 0.9.4"])
+    s.add_dependency(%q<sinatra-rdiscount>, ["~> 0.9"])
     s.add_dependency(%q<rack-codehighlighter>, [">= 0"])
   end
 end
