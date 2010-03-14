@@ -1,12 +1,5 @@
 --- 
-<<<<<<< HEAD
-:build: 
-:major: 0
-:minor: 4
-:patch: 4
-=======
 :major: 0
 :minor: 4
 :patch: 4
 :build: 2
->>>>>>> 0c6cfa54746ce64d454b098c11e65ec5b4a8a052
