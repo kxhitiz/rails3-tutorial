@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-tutorial}
-  s.version = "0.4.3"
+  s.version = "0.4.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wlodek Bzyl"]
-  s.date = %q{2010-02-08}
+  s.date = %q{2010-03-07}
   s.description = %q{Notatki do wykladu Architektura serwisow internetowych
 }
   s.email = %q{matwb@univ.gda.pl}
@@ -91,8 +91,10 @@ Gem::Specification.new do |s|
      "lib/views/heroku.rdiscount",
      "lib/views/intro.rdiscount",
      "lib/views/layout.rdiscount",
+     "lib/views/layouts.rdiscount",
      "lib/views/main.rdiscount",
      "lib/views/pastie.rdiscount",
+     "lib/views/prezentacje.txt",
      "lib/views/projekty.rdiscount",
      "lib/views/questions.rdiscount",
      "lib/views/ruby19.rdiscount",
@@ -108,7 +110,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rails3-tutorial}
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Notatki do wykladu Architektura serwisow internetowych.}
 
   if s.respond_to? :specification_version then
@@ -117,14 +119,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rack>, [">= 0"])
-      s.add_runtime_dependency(%q<sinatra>, ["= 0.9.4"])
+      s.add_runtime_dependency(%q<sinatra>, ["~> 0.9.4"])
       s.add_runtime_dependency(%q<rdiscount>, [">= 0"])
       s.add_runtime_dependency(%q<ultraviolet>, [">= 0"])
       s.add_runtime_dependency(%q<sinatra-rdiscount>, ["~> 0.9.4"])
       s.add_runtime_dependency(%q<rack-codehighlighter>, [">= 0"])
     else
       s.add_dependency(%q<rack>, [">= 0"])
-      s.add_dependency(%q<sinatra>, ["= 0.9.4"])
+      s.add_dependency(%q<sinatra>, ["~> 0.9.4"])
       s.add_dependency(%q<rdiscount>, [">= 0"])
       s.add_dependency(%q<ultraviolet>, [">= 0"])
       s.add_dependency(%q<sinatra-rdiscount>, ["~> 0.9.4"])
@@ -132,7 +134,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<rack>, [">= 0"])
-    s.add_dependency(%q<sinatra>, ["= 0.9.4"])
+    s.add_dependency(%q<sinatra>, ["~> 0.9.4"])
     s.add_dependency(%q<rdiscount>, [">= 0"])
     s.add_dependency(%q<ultraviolet>, [">= 0"])
     s.add_dependency(%q<sinatra-rdiscount>, ["~> 0.9.4"])

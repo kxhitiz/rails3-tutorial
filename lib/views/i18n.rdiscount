@@ -43,12 +43,16 @@ Opisane to też jest w Rails Guides,
 
 ## Gem polish
 
-Zobacz: git://github.com/svenfuchs/rails-i18n.git
+Niestety, i18n ma problemy z taką odmianą: bajtów/bajt/bajty.
+Daty też nie są wypisywane tak ja należy, czyli tak: 14 marca 2010.
+
+Poprawił to Grzesiek Kołodziejczyk i udostępnił w postaci wtyczki:
+[Polish language support for Ruby on Rails](http://github.com/grk/polish)
 
 
 ## Przykład: will paginate
 
-Komunikaty: Next, Previous…
+Jak spolszczyć komunikaty: Next, Previous…
 
 
 ## Gem r18n

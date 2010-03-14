@@ -13,10 +13,14 @@ Co oznacza słowo *layout*:
 This guide covers the basic layout features of Action Controller and Action View. 
 
 
-## Metody pomocnicze z *nifty_layout*
+## Layout dla aplikacji
 
-Plik *app/helpers/layout_helper.rb* zawiera kilka niezmiernie
-użytecznych metod:
+Layout dla aplikacji umieszczamy w pliku
+*app/views/layouts/application.html.erb*.
+
+Generator *nifty_layout* z gemu *nifty_generators* wygeneruje nam taki
+prosty layout automatycznie. Dodatkowo w pliku
+*app/helpers/layout_helper.rb* umieści kilka użytecznych metod:
 
     :::ruby
     module LayoutHelper
@@ -35,8 +39,7 @@ użytecznych metod:
       end
     end
 
-Powiązany z nim layout *app/views/layouts/application.html.erb*
-(zmodyfikowany do html5):
+A oto wygenerowany layout *application.html.erb* (po małym liftingu do html5): 
 
     :::html_rails
     <!doctype html>
@@ -63,10 +66,14 @@ Powiązany z nim layout *app/views/layouts/application.html.erb*
     </html>
 
 
-TODO:
+## Layout dla kontrolera
 
-1. layouts per controller i application.html.erb layout
-   * dodajemy controler PagesController
-   * kopiujemy application.html.erb na pages.html.erb
-     i modyfikujemy
-   * albo korzystamy z css layout nifty helpers
+TODO: Przykłady layoutu dla kontrolera:
+
+* dodajemy controler PagesController
+* kopiujemy application.html.erb na pages.html.erb
+  i modyfikujemy
+
+Dodatkowo, przykład prostego triku/refaktoryzacji:
+
+* korzystamy z css layout nifty helpers: content_for

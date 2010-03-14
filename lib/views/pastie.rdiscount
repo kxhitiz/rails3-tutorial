@@ -25,7 +25,7 @@ Po kliknięciu tego przycisku, wklejony kod
 zapisujemy w tabelce i przekierowujemy się na stronę
 z wklejonym kodem, na przykład:
 
-    http://leniwiec.local:3000/128
+    http://localhost:3000/128
 
 Od tej chwili, po wsze czasy (no, dopóty, dopóki nie padnie 
 macierz dyskowa na *Sigmie*), wklejony kod będzie dostępny pod tym URL.
@@ -40,7 +40,7 @@ A tak wygląda strona główna *pastie.org*:
 
 **Zaczynamy** od wygenerowania rusztowanie aplikacji:
 
-    rails leniwiec.local
+    rails localhost
 
 Oraz nauczenia Railsów odmiany słowa *leniwiec*.
 W pliku *inflections.rb* wpisujemy:
@@ -65,19 +65,19 @@ Rails' Routing works with any web server. Routes are defined in
 
 Strona główna:
 
-    http://leniwiec.local:3000/
+    http://localhost:3000/
 
 Wklejone fragmenty kodu:
 
-    http://leniwiec.local:3000/:number
+    http://localhost:3000/:number
 
 Wyszukiwanie:
 
-    http://leniwiec.local:3000/search?query=def
+    http://localhost:3000/search?query=def
 
 Wyniki:
 
-    http://leniwiec.local:3000/search
+    http://localhost:3000/search
 
 Routing:
 
@@ -99,7 +99,18 @@ Routing:
       :conditions => { :method => :post },
       :controller => 'leniwce',
       :action => 'create'
-     
+
+**Uwaga:** Strona główna aplikacji to strona z widokiem *new*.
+Na stronie głównej wklejamy kod do zapamiętania.
+Dlatego powinnienem to zrobić tak:
+
+    :::ruby
+    # root_path
+    map.root :controller => "leniwce", :action => "new"
+
+Dalej bez zmian.
+
+    :::ruby     
     # search_path
     map.search 'search',
       :conditions => { :method => :get },

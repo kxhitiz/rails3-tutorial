@@ -774,6 +774,16 @@ W widoku *show.html.erb* dopisujemy:
 Gotowe!
 
 
+## Dodajemy obrazki korzystając z *Dragonfly*
+
+TODO: [An on-the-fly processing/encoding framework written as a Rack 
+application](http://github.com/markevans/dragonfly).
+
+* [Dragonfly Documentation](http://markevans.github.com/dragonfly/)
+* [Group for users of the dragonfly on-the-fly processing/encoding ruby 
+  gem](http://groups.google.com/group/dragonfly-users)
+
+
 > Given sufficient time, what you put off doing 
 > today will get done by itself.
 
