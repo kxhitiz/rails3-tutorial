@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+gem "sinatra", "<1.0"
+
 require 'rdiscount'
 require 'sinatra/base'
 require 'sinatra/rdiscount'
