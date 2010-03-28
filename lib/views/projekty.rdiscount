@@ -2,389 +2,91 @@
 
 # Lista projektów
 
-## Home Sweet Home
+Projekt uruchamiamy tak:
 
-Serwis ogłoszeń wynajmu mieszkań.
+    mongrel_rails -d -p numer_portu start
 
-* Pętlicki Michał
-* Rusajczyk Monika
-* Smolinski Marian (szef projektu)
-* Sulkowski Marcin
+zatrzymujemy tak:
 
-[Link do aplikacji](http://sigma.ug.edu.pl:3333/)
+    mongrel_rails stop
 
-[Link do diagramu ERD aplikacji](/)
+a restartujemy tak:
 
-[URI systemu zarządzania projektem](http://www.assembla.com/spaces/milestones/all/HomeSweetHome)
+    mongrel_rails restart
 
-URI repozytorium Git projektu:
-*git://github.com/FengSzuji/HomeSweetHome.git*
-
-Podstawowe funkcjonalności:
-
-* rejestracja użytkowników (formularz z walidacjami)
-* lokalizator (mapy google)
-* możliwość dodawania zdjęć do ogłoszenia
-* przeglądarka zdjęć dla każdego ogłoszenia
-* wyszukiwarka ogłoszeń wedle kryteriów określonych przez użytkownika
-
-Lista użytych gemów:
-
-* authlogic 2.1.3
-* geokit 1.5.0
-
-## Rozwiąż zadanie
-
-Nasza aplikacja będzie Polską wersją portalu StackOverflow
-zorientowaną bardziej na uczniów/studentów a nie geeków IT.
-
-* Bartosz Drzazgowski
-* Marta Sikora
-* Szymon Szypulski (szef projektu)
-* Dominik Zmitrowicz
-
-[Link do aplikacji](http://rozwiaz-zadanie.pl)
-
-[Link do diagramu ERD aplikacji](http://redmine.gen2.org/attachments/download/3/asi-crud.png)
-
-[URI systemu zarządzania projektem](http://redmine.gen2.org)
-
-URI repozytorium Git projektu: *git://gen2.org/rozwiaz-zadanie.git*
-
-Podstawowe funkcjonalności:
-
-Użytkownicy będą mogli zadawać pytania/problemy, problemy będą
-zaszeregowane według kategorii/tagów, użytkownicy za odpowiedzi będą
-premiowani, przewidujemy także system odznaczeń za "szczególne"
-osiągnięcia. Użytkownicy będą mogli się mogli ze sobą komunikować za
-pomocą wewnętrznego systemu wiadomości. Kazdy użytkownik będzie mógł
-tez mieć grupę znajomych/przyjaciół, aby móc szybko podejrzeć ich
-problemy/pytania/odpowiedzi.
-
-Lista użytych gemów:
-
-* paperclip 2.1.2
-* authlogic 2.1.3
-* lockdown 1.6.0
-* will_paginate 3.0
-* searchlogic >=2.3.5
-* isbn-tools 0.1.0
-* faker 0.3.1 lub forgery
-* populator 0.2.5
-* cucumber
-* activescaffold
-* capistrano
-* xmpp4r
-
-List użytych wtyczek:
-
-* recaptcha
-* simple-private-messages
-* acts-as-taggable
-* jrails
+Wszystkie polecenia wykonujemy z katalogu 
+*RAILS_ROOT*, czyli katalogu głównego aplikacji.
 
 
-## Motel z rezerwacją (prawdopodobnie)
+## Portal społecznościowy AKT
 
-* Malinowski Marek (szef)
-* Chałkowski Piotr
-* Mateuszuk Krystian
-* Tarkawian Emil
-* Tchórz Piotr
-* Łukasz Klawiński
-
-
-## botRunner: Do Bots Dream Of Electric Capybaras?
-
-Implementacja znanej gry towarzyskiej, popularnej także na forach
-internetowych, znanej u nas jako
-[Mafia](http://en.wikipedia.org/wiki/Mafia_\(party_game\)),
-*Wilkolak*.
-
-* Karolina Steinborn
-* Kamil Czarnogórski
-* Krzysztof Dycha
-
-[Link do aplikacji](http://sigma.inf.ug.edu.pl:8985/)
-
-[URI systemu zarządzania projektem](http://www.assembla.com/spaces/botrunner/)
-
-URI repozytorium Git projektu: *git://git.assembla.com/botrunner.git*
-
-[Link do diagramu ERD aplikacji](http://servitor.x10hosting.com/wwwsqldesigner-2.4/)
-(na razie samo narzędzie, trwają prace nad przystosowaniem go do naszych
-potrzeb)
-
-Lista użytych gemów: 
-
-* [juggernaut](http://juggernaut.rubyforge.org/)
-
-Opis:
-
-Istotnym elementem jest mozliwosc utworzenia gry z botami
-(czyli wprowadzenie BARDZO uproszczonej AI).
-
-Kluczowa funkcjonalnosc obejmuje:
-Tworzenie konta uzytkownika.
-Tworzenie wlasnych gier ("pokoi"), dolaczanie do takowych, obsluga rozgrywki,
-podsumowanie wynikow, sledzenie statystyk graczy. Ponieważ temat jest
-szeroki celem będziemy koncentrować się wyłącznie na funcjonalności
-niezbędnej by uznać serwis za kompletny.
-
-Informacje dodatkowe:
-Celem projektu NIE JEST zaprojektowanie zaawansowanej AI, jedynie
-stworzenie szkieletu umozliwiajacego ewentualny rozwoj takowej.
-
-
-## ProjektX
-
-Serwis z galeriami zdjęć.
-
-* Jarosław Licau (szef)
-* Marcin Pietraszko
-* Jerzy Pilecki
-
-Link do działającej aplikacji: wkrótce
-
-Link do diagramu ERD aplikacji: wkrótce
-
-[URI systemu zarządzania projektem](http://code.assembla.com/ProjektX/)
-
-URI repozytorium Git projektu: *git://github.com/magilla/ProjektX.git*
-
-Opis podstawowych funkcjonalności:
-
-Serwis z galeriami zdjęć, z logowaniem (admin/user), umożliwiający
-użytkownikom tworzenie galerii i zarządzanie nimi. Serwis ma umożliwiać
-nadawanie galeriom "praw widoczności" (public/private), umożliwiać
-opisywanie zdjęć (tylko właściciel) i ich komentowanie (inni
-użytkownicy).
-
-Lista użytych gemów:
-
-* ImageScience lub RMagick lub Mini-magick
-
-Różne uwagi:
-
-* Projekt realizowany w Netbeans, z bazą danych PostgreSQL
-  (najprawdopodobniej aplikacja będzie znajdować się na serwerze Sigma na
-  UG)
-* System zarządzania zawiera w sobie repozytorium SVN, a Github z tym
-  projektem będzie zawierał tylko kopię SVN, niekoniecznie zawsze
-  aktualną.
-* Serwis Assembla zawiera zakładkę Messages, w której można podawać
-  komentarze/wiadomości.
-
-
-## Katalog rzeczy pożyczonych
-
-* Artur Jezionek
-* Paweł Olejniczak
-* Szymon Bohdanowicz
-* Łukasz Linczewski
-* Piotr Kiereś
+* Emilia Landowska
+* Dorota Pokora
+* Emil Popis
+* Paweł Piotrowski
+* Małgorzata Pająk
 
 [Link do aplikacji](/)
 
 [Link do diagramu ERD aplikacji](/)
 
-[URI systemu zarządzania projektem](https://www.assembla.com/wiki/show/WBProjectSpace)
 
-URI repozytorium Git projektu: *?* (użytkownik?, hasło?)
+## Railsphoto
 
-Opis podstawowych funkcjonalności:
+* Sławomir Bogutyn
+* Tomasz Jarząbek
+* Mariusz Wszelak
+* Wiesław Skierka
+* Izabela Baranowska
 
-Projekt wzorowany jest na 
-[podpunkcie 25](http://epi.agnessa.eu/projects/project-suggestions/)
-aplikacji realizowanej na UJ.
-Nasza aplikacja bedzie prowadziła ewidencje przedmiotów
-pożyczonych(kiedy został przedmiot pożyczony, komu oraz termin zwrotu,
-przypomnienia wysyłania mailem). W aplikacji bedzie podział na dwie
-role: użytkowników(każdy bedzie mógł sie zarejestrować oraz zarządzać
-swoim profilem) oraz administratora(aktywacja konta, blokowanie itp.).
-
-
-## ArtMasters
-
-* Karol Domagała (kierownik projektu)
-* Grzegorz Madejski 
-* Tomasz Widanka 
-* Bogusław Rożek 
-
-[Link do działającej aplikacji](http://153.19.198.105:3000) (nie działa)
-
-[Link do diagramu ERD aplikacji](http://153.19.198.105:3001/attachments/download/1/diagram.png)
-
-[URI systemu zarządzania projektem](http://153.19.198.105:3001)
-
-[URI repozytorium Git projektu](http://github.com/kdomagal/artMasters/)
-
-Podstawowe funkcjonalności:
-
-Portal dla grafików i fotografów – tych amatorskich jak i profesjonalnych. 
-Umożliwia:
-
-* upload zdjęć i prac graficznych z opisami,
-* komentarze i oceny,
-* tagowanie,
-* grupowanie w kategorie,
-* ustawianie widoczności zdjęć (publiczne/prywatne/komercyjne),
-* sprzedaż zdjęć,
-* przeglądanie galerii innych użytkowników (tylko zdjęcia publiczne) 
-  i podgląd zdjęć komercyjnych.
-   
-Lista wykorzystanych w projekcie wtyczek, gemów:
-
-* [trwa burza mózgów]
-
-Projekt celuje w grupę młodych grafików i fotografów, chcących
-rozwijać swoje zdolności i zarobić na nich. Oprócz nich zarejestrować
-może się każdy, kto chce umieszczać ciekawe zdjęcia, albumy rodzinne,
-z wycieczek itp.
-
-
-## PhotoSpace
-	
-* Olga Juhas
-* Kamil Belau
-* Dorota Szymichowska
-
-* [Link do aplikacji](http://photospace.heroku.com)
-
-* [Link do diagramu ERD aplikacji](http://www.assembla.com/spaces/photospace/documents/images)
-
-* [URI systemu zarządzania projektem](http://www.assembla.com/wiki/show/photospace)
-
-* [URI repozytorium Git projektu](http://github.com/ojuhas/photospace)
-
-Opis podstawowych funkcjonalności:
-
-PhotoSpace serwis dla pasjonatów sztuki wyrażonej poprzez
-fotografię. Jej głównym celem dodawanie, przeglądanie oraz usuwanie
-zdjęć pod względem użytkowania. Aplikacja zakłada też wyszukiwanie
-zdjęć pod względem tematycznym, na zasadzie słów kluczowych. Umożliwia
-także dodawanie komentarzy pod każdym z dodanych zdjęć. Nad całością
-usługi będzie czuwał admin, który będzie miał wszelkie prawa dostępu
-do kont edycji ect. Społeczność serwisu będzie miała możliwosc oceny
-zdjęć
-
-Lista wykorzystanych w projekcie wtyczek, gemów:
-
-* (w trakcie)
-
-
-## Sahara
-
-* Jan Siegel
-* Michał Siemaszkiewicz
-* Michał Tupacz
-* Bartosz Sojka
-
-[Link do aplikacji](http://suhara.heroku.com)
+[Link do aplikacji](/)
 
 [Link do diagramu ERD aplikacji](/)
 
-[URI systemu zarządzania projektem](http://www.assembla.com/spaces/saharaproject)
 
-Opis podstawowych funkcjonalności:
+## Serwis klubu sportowego SKS
 
-System umożliwiający dodawanie
-sucharów przez zarejestrowanych użytkowników.
-Udostępnienie użytkownikom możliwości głosowania na „beton tygodnia”.
-Możliwość tagowania każdego suchara i wyszukiwania sucharów po
-tagach.
+* Łukasz Muzalewski
+* Paweł Rzóska
+* Tomasz Boyke
+* Paweł Budziłło
+* Rafał Lenza
 
-Lista wykorzystanych w projekcie wtyczek, gemów:
+[Link do aplikacji](/)
 
-* pony
-* [acts_as_commentable](http://juixe.com/svn/acts_as_commentable)
-* ajaxful-rating, acts_as_rateable
-* acts-as-taggable-on
+[Link do diagramu ERD aplikacji](/)
 
 
-## BZIL: Bardzo Zwyczajny Integrator Ludzi
+## Cheers
 
-* Jacek Dzido
-* Maciek Maćkowski
-* Łukasz Słomka
-* Daniel Sochański
+* Krzysztof Żądłowski 
+* Jarosław Kosmaczewski
+* Kamil Kamiński
+* Artur Paszkiewicz
+* Tomasz Sikorski
 
-[Link do aplikacji](http://www.sigma.inf.ug.edu.pl:8034/)
+[Link do aplikacji](/)
 
-[Link do diagramu ERD aplikacji](http://sigma.inf.ug.edu.pl/~mmackows/priv/asi/asi.png)
-
-[URI systemu zarządzania projektem](http://www.redmine.org/)
-
-[URL repozytorium Git projektu](http://github.com/maqmaq/BZIL)
-
-Opis podstawowych funkcjonalności:
-
-Aplikacja wspomagająca proces organizacji spotkań grupy osób. 
-Informuje o nowych spotkaniach, umożliwia zapisanie się na nie, 
-lub wyrażenie zainteresowania spotkaniem oraz skomentowanie wydarzenia.
-
-Lista wykorzystanych w projekcie wtyczek, gemów:
-
-* blueprint-css (0.9.1 )
-* formtastic (0.9.4)
-* ActsAsTaggableOn
-* Ruby on Rails Gravatar Plugin
+[Link do diagramu ERD aplikacji](/)
 
 
-## Lendrow: Lending in Really Obvious Way
+## Galeria zdjęć online GAL
 
-* Michał Kaliszuk (szef projektu)
-* Wojciech Pliszka
-* Dawid Nowak
-* Piotr Chwiećko
-* Michał Kaszałowicz
+* Mariusz Drozdowski
+* Radosław Grzenkowicz
+* Kamil Ladach
+* Mariusz Lewandowski
+* Grzegorz Łangowski
 
-[Link do aplikacji](http://lendrow.heroku.com)
+[Link do aplikacji](/)
 
-[Link do diagramu ERD](http://sigma.inf.ug.edu.pl/~mkaliszu/lendrow/erd.jpg)
-
-[URI systemu zarządzania
-projektem](http://sigma.inf.ug.edu.pl/~mkaliszu/lendrow/redmine)
-
-[URI repozytorium Git projektu](http://github.com/afro001/lendrow)
-
-Opis podstawowych funkcjonalności:
-
-Ewidencja przedmiotów (książek, płyt, pieniędzy) pożyczonych komuś i od
-kogoś, oczekiwane terminy zwrotu, przypomnienia emailowe dotyczące terminu
-zwrotu - pomysł Agnieszki Figiel.
+[Link do diagramu ERD aplikacji](/)
 
 
-## Szybka Praca Domowa
+## XXX
 
-Naszym celem jest stworzenie platformy ułatwiającej realizację typowych
-zadań domowych dla uczniów języków obcych.
+* A. Nonymous
 
-* Paweł Krzemiński (szef projektu)
-* Karol Szelożyński
-* Paweł Rutkowski
-* Tomek Stawikowski
+[Link do aplikacji](/)
 
-[Link do aplikacji](http://spd.heroku.com/)
-
-[Link do diagramu ERD
-aplikacji](http://sigma.inf.ug.edu.pl/~pkrzemin/projektASI/diagramASI.jpg)
-
-[URI systemu zarządzania projektem](http://www.assembla.com/space/spd)
-
-[URI repozytorium Git projektu](http://github.com/SPD/SPD)
-
-Podstawowe funkcjonalności:
-
-Użytkownicy będą się logować wybierając opcję "Nauczyciel" bądź "Uczeń".
-Nauczyciele będą mogli tworzyć zadania, uczniowie zaś zapisywać się do ich
-rozwiązania. Przygotowane będą zadania dwóch typów: tłumaczenie pojedyńczych
-słówek oraz uzupełnianie luk w zdaniu. Rozwiązanie zadania będzie się
-automatycznie sprawdzało i uczeń natychmiast otrzyma wynik po wysłaniu
-rozwiązania. Dostęp do zadań będzie chroniony hasłem. Na koncie nauczyciela
-będą widoczne wyniki poszczególnych uczniów.
-
-Lista użytych gemów:
-
-* Authlogic
-* Searchlogic
+[Link do diagramu ERD aplikacji](/)
