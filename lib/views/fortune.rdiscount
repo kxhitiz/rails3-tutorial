@@ -52,6 +52,70 @@ Oznacza to, że nie aplikacja nie ma głównej strony.
 Przygotujemy ją za chwilę.
 
 
+## MVC, czyli Model / Widok / Koordynator
+
+Czym jest Ruby on Rails:
+„Ruby on Rails is an MVC framework for web application development.”
+
+Co to jest MVC:
+„MVC is sometimes called a design pattern, but thats not technically
+accurate. It is in fact an amalgamation of design patterns (sometimes
+referred to as an architecture pattern).”
+
+I jeszcze jeden cytat za
+E. Gamma, R. Helm, R. Johnson, J. Vlissides.
+[Wzorce Projektowe](http://www.wnt.com.pl/product.php?action=0&prod_id=986):
+„Model jest obiektem aplikacji. Widok jego ekranową reprezentacją,
+zaś Koordynator definiuje sposób, w jaki interfejs użytkownika
+reaguje na operacje wykonywane przez użytkownika. Przed MVC
+w projektach interfejsu użytkownika te trzy obiekty były na ogół
+łączone. **MVC rozdziela je, aby zwiększyć elastyczność i możliwość
+wielokrotnego wykorzystywania.**”
+
+{%= image_tag "/images/mvc-rails.png", :alt => "[MVC w Rails]" %}
+
+[Źródło](http://betterexplained.com/articles/intermediate-rails-understanding-models-views-and-controllers/)
+
+„MVC rozdziela widoki i model, ustanawiając między nimi protokół
+powiadamiania. Widok musi gwarantować, że jego wygląd odzwierciedla
+stan modelu. Gdy tylko dane modelu się zmieniają, model powiadamia
+zależące od niego widoki. Dzięki temu każdy widok ma okazję do
+uaktualnienia się. To podejście umożliwia podłączenie wielu widoków do
+jednego modelu w celu zapewnienia różnych prezentacji tych danych.
+Można także tworzyć nowe widoki dla modelu bez potrzeby modyfikowania
+go.”
+
+Tyle teoria. W Railsach wszystko działa **nieco** inaczej. Jak?
+
+Co nieco powinnien wyjaśnić listing dwóch katalogów wygenerowanego
+szablonu aplikacji Rails – katalogu *RAILS_ROOT* i jego podkatalogu
+*app*.
+
+Katalog *RAILS_ROOT*:
+    .
+    ├── app
+    ├── config
+    ├── db
+    ├── doc
+    ├── lib
+    ├── log
+    ├── public
+    ├── Rakefile
+    ├── README
+    ├── script
+    ├── test
+    ├── tmp
+    └── vendor
+
+Podkatalog *app*, katalogu głównego aplikacji Rails:
+
+    app
+    ├── controllers
+    ├── helpers
+    ├── models
+    └── views
+
+
 ## Rusztowanie dla modelu *Platitude*
 
 Platitude to po polsku frazes, komunał.

@@ -30,6 +30,12 @@ oraz generatorów [nifty-generators] [nifty generators].
   identifying the users, at least with local user databases.</p>
 </blockquote>
 
+
+[24.03.2010] [Blue Light Special](http://blog.envylabs.com/2010/03/blue-light-special/) —
+quickly set up authentication, authorization, and some other conveniences.
+
+
+
 ## Jak działa Authlogic?
 
 Zaczynamy od obejrzenia screencastu:
