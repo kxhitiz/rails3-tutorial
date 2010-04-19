@@ -1,0 +1,9 @@
+#### {% title "Autentykacja — Devise" %}
+
+# Autentykacja z Devise
+
+Devise is a full-featured authentication solution which handles all of
+the controller logic and form views for you.
+
+* [Introducing Devise](http://railscasts.com/episodes/209-introducing-devise)
+* [Customizing Devise](http://railscasts.com/episodes/210-customizing-devise)

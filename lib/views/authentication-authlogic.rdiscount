@@ -279,17 +279,12 @@ klikamy w link *Register* i ponownie sprawdzamy jak teraz działa
 rejestracja.
 
 
-### Implementujemy logowanie
-
-W tym rozdziale korzystamy z konwencji nazewniczych, generatora
-*session* oraz kodu z pliku *README* gemu *Authlogic*.
+### Implementujemy logowanie i wylogowywanie
 
 Implementację logowania zaczynamy od wygenerowania modelu
 *UserSession*:
 
     script/generate session user_session
-
-Dlaczego do logowania używamy sesji? Jak to będzie działać?
 
 Wygenerowany plik *models/user_session.rb* zawiera kod:
 
@@ -298,12 +293,22 @@ Wygenerowany plik *models/user_session.rb* zawiera kod:
     end
 
 Zauważmy, że tym razem model nie dziedziczy po
-klasie *ActiveRecord::Base*. Dlaczego?
+klasie *ActiveRecord::Base*. Ale model *Authlogic::Session::Base*
+będzie zachowywać się tak jak *ActiveRecord::Base*.
+Z tego powodu autor Authlogic opisuje gem jako
+„A simple **model based** ruby authentication solution.”
 
-Do sterowania będziemy potrzebować **zwykłego** kontrolera:
+Dlaczego do logowania używamy sesji? Co to jest sesja?
+Czym sesja różni się od ciasteczka?
+
+Po zalogowaniu, dopisujemy *id* użytkownika do sesji.
+Użytkownika wylogowujemy usuwając jego *id* z sesji.
+
+Do sterowania będziemy potrzebować **zwykłego** kontrolera
+z metodami *new* – logowanie i *destroy* – wylogowywanie:
 
     script/generate nifty_scaffold user_session --skip-model \
-      login:string email:string password:string new destroy
+      login:string password:string new destroy
 
 W wygenerowanym pliku *user_sessions_controller.rb* zmieniamy
 komunikaty:
@@ -318,15 +323,17 @@ na:
     flash[:notice] = "Successfully logged in."
     flash[:notice] = "Successfully logged out."
 
-oraz usuwamy argument *(params[:id])* metody klasowej *find*
+oraz usuwamy argument `(params[:id])` metody klasowej `find`:
 
     :::ruby
     @user_session = UserSession.find(params[:id])
 
-Dlaczego? Odpowiedź: sesja jest tylko jedna.
+Dlaczego? Wyszukiwanie sesji o podanym *id* nie ma sensu
+ponieważ sesja jest tylko jedna.
 
-Więcej oczywistych zmian: w widoku *user_sessions/new.html.erb*
-zmieniamy tytuł: "New User Session" na "Logging" oraz
+Musimy wykonać jeszcze kilka oczywistych zmian.
+W widoku *user_sessions/new.html.erb*
+zmieniamy tytuł: "New User Session" na "Log in" oraz
 
     :::html
     <%= f.text_field :password %>
@@ -388,48 +395,49 @@ Definicję metody *current_user* znajdziemy w dokumentacji do przykładu
 Wykonujemy cut z dokumentacji & paste do pliku *application_controller.rb*:
 
     :::ruby
-    helper_method :current_user, :logged_in?
-      
+    helper_method :current_user_session, :current_user
+    helper_method :require_user, :require_no_user, :logged_in?
+
     private
-      
+    
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
     end
-    
+
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
     end
-    
-    # to samo co current_user ale kod czytelniejszy
+
+    # to samo co current_user
     def logged_in?
       current_user != nil
     end
-    
+
+    def require_user
+      unless current_user
+        store_location
+        flash[:notice] = "You must be logged in to access this page"
+        redirect_to new_user_session_url
+        return false
+      end
+    end
+
+    def require_no_user
+      if current_user
+        store_location
+        flash[:notice] = "You must be logged out to access this page"
+        redirect_to root_url
+        return false
+      end
+    end
+
     # metoda wykorzystana w require_user i require_no_user
     def store_location
       session[:return_to] = request.request_uri
     end
 
-Na potrzeby rozdziału „Resetting password…” (czyżby?) dopisujemy kilka
-metod:
-
-    :::ruby
-    helper_method :require_no_user, :redirect_back_or_default
-    
-    private
-    
-    def require_no_user
-     if current_user
-        store_location
-        flash[:notice] = "You must be logged out to access this page"
-        redirect_to root_url # inny uri?
-        return false
-      end
-    end
-    
-    # czy ta metoda może się do czegoś przydać?
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
@@ -439,7 +447,7 @@ Po tych poprawkach, wchodzimy na stronę główną aplikacji:
 
     http://localhost:3000/
 
-i klikamy link *Edit profile*. Link ten generuje błąd.
+logujemy się i klikamy link *Edit profile*. Link ten generuje błąd.
 Aby go poprawić, zmieniamy wygenerowany kod 
 metod *edit* i *update* kontrolera *users_controller.rb*:
 
@@ -456,49 +464,45 @@ na:
     end
 
 Analogiczną poprawkę robimy w kodzie metody *update*.
-Przy okazji zmieniamy komunikat z "Successfully updated user."
-na: "Successfully updated profile.".
+Przy okazji w kodzie tej metody zamieniamy komunikat:
+
+    :::ruby
+    flash[:notice] = "Successfully updated user."
+
+na: 
+
+    :::ruby
+    flash[:notice] = "Successfully updated profile."
 
 
-## Wielki finał: ograniczamy dostęp 
+## Le Grande Finale: ograniczamy dostęp 
 
 Jak zapewnić sobie, aby **tylko** zalogowany użytkownik mógł 
 dodawać nowe cytaty oraz edytować i usuwać już istniejące cytaty?
 
-Tworzymy metodę pomocniczą *require\_user* dopisując w pliku
-*application_controller.rb*:
+Skorzystamy z metody pomocniczej *require_user* oraz mechanizmu 
+*before_filter*.
 
-    :::ruby
-    helper_method :require_user
-      
-    private
-
-    def require_user
-      unless current_user # albo bardziej zrozumiale: unless logged_in?
-        store_location
-        flash[:notice] = "You must be logged in to access this page"
-        redirect_to new_user_session_url
-        return false
-      end
-    end
-
-Teraz ograniczenie dostępu do metod uzyskamy korzystając z metody klasowej
-*before\_filter*. W pliku *fortunes_controller.rb* dopisujemy:
+W pliku *fortunes_controller.rb* dopisujemy:
 
     :::ruby
     class FortunesController < ApplicationController
       before_filter :require_user, 
-          :only => [:new, :show, :edit, :create, :update, :destroy]
+        :only => [:new, :edit, :create, :update, :destroy]
       # albo tak
-      # before_filter :require_user, :except => [:index]
+      # before_filter :require_user, 
+      #  :except => [:show, :index]
 
 W widokach: *fortunes/index.html.erb*, *fortunes/show.html.erb*
-ograniczamy dostęp dopisując w odpowiednich miejscach:
+ograniczymy dostęp dopisując w odpowiednich miejscach:
 
     :::html
     <% if logged_in? %>
     ...
     <% end %>
+
+Ale zanim to zrobimy, powinniśmy sprawdzić jak działa
+*before_filter*.
 
 
 ### Bezpieczeństwo
@@ -516,19 +520,6 @@ Wartości jakich pól powinniśmy jeszcze odfiltrować?
 
 Teraz należy przeczytać dokumentację:
 [Authlogic Example](http://github.com/binarylogic/authlogic_example/).
-
-
-### Lekcja do odrobienia: lokalizacja
-
-Lokalizacja, czyli *i18n*. Przetłumaczyć na język polski komunikaty *Authlogic*.
-Przygotować zlokalizowaną wersję *Fortunki*.
-
-Jak się to robi? Zobacz [Railscasts \#138: i18n] [railscasts i18n].
- 
-### Lekcja do odrobienia: paginacja
-
-Dodać do *Fortunki* paginację. Skorzystać z gemu [will_paginate] [will paginate]
-([screencast] [railscasts will_paginate]).
 
 
 ## Generowanie autentykacji
@@ -558,16 +549,20 @@ Tworzymy plik *initializers/mail.rb* o następującej zawartości:
       :password => 'sekret',
       :authentication => :login
     }
-        
     #ActionMailer::Base.delivery_method = :sendmail
     #ActionMailer::Base.sendmail_settings = {
     #  :location => '/usr/sbin/sendmail',
     #  :arguments => '-i -t'
     #}
-    
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.raise_delivery_errors = true
     ActionMailer::Base.default_charset = 'utf-8'
+
+Jeśli chcemy przetestować wysyłanie email lokalnie w trybie
+*development*, to włączamy usługę *sendmail* na localhost. Usługę
+pocztową uruchamiamy na Fedorze korzystając z polecenia *service*:
+
+    sudo services sendmail start
 
 
 ### Resetowanie hasła krok po kroku
@@ -601,14 +596,17 @@ i modyfikujemy ją w następujący sposób:
       def self.up  
         add_column :users, :perishable_token, :string, 
             :default => "", :null => false  
-        
         add_index :users, :perishable_token  
       end  
-      
       def self.down  
         remove_column :users, :perishable_token  
       end  
     end  
+
+Po tych zmianach migrujemy:
+
+    rake db:migrate
+
 
 ### Zmiana hasła na sposób REST
 
@@ -643,7 +641,7 @@ i wklejamy gotowca (na razie tylko tyle):
               "If you are having issues try copying and pasting the URL " +
               "from your email into your browser or restarting the " +
               "reset password process."
-            redirect_to fortunes_url
+            redirect_to root_url
           end
         end
     end
@@ -684,7 +682,7 @@ metody *create* tego kontrolera:
         @user.deliver_password_reset_instructions!
         flash[:notice] = "Instructions to reset your password have been emailed to you. " +
           "Please check your email."
-        redirect_to fortunes_url
+        redirect_to root_url
       else
         flash[:notice] = "No user was found with that email address"
         render :action => :new
@@ -718,10 +716,11 @@ nazwa bez prefixu *deliver*):
     :::ruby
     class Notifier < ActionMailer::Base
       default_url_options[:host] = "sigma.ug.edu.pl:3000"
+      #default_url_options[:host] = "localhost:3000"
       
       def password_reset_instructions(user)
         subject    "Password Reset Instructions"
-        from       "Fortune Notifier <noreply@localhost>"
+        from       "noreply@sigma.ug.edu.pl"
         recipients  user.email
         sent_on     Time.now
         body        :edit_password_reset_url => 
@@ -729,7 +728,7 @@ nazwa bez prefixu *deliver*):
       end
     end
 
-Szablon emaila, to widok *notifier/password_reset_instructions.erb*:
+Szablon emaila, to widok *app/views/notifier/password_reset_instructions.erb*:
 
     :::html
     A request to reset your password has been made. 
@@ -748,7 +747,7 @@ Link który użytkownik ma kliknąć w emailu będzie wyglądał jakoś tak:
 
     http://sigma.ug.edu.pl:3000/password_resets/6th8mSFwxvG-v2IbbRdY/edit    
 
-Po kliknięciu wykonana zostanie metoda *edit* klasy *PasswordResetsConttoller*:
+Po kliknięciu wykonana zostanie metoda *edit* klasy *PasswordResetsController*:
 
     :::ruby
     def edit
@@ -781,7 +780,7 @@ Wyrenderowany formularz wygląda mniej więcej tak
     ...
 
 Oznacza to, że po kliknięciu na przycisk submit zostanie wywołana
-metoda *update* klasy *PasswordResetsConttoller*:
+metoda *update* klasy *PasswordResetsConttoller* (dopisujemy ją):
 
     :::ruby
     def update
@@ -789,11 +788,12 @@ metoda *update* klasy *PasswordResetsConttoller*:
       @user.password_confirmation = params[:user][:password_confirmation]
       if @user.save
         flash[:notice] = "Password successfully updated"
-        redirect_to fortune_url
+        redirect_to root_url
       else
         render :action => :edit
       end
     end
+
 
 ### Podczepienie "Forgot password" pod Fortunkę
 

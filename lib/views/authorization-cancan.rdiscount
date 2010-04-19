@@ -1,0 +1,10 @@
+#### {% title "Autoryzacja — CanCan" %}
+
+# Autoryzacja z CanCan
+
+CanCan is a simple authorization plugin that offers a lot of
+flexibility.
+
+* [Authorization with CanCan](http://railscasts.com/episodes/192-authorization-with-cancan)
+* [CanCan](http://github.com/ryanb/cancan) – 
+  simple authorization for Rails.
