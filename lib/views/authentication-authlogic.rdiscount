@@ -271,26 +271,12 @@ wpisujemy w taki sposób:
             header: 'Niepoprawnie wypełniłeś formularz'
 
 
-Następnie edytujemy plik *users_controller.rb*:
-
-    :::ruby
-    class UsersController < ApplicationController
-      ...      
-      def create
-        @user = User.new(params[:user])
-        if @user.save
-          flash[:notice] = "Registration successfull."
-          redirect_to fortunes_url  # lepsze propozycje URI?
-        else
-          render :action => 'new'
-        end
-      end
-
-Jeszcze raz sprawdzamy jak działa rejestracja, wchodząc na stronę
+Po tych poprawkach, wchodzimy na stronę aplikacji:
 
     http://localhost:3000
 
-i klikając link *Register*.
+klikamy w link *Register* i ponownie sprawdzamy jak teraz działa
+rejestracja.
 
 
 ### Implementujemy logowanie
