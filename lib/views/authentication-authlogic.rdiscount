@@ -1,27 +1,32 @@
-#### {% title "Autentykacja" %}
+#### {% title "Autentykacja — Authlogic" %}
 
-# Autentykacja
+<blockquote>
+<p>If you care about your user’s security, and your time, it’s time you
+ stop asking them for passwords. Storing user passwords and handling
+ authentication offers a bunch of problems that have already been
+ solved, and requires a lot of work to do it right.</p>
+<p><a href="http://terrbear.org/?p=187">Rails and OpenID: Start Your Engines</a></p>
+</blockquote>
+
+# Autentykacja z Authlogic
 
 Zaczniemy od definicji:
 An **authentication system** is how you identify yourself to 
 the computer. The goal behind an authentication system is 
 to verify that the user is actually who they say they are.
 
-There are many ways of authenticating a user. A good
-example is *logging* which is
-a password based authentication.
-
-Na początek *kontrowersyjny* cytat.
-
-[Rails and OpenID: Start Your Engines ](http://terrbear.org/?p=187):
-If you care about your user’s security, and your time, it’s time you
-stop asking them for passwords. Storing user passwords and handling
-authentication offers a bunch of problems that have already been
-solved, and requires a lot of work to do it right.
+There are many ways of authenticating a user. A good
+example is *logging* which is a password based authentication.
 
 
-W przykładach poniżej skorzystamy z gemu [Authlogic] [authlogic]
-oraz generatorów [nifty-generators] [nifty generators].
+## Jak działa Authlogic? (v2.1.3)
+
+Linki:
+
+* [Railscasts: \#160 Authlogic] [railscasts authlogic]
+  albo [ASCIIcasts: \#160 Authlogic] [asciicasts authlogic].
+* Ben Johnson. [Authlogic](http://github.com/binarylogic/authlogic) –
+  a simple model based ruby authentication solution.
 
 <blockquote>
  {%= image_tag "/images/binary-logic.gif", :alt => "[Binary Logic]" %}
@@ -30,22 +35,22 @@ oraz generatorów [nifty-generators] [nifty generators].
   identifying the users, at least with local user databases.</p>
 </blockquote>
 
+W przykładach poniżej skorzystamy z gemu [Authlogic] [authlogic]
+oraz generatorów [nifty-generators] [nifty generators].
 
-[24.03.2010] [Blue Light Special](http://blog.envylabs.com/2010/03/blue-light-special/) —
-quickly set up authentication, authorization, and some other conveniences.
+Instalujemy oba gemy:
 
-
-
-## Jak działa Authlogic?
-
-Zaczynamy od obejrzenia screencastu:
-[Railscasts: \#160 Authlogic] [railscasts authlogic]
-albo przeczytania: [ASCIIcasts: \#160 Authlogic] [asciicasts authlogic].
+    gem install authlogic nifty-generators
 
 
 ## Fortunka z autentykacją
 
-Własny przykład wart jest więcej, dlatego napiszemy
+Link:
+
+* Ben Johnson. [Authlogic Example](http://github.com/binarylogic/authlogic_example) —
+  an example rails app using the Authlogic authentication library.
+
+Ale własny przykład jest wart więcej, dlatego napiszemy
 *Fortunkę* z autentykacją.
 
 Autentykację w *Fortunce* ustawimy tak, że tylko zalogowany
@@ -55,35 +60,39 @@ Niezalogowani użytkownicy będą mogli tylko przeglądać cytaty.
 
 ### Generujemy *Fortunkę*
 
-Zaczynamy od wygenerowania szkieletu aplikacji oraz 
+Zaczynamy od wygenerowania szkieletu aplikacji, instalacji oraz
 rusztowania REST dla modelu *Fortune*:
 
     :::ruby
     rails fortunka
     cd fortunka
+    rm public/index.html  # zbędne
+    script/generate nifty_layout   
     script/generate nifty_scaffold fortune quotation:text
     rake db:migrate
-    rm public/index.html
 
 W pliku *routes.rb* ustawiamy stronę główną aplikacji:
 
     :::ruby
     map.root :controller => "fortunes", :action => "index"
 
-oraz usuwamy domyślny routing:
+i usuwamy domyślny routing:
 
     :::ruby
     map.connect ':controller/:action/:id'
     map.connect ':controller/:action/:id.:format'
 
-W pliku *environment.rb* dopisujemy gem *Authlogic*:
+W pliku *environment.rb* dopisujemy gem *Authlogic*
+oraz ustawiamy locale na *pl*:
 
     :::ruby
-    config.gem "authlogic"  
+    config.gem "authlogic", "2.1.3"
+    config.i18n.default_locale = :pl
 
 i instalujemy go (o ile wcześniej nie był już zainstalowany):
 
-    sudo rake gems:install
+    rake gems:install
+    rake gems:unpack
 
 **Gotowe!** Uruchamiamy aplikację:
 
@@ -93,57 +102,67 @@ i wchodzimy na stronę główną *Fortunki*:
 
     http://localhost:3000/
 
+Jeśli pojawia się ostrzeżenie:
 
-### Przygotowania do rejestracji i logowanie
+    gem_dependency.rb:119:Warning: Gem::Dependency#version_requirements 
+    is deprecated and will be removed on or after August 2010.  
+    Use #requirement
 
-Jak każe zwyczaj, w prawym górnym rogu każdej strony umieścimy
-linki do rejestracji i logowania.
+to czeka nas łatanie kodu. Zaczynamy od nałożenia łatki „na sucho”:
 
-Do zapamiętywania danych użytkowników użyjemy modelu *User*. 
-Do rejestracji użyjemy kontrolera *UsersController*.
-Model i kontroler generujemy jednocześnie w taki sposób:
+    curl http://github.com/rails/rails/commit/268c9040d5c3c7ed30f3923eee71a78eeece8a8a.diff \
+     | patch --dry-run -p2 -d /home/wbzyl/.rvm/gems/ree-1.8.7-2010.01/gems/rails-2.3.5/ 
+
+Oczywiście, powyżej wpisujemy swoją ścieżkę do żródeł Railsów.
+Jeśli wszystko jest OK, to kasujemy opcję `--dry-run` i łatamy Railsy.
+
+Acha, ten komunikat ignorujemy:
+
+    can't find file to patch at input line 34
+
+
+## Implementujemy logowanie
+
+Zaczynamy od wygenerowania rusztowania dla modelu *User* (i kontrolera
+*UsersController*). Dla *users* będziemy potrzebować tylko dwóch
+widoków – *new* *edit*:
 
     script/generate nifty_scaffold user \
       login:string email:string password:string new edit
 
-Ponieważ nie należy używać czystego tekstu do pamiętania haseł,
-dlatego wyedytujemy utworzoną migrację zmieniając:
-
-    :::ruby
-    t.string :login
-    t.string :email
-    t.string :password
-
-na
-
-    :::ruby
-    t.string :login, :null => false
-    t.string :email, :null => false
-      
-    t.string :crypted_password, :null => false
-    t.string :password_salt, :null => false
-    t.string :persistence_token, :null => false
-
-Dodajemy też indeksy:
+Ponieważ nie będziemy używać czystego tekstu do pamiętania haseł,
+dlatego wyedytujemy utworzoną migrację, nie zapominając o dopisaniu
+indeksów:
 
     :::ruby
     class CreateUsers < ActiveRecord::Migration
       def self.up
-        ...
+        create_table :users do |t|
+          t.string :login, :null => false
+          t.string :email, :null => false
+          t.string :crypted_password, :null => false
+          t.string :password_salt, :null => false
+          t.string :persistence_token, :null => false      
+          t.timestamps
+        end
         add_index :users, :login
-        add_index :users, :email     
+        add_index :users, :email
       end
-      ...
+      def self.down
+        drop_table :users
+      end
+    end
 
-Dlaczego *crypted_password*: ponieważ Authlogic oczekuje takiej nazwy.
+Kilka uwag. Authlogic oczekuje takiej nazwy nazwa *crypted_password*.
 Do czego służą pola: *password_salt* i *persistence_token*?
-Wyjaśnienie w dokumentacji
-*Authlogic Example*: [Ensure proper database fields] [authlogic example].
+Wyjaśnienie znajdziemy w dokumentacji *Authlogic Example*: 
+[Ensure proper database fields] [authlogic example].
 
-Na potrzeby rozdziału „Resetting password…” od razu dodamy kilka pól:
+Przy implementacji „resetting passwords” będziemy potrzebować
+kliku dodatkowych pól w tabelce *users*. Pola te dopiszemy teraz do
+migracji:
 
     :::ruby     
-    t.string :login, :null => false
     t.integer :login_count, :default => 0, :null => false
     t.datetime :last_request_at
     t.datetime :last_login_at
@@ -151,7 +170,7 @@ Na potrzeby rozdziału „Resetting password…” od razu dodamy kilka pól:
     t.string :last_login_ip
     t.string :current_login_ip
 
-Po wprowadzeniu tych poprawek migrujemy:
+Dopiero po wprowadzeniu wszystkich tych poprawek migrujemy:
 
     rake db:migrate
 
@@ -163,16 +182,31 @@ jednego wiersza kodu w klasie *User*:
       acts_as_authentic
     end
 
-Albo tak:
+Jeśli chcemy zmieniać wartości domyślne walidacji Authlogic, to
+zaglądamy do [dokumentacji](http://rdoc.info/projects/binarylogic/authlogic).
+Dla przykładu:
 
     :::ruby
-    acts_as_authentic do |c|
+    class User < ActiveRecord::Base
+      attr_accessible :login, :email, :password, 
+        :password_confirmation  # new; WARNING: Can't mass-assign protected attributes
+
+      acts_as_authentic do |c|
+        c.validates_length_of_password_field_options= {:within => 2..4}
+        c.validates_length_of_password_confirmation_field_options= {:within => 2..4}    
         c.validates_uniqueness_of_login_field_options= {:case_sensitive => true}
         c.validates_uniqueness_of_email_field_options= {:case_sensitive => true}
+      end
     end
 
+Użyte powyżej opcje opisano w modułach: *Authlogic::ActsAsAuthentic::Password::Config*,
+*Authlogic::ActsAsAuthentic::Login::Config* itd.
 
-### Implementujemy rejestrację
+
+### Widoki dla rejestracji i logowania
+
+Jak każe zwyczaj, w prawym górnym rogu każdej strony umieścimy
+linki do rejestracji i logowania.
 
 W pliku *layout/application.html.erb* dodajemy element *div*:
 
@@ -181,7 +215,8 @@ W pliku *layout/application.html.erb* dodajemy element *div*:
       <%= link_to "Register", new_user_path %>
     </div>
 
-który umieszczamy w prawym górnym rogu strony:
+który umieszczamy w prawym górnym rogu strony, dopisując
+w pliku *public/stylesheets/application.css*:
 
     :::css
     #user_nav {
@@ -220,6 +255,22 @@ na:
 *Uwaga*: Rails **wie** jak obsłużyć pole *password_confirmation*,
 zob. *validates_confirmation_of* w API.
 
+Wchodzimy ponownie na stronę i sprawdzamy czy walidacja działa. Przy
+okazji dopisujemy tłumaczenia do pliku *config/locales/pl.yml*. Dla
+przykładu, tłumaczenie wypisywanego tekstu:
+
+    translation missing: pl, activerecord, errors, template, header
+
+wpisujemy w taki sposób:
+
+    :::yaml
+    pl:
+      activerecord:
+        errors:
+          template:
+            header: 'Niepoprawnie wypełniłeś formularz'
+
+
 Następnie edytujemy plik *users_controller.rb*:
 
     :::ruby
@@ -235,9 +286,11 @@ Następnie edytujemy plik *users_controller.rb*:
         end
       end
 
-Na koniec sprawdzamy jak działa rejestracja:
+Jeszcze raz sprawdzamy jak działa rejestracja, wchodząc na stronę
 
-    http://localhost:3000/users/new 
+    http://localhost:3000
+
+i klikając link *Register*.
 
 
 ### Implementujemy logowanie
@@ -250,7 +303,7 @@ Implementację logowania zaczynamy od wygenerowania modelu
 
     script/generate session user_session
 
-Dlaczego do logowania używamy sesji?
+Dlaczego do logowania używamy sesji? Jak to będzie działać?
 
 Wygenerowany plik *models/user_session.rb* zawiera kod:
 
