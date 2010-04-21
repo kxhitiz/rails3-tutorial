@@ -2,9 +2,129 @@
 
 # Autoryzacja z CanCan
 
-CanCan is a simple authorization plugin that offers a lot of
-flexibility.
+**CanCan is a simple authorization plugin that offers a lot of flexibility.**
 
 * [Authorization with CanCan](http://railscasts.com/episodes/192-authorization-with-cancan)
+  ([ASCIIcast](http://asciicasts.com/episodes/192-authorization-with-cancan))
 * [CanCan](http://github.com/ryanb/cancan) – 
   simple authorization for Rails.
+
+Zaczynamy od sklonowania projektu *Autentykacja z Authlogic*:
+
+    git clone ssh://sigma.ug.edu.pl/~wbzyl/hello/authlogic
+
+utworzenia nowej gałęzi:
+
+    git checkout -b cancan
+
+i podmienienia nazw baz danych w pliku *database.yml*:
+
+    :::yaml
+    development:
+      adapter: sqlite3
+      database: db/cancan-development.sqlite3
+      pool: 5
+      timeout: 5000
+
+oraz nazw dla baz danych używanych trybach test i production.
+
+Teraz migrujemy:
+
+    rake db:migrate
+
+i jesteśmy w miejscu w którym zakończyliśmy próbowanie Authlogic,
+ale na gałęzi **cancan**.
+
+Za pomocą *cancan* dodamy autoryzację do fortunki.
+Dodamy trzy role: 
+
+* admin 
+* moderator
+* author
+
+*Admin* **może** wszystko, *author* **może** dodawać
+nowe cytaty do Fortunki i edytować swoje cytaty, a moderator
+może **edytować** wszystkie cytaty.
+
+Role będą zapisywane w dodatkowym atrybucie o nazwie 
+*role* w modelu *User*.
+
+Fajen cytaty są na stronie
+[The Quotations Page](http://www.quotationspage.com/subjects/science/).
+
+
+## Przygotowania
+
+Zaczynamy od dodania kolumny *role:string* do tabeli *users*:
+
+    script/generate migration AddRoleRolesMaskToUser role:string roles_mask:integer
+
+Następnie dopisujemy do modelu *User*:
+
+    :::ruby
+    has_many :fortunes
+    
+    named_scope :with_role, lambda { 
+      |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} 
+    }
+    
+    ROLES = %w[admin moderator author]
+    
+    def roles=(roles)
+      self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
+    end
+    def roles
+      ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
+    end
+    def role?(role)
+      roles.include? role.to_s
+    end
+
+Do widoku częściowego *users/_form.html.erb* dopisujemy:
+
+    :::html_rails
+    <p>
+      <%= f.label :roles %><br />
+      <% for role in User::ROLES %>
+        <%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
+        <%=h role.humanize %><br />
+      <% end %>
+      <%= hidden_field_tag "user[roles][]", "" %>
+    </p>
+
+## Zmiany na stronie głównej
+
+Zaczniemy od kosmetyki. W widoku *index.html.erb* przy każdym cytacie
+dopiszemy login użytkownika który dodał cytat. Zamiast wypisywać
+dane z bazy tabeli wstawimy je do *div* z kilkoma *p*.
+
+Oryginał:
+
+    :::html_rails
+    <table>
+      <tr>
+        <th>Quotation</th>
+      </tr>
+      <% for fortune in @fortunes %>
+        <tr>
+          <td><%=h fortune.quotation %></td>
+          <td><%= link_to "Show", fortune %></td>
+          <% if logged_in? %>
+            <td><%= link_to "Edit", edit_fortune_path(fortune) %></td>
+            <td><%= link_to "Destroy", 
+                      fortune, :confirm => 'Are you sure?', 
+                      :method => :delete %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+
+    <p><%= link_to "New Fortune", new_fortune_path %></p>
+
+A to oryginał po liftingu:
+
+    :::html_rails
+    <% for fortune in @fortunes %>
+    
+    <% end %>
+   
