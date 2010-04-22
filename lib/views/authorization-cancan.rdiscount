@@ -92,13 +92,77 @@ Do widoku częściowego *users/_form.html.erb* dopisujemy:
       <%= hidden_field_tag "user[roles][]", "" %>
     </p>
 
+## Powiązania między modelami
+
+Każada fortunka została wpisana przez jakiegoś użytkownika,
+a użytkownik mógł wpisać wiele fortunek:
+
+    :::ruby
+    belongs_to :user    // model Fortune
+    has_many :fortunes  // model User
+
+Migracja:
+
+   ./script/generate migration AddUserIdToFortune user_id:integer
+   rake db:migrate
+
+Dopisujemy identyfikator użytkownika w modelu *Fortune* do
+*attr_accessible*:
+
+    :::ruby
+    attr_accessible :quotation, :user_id
+
+Do widoku *edit*, dodajemy na razie tylko adminowi
+(później też moderatorowi) możliwość zmiany użytkownika,
+który dodał cytat.
+
+Użyjemy listy rozwijanej. Dopisujemy do *_form.html.erb*:
+
+    :::html_rails
+    <%= f.collection_select :user_id, User.all, :id, :login %>
+
+
+
 ## Zmiany na stronie głównej
 
 Zaczniemy od kosmetyki. W widoku *index.html.erb* przy każdym cytacie
 dopiszemy login użytkownika który dodał cytat. Zamiast wypisywać
-dane z bazy tabeli wstawimy je do *div* z kilkoma *p*.
+dane z bazy do tabeli wstawimy je do *div* z kilkoma *p*.
 
-Oryginał:
+Informację o zalogowanym użytkowniku znajdziemy w sesji.
+Jeśli w widoku strony głównej dopiszemy:
+
+    :::html_rails
+    <%= debug(UserSession.find) %>
+
+albo, lepiej:
+
+    :::html_rails
+    <%= debug(current_user_session) %>
+
+to po zalogowaniu się do aplikacji i przejściu na stronę główną
+powinniśmy zobaczyć co Authlogic zapisał w sesji:
+
+    :::yaml
+    --- &id002 !ruby/object:UserSession 
+    attempted_record: &id001 !ruby/object:User 
+      attributes: 
+        ...
+        login: wlodek
+        email: wbzyl@sigma.ug.edu.pl
+        ...
+        role: 
+        current_login_ip: 127.0.0.1
+        id: "2"
+
+Stąd widzimy, że 
+
+    :::ruby
+    current_user_session.user.login
+
+to login zalogowanego użytkownika.
+
+Oto oryginalny widok *index.html.erb*:
 
     :::html_rails
     <table>
@@ -118,13 +182,22 @@ Oryginał:
         </tr>
       <% end %>
     </table>
-
     <p><%= link_to "New Fortune", new_fortune_path %></p>
 
-A to oryginał po liftingu:
+A to widok po liftingu:
 
     :::html_rails
     <% for fortune in @fortunes %>
-    
+      <p><%=h fortune.quotation %></p>
+      <p><%= link_to "Show", fortune %>
+         <% if logged_in? %>
+           | <%= link_to "Edit", edit_fortune_path(fortune) %>
+           | <%= link_to "Destroy", fortune, 
+                      :confirm => 'Are you sure?', 
+                      :method => :delete %>
+           (dodał: <em><%= current_user_session.user.login %></em>)
+         <% end %>
+      </p>
     <% end %>
-   
+    <p><%= link_to "New Fortune", new_fortune_path %></p>
+ 
