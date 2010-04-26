@@ -3,21 +3,25 @@
 # Autoryzacja z CanCan
 
 **CanCan is a simple authorization plugin that offers a lot of flexibility.**
+Zamierzamy to sprawdzić, dodając autoryzację do Fortunki z autentykacją.
 
 * [Authorization with CanCan](http://railscasts.com/episodes/192-authorization-with-cancan)
   ([ASCIIcast](http://asciicasts.com/episodes/192-authorization-with-cancan))
 * [CanCan](http://github.com/ryanb/cancan) – 
   simple authorization for Rails.
 
-Zaczynamy od sklonowania projektu *Autentykacja z Authlogic*:
+Zaczynamy od sklonowania Fortunki z *Autentykacja z Authlogic*:
 
     git clone ssh://sigma.ug.edu.pl/~wbzyl/hello/authlogic
 
-utworzenia nowej gałęzi:
+i utworzenia nowej gałęzi:
 
     git checkout -b cancan
 
-i podmienienia nazw baz danych w pliku *database.yml*:
+na której dodamy autoryzację.
+
+Następnie na gałęzi *cancan* podmieniamy w pliku *database.yml* nazwę
+bazy danych dla trybu development:
 
     :::yaml
     development:
@@ -26,17 +30,16 @@ i podmienienia nazw baz danych w pliku *database.yml*:
       pool: 5
       timeout: 5000
 
-oraz nazw dla baz danych używanych trybach test i production.
+oraz nazwy baz danych używanych trybach test i production.
 
-Teraz migrujemy:
+Po tych podmianach, migrujemy:
 
     rake db:migrate
 
-i jesteśmy w miejscu w którym zakończyliśmy próbowanie Authlogic,
-ale na gałęzi **cancan**.
+i jesteśmy w miejscu w którym zakończyliśmy zabawę z Authlogic,
+ale tym razem jesteśmy na gałęzi **cancan**, a nie na *master*.
 
-Za pomocą *cancan* dodamy autoryzację do fortunki.
-Dodamy trzy role: 
+Wykorzystamy *cancan* do dodania trzech ról do Fortunki:
 
 * admin 
 * moderator
@@ -46,14 +49,14 @@ Dodamy trzy role:
 nowe cytaty do Fortunki i edytować swoje cytaty, a moderator
 może **edytować** wszystkie cytaty.
 
-Role będą zapisywane w dodatkowym atrybucie o nazwie 
-*role* w modelu *User*.
+Role będziemy zapisywać w dodatkowym atrybucie modelu *User* o nazwie 
+*role*.
 
-Fajen cytaty są na stronie
+W tej wersji Fortunki skorzystamy z cytatów ze strony
 [The Quotations Page](http://www.quotationspage.com/subjects/science/).
 
 
-## Przygotowania
+## TODO: Przygotowania
 
 Zaczynamy od dodania kolumny *role:string* do tabeli *users*:
 
