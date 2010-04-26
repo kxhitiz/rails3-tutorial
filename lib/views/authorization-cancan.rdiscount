@@ -18,7 +18,7 @@ i utworzenia nowej gałęzi:
 
     git checkout -b cancan
 
-na której dodamy autoryzację.
+na której będziemy eksperymentować z autoryzacją.
 
 Następnie na gałęzi *cancan* podmieniamy w pliku *database.yml* nazwę
 bazy danych dla trybu development:
