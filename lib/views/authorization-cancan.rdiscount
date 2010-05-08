@@ -207,7 +207,7 @@ poniżej linka *"Logout"*:
 
 ## Zmiany na stronie głównej
 
-Widok z rusztowania to tabelka. Nie wyglada to zbyt ładnie.
+Widok z rusztowania to tabelka. Nie wygląda to zbyt ładnie.  
 Zamiast tabelki uzyjemy kilku elementów *div*.
 
 W widoku *index.html.erb* przy każdym cytacie
@@ -252,7 +252,7 @@ A to widok po liftingu:
     <p><%= link_to "New Fortune", new_fortune_path %></p>
 
 
-## Zmiany w edycji fortunek
+## TODO: Zmiany w edycji fortunek
  
 Do widoku *edit*, dodajemy na razie tylko adminowi
 (później też moderatorowi) możliwość zmiany użytkownika,
