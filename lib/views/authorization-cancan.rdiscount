@@ -41,30 +41,30 @@ ale tym razem jesteśmy na gałęzi **cancan**, a nie na *master*.
 
 Wykorzystamy *cancan* do dodania trzech ról do Fortunki:
 
-* admin 
-* moderator
-* author
-
-*Admin* **może** wszystko, *author* **może** dodawać
-nowe cytaty do Fortunki i edytować swoje cytaty, a moderator
-może **edytować** wszystkie cytaty.
-
-Role będziemy zapisywać w dodatkowym atrybucie modelu *User* o nazwie 
-*role*.
-
-W tej wersji Fortunki skorzystamy z cytatów ze strony
-[The Quotations Page](http://www.quotationspage.com/subjects/science/).
+* admin — **może** wszystko
+* moderator — **może** dodawać nowe i edytować swoje cytaty
+* author — może **edytować** i **usuwać** każdy cytat
 
 
-## TODO: Przygotowania
+## Przygotowania
 
-Zaczynamy od dodania kolumny *role:string* do tabeli *users*:
+Dopuszczamy sytuację, że użytkownik może mieć kilka ról.
 
-    script/generate migration AddRoleRolesMaskToUser role:string roles_mask:integer
+Wszystkie role użytkownika będziemy **kodować** w dodatkowym atrybucie
+modelu *User* o nazwie *roles_mask*.
+
+Zaczynamy od dodania kolumny *roles_mask:integer* do tabeli *users*:
+
+    script/generate migration AddRoleRolesMaskToUser roles_mask:integer
+    rake db:migrate
 
 Następnie dopisujemy do modelu *User*:
 
     :::ruby
+    class User < ActiveRecord::Base
+      attr_accessible :login, :email, :password, :password_confirmation
+      attr_accessible :roles
+
     has_many :fortunes
     
     named_scope :with_role, lambda { 
@@ -95,6 +95,14 @@ Do widoku częściowego *users/_form.html.erb* dopisujemy:
       <%= hidden_field_tag "user[roles][]", "" %>
     </p>
 
+I jeszcze komentarz do kodu:
+„use of *hidden_field_tag* to workaround 
+a limitation in HTML form checkbox”.
+
+
+Jak to działa? Korzystamy z wirtualnego atrybutu *roles*.
+
+
 ## Powiązania między modelami
 
 Każada fortunka została wpisana przez jakiegoś użytkownika,
@@ -106,8 +114,8 @@ a użytkownik mógł wpisać wiele fortunek:
 
 Migracja:
 
-   ./script/generate migration AddUserIdToFortune user_id:integer
-   rake db:migrate
+    script/generate migration AddUserIdToFortune user_id:integer
+    rake db:migrate
 
 Dopisujemy identyfikator użytkownika w modelu *Fortune* do
 *attr_accessible*:
@@ -115,23 +123,48 @@ Dopisujemy identyfikator użytkownika w modelu *Fortune* do
     :::ruby
     attr_accessible :quotation, :user_id
 
-Do widoku *edit*, dodajemy na razie tylko adminowi
-(później też moderatorowi) możliwość zmiany użytkownika,
-który dodał cytat.
 
-Użyjemy listy rozwijanej. Dopisujemy do *_form.html.erb*:
+## Umieszczamy przykładowe dane w bazie
 
-    :::html_rails
-    <%= f.collection_select :user_id, User.all, :id, :login %>
+Przykładowe dane wpiszemy w pliku *db/seeds.rb*.
+W Railsach jest specjalne zadanie *rake*, które
+dane z tego pliku „przepisze” do bazy:
+
+    rake db:seed  # load the seed data from db/seeds.rb
+
+Zaczynamy od umieszczenia w bazie trzech użytkowników:
+
+    User.create :login => 'wlodek', :email => 'matwb@ug.edu.pl', 
+      :password=> '1234', :password_confirmation => '1234', 
+      :roles => ["admin", "", ""]
+    User.create :login => 'renia', :email => 'renia@example.pl', 
+      :password=> '1234', :password_confirmation => '1234', 
+      :roles => ["", "moderator", ""]
+    User.create :login => 'bazylek', :email => 'bazylek@cats.com', 
+      :password=> '1234', :password_confirmation => '1234', 
+      :roles => ["", "", "author"]
+
+W tej wersji Fortunki skorzystamy z cytatów ze strony
+[The Quotations Page](http://www.quotationspage.com/subjects/).
+Każdemu użytkownikowi przypiszemy po dwa cytaty:
+
+    Fortune.create :quotation => "Men willingly believe what they wish.",
+      :user_id => 1
+    Fortune.create :quotation => "I have often regretted my speech, never my silence.",
+      :user_id => 1
+    Fortune.create :quotation => "All science is either physics or stamp collecting.",
+      :user_id => 2
+    Fortune.create :quotation => "Nothing shocks me. I'm a scientist.",
+      :user_id => 2
+    Fortune.create :quotation => "Science is organized knowledge. Wisdom is organized life.",
+      :user_id => 3
+    Fortune.create :quotation => "Security is a kind of death.",
+      :user_id => 3
 
 
+## Zmiany w layoucie
 
-## Zmiany na stronie głównej
-
-Zaczniemy od kosmetyki. W widoku *index.html.erb* przy każdym cytacie
-dopiszemy login użytkownika który dodał cytat. Zamiast wypisywać
-dane z bazy do tabeli wstawimy je do *div* z kilkoma *p*.
-
+W główce każdej strony umieścimy login zalogowanego użytkownika.
 Informację o zalogowanym użytkowniku znajdziemy w sesji.
 Jeśli w widoku strony głównej dopiszemy:
 
@@ -161,11 +194,25 @@ powinniśmy zobaczyć co Authlogic zapisał w sesji:
 Stąd widzimy, że 
 
     :::ruby
-    current_user_session.user.login
+    current_user.login
 
 to login zalogowanego użytkownika.
 
-Oto oryginalny widok *index.html.erb*:
+Zatem dopisujemy w *layout/application.html.erb*
+poniżej linka *"Logout"*:
+
+    :::html_rails
+    Hello <em><%= current_user.login %></em>
+
+
+## Zmiany na stronie głównej
+
+Widok z rusztowania to tabelka. Nie wyglada to zbyt ładnie.
+Zamiast tabelki uzyjemy kilku elementów *div*.
+
+W widoku *index.html.erb* przy każdym cytacie
+dopiszemy login użytkownika który dodał cytat. 
+Oto oryginalny widok:
 
     :::html_rails
     <table>
@@ -198,9 +245,22 @@ A to widok po liftingu:
            | <%= link_to "Destroy", fortune, 
                       :confirm => 'Are you sure?', 
                       :method => :delete %>
-           (dodał: <em><%= current_user_session.user.login %></em>)
+           (added by <em><%= fortune.user.login %></em>)</p>
          <% end %>
       </p>
     <% end %>
     <p><%= link_to "New Fortune", new_fortune_path %></p>
+
+
+## Zmiany w edycji fortunek
  
+Do widoku *edit*, dodajemy na razie tylko adminowi
+(później też moderatorowi) możliwość zmiany użytkownika,
+który dodał cytat.
+
+Użyjemy listy rozwijanej. Dopisujemy do *_form.html.erb*:
+
+    :::html_rails
+    <%= f.collection_select :user_id, User.all, :id, :login %>
+
+
