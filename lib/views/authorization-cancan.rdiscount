@@ -153,9 +153,9 @@ Każdemu użytkownikowi przypiszemy po dwa cytaty:
     Fortune.create :quotation => "I have often regretted my speech, never my silence.",
       :user_id => 1
     Fortune.create :quotation => "All science is either physics or stamp collecting.",
-      :user_id => 2
+      :user_id => 3
     Fortune.create :quotation => "Nothing shocks me. I'm a scientist.",
-      :user_id => 2
+      :user_id => 3
     Fortune.create :quotation => "Science is organized knowledge. Wisdom is organized life.",
       :user_id => 3
     Fortune.create :quotation => "Security is a kind of death.",
@@ -262,7 +262,12 @@ A to ten sam widok po „liftingu”:
 A to są poprawki do widoku *fortunes/show.html.erb*:
 
     :::html_rails
-    <p>(added by <em><%= @fortune.user.login %></em>)</p>
+    <p>
+      <strong>Quotation </strong> added by <em><%= @fortune.user.login %></em>
+    </p>
+    <p>
+      <%=h @fortune.quotation %>
+    </p>
 
 
 ## Zmiany w edycji fortunek
@@ -397,8 +402,7 @@ Zaczynamy od zmian w widoku *fortunes/index.html.erb*:
            | <%= link_to "Edit", edit_fortune_path(fortune) %>
          <% end %>
          <% if can? :destroy, fortune %> 
-           | <%= link_to "Destroy", fortune, 
-                      :confirm => 'Are you sure?', 
+           | <%= link_to "Destroy", fortune, :confirm => 'Are you sure?', 
                       :method => :delete %>
          <% end %>
       </p>
@@ -415,8 +419,7 @@ Następnie w pliku *show.html.erb* poprawiamy akapit:
         <%= link_to "Edit", edit_fortune_path(@fortune) %>
       <% end %>
       <% if can? :destroy, @fortune %> 
-        | <%= link_to "Destroy", @fortune, 
-                   :confirm => 'Are you sure?', 
+        | <%= link_to "Destroy", @fortune, :confirm => 'Are you sure?', 
                    :method => :delete %>
       <% end %>
     </p>
@@ -464,3 +467,118 @@ Autor może dodawać, edytować i usuwać swoje cytaty:
         end  
       end  
     end  
+
+Na koniec zostawiliśmy rolę *moderatora*, który może tylko edytować
+i usuwać cytaty.
+
+    :::ruby
+    if user.role? :admin
+      can :manage, :all
+    elsif user.role? :author
+      can :read, Fortune
+      can :create, Fortune
+      can [:update, :destroy], Fortune, :user_id => user.id
+    elsif user.role? :moderator
+      can :read, Fortune
+      can [:update, :destroy], Fortune
+    else
+      can :read, Fortune
+    end
+
+Powinniśmy jeszcze zadbać o to, aby *autor* nie mógł przypisać nowej
+fortunki innemu użytkownikowi.
+
+Niestety, nie wystarczy ukryć rozwijalnej listy „Zmień użytkownika”
+przed autorami. Użytkownik może przechwycić wysyłany formularz, na
+przykład za pomocą rozszerzenia *Web Developer* lub *Tamper Data*
+przeglądarki Firefox, i zmienić wysyłane dane.
+
+Wydaje się, że najprostszym rozwiązaniem będzie zignorowanie
+przesyłanego id użytkownika w *params[:fortune]* w metodach *update*
+i *create*. Zamiast tego ustawimy dane użytkownika na *current_user*:
+
+    :::ruby
+    def update
+      if current_user.role? :author
+        # to samo co params[:fortune][:user_id] = current_user.id
+        @fortune.user = current_user
+      end
+      if @fortune.update_attributes(params[:fortune])
+    
+    def create
+      @fortune = Fortune.new(params[:fortune])
+      @fortune.user = current_user  # przebijamy ustawienia z przesłanego formularza
+      ...
+
+Zanim ukryjemy rozwijalną listę select przed autorami, jeszcze jedna
+poprawka w kodzie kontrolera:
+    
+    :::ruby
+    def new
+      @fortune.user = current_user  # ustaw użytkownika na liście select
+    end
+
+Sprawdzamy, czy wszystko działa. Jesli tak, to ukrywamy listę
+rozwijaną przed autorami (ale nie adminami i moderatorami). W widoku
+*fortunes/_form.html.erb* podmieniamy akapit z „Zmień użytkownika…” na:
+
+    :::html_rails
+    <% if !current_user.role?(:author) %> 
+    <p>
+      Zmień użytkownika: <%= f.collection_select :user_id, User.all, :id, :login %>
+    </p>
+    <% end %>
+
+
+## Kosmetyka widoków
+
+Dwie rzeczy należałoby zmienić w widoku *fortunes/index.html.erb*:
+
+1. Autorzy powinni po zalogowaniu widzieć tylko swoje cytaty.
+2. Admini i moderatorzy powinni po zalogowaniu widzieć kto dodał cytat.
+
+Dlaczego?
+
+Na stronie [Upgrading 1.1 – cancan](http://wiki.github.com/ryanb/cancan/upgrading-to-11)
+w sekcji **Fetching Records** jest przykład pokazujący jak 
+zaprogramować punkt 1. powyżej. W *fortunes_controller.rb* w metodzie
+*indeks* podmieniamy:
+
+    :::ruby
+    @fortunes = Fortunes.accessible_by(current_ability)
+
+Ale powyższy kod zwraca to samo co *Fortunes.all* — czyli nie działa (bug?).
+
+Zamiast tego metodę indeks zaprogramujemy tak:
+
+    :::ruby
+    def index
+      @fortunes = current_user.fortunes
+    end
+
+co po uwzględnieniu adminów, moderatorów oraz niezalogowanych
+użytkowników daje:
+
+    :::ruby
+    def index
+      if current_user && current_user.role?(:author)
+        @fortunes = current_user.fortunes
+      else
+        @fortunes = Fortune.all
+      end
+    end
+
+Czy ten kod jest równoważny z rozwiązaniem korzystającym z *accessible_by*
+ze strony gemu CanCan?
+
+
+Pozostaje punkt 2. Można to zrobić tak:
+
+    :::html_rails
+    <% for fortune in @fortunes %>
+      <p>
+        <%=h fortune.quotation %>
+        <% if logged_in? && (current_user.role?(:admin) || current_user.role?(:moderator)) %>
+          (added by <em><%= fortune.user.login %></em>)
+        <% end %>
+      </p>
