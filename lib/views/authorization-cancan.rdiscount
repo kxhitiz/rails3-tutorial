@@ -12,34 +12,26 @@ Zamierzamy to sprawdzić, dodając autoryzację do Fortunki z autentykacją.
 
 Zaczynamy od sklonowania Fortunki z *Autentykacja z Authlogic*:
 
-    git clone ssh://sigma.ug.edu.pl/~wbzyl/hello/authlogic
+    git clone git://sigma.ug.edu.pl/~wbzyl/authlogic.git my-authlogic
 
-i utworzenia nowej gałęzi:
+Teraz zmieniamy katalog, czytamy plik README:
 
-    git checkout -b cancan
+    cd my-authlogic
+    less README.md
 
-na której będziemy eksperymentować z autoryzacją.
+i tak jak to opisano w README tworzymy gałąź *cancan*:
 
-Następnie na gałęzi *cancan* podmieniamy w pliku *database.yml* nazwę
-bazy danych dla trybu development:
+    git checkout --track origin/cancan
 
-    :::yaml
-    development:
-      adapter: sqlite3
-      database: db/cancan-development.sqlite3
-      pool: 5
-      timeout: 5000
-
-oraz nazwy baz danych używanych trybach test i production.
-
-Po tych podmianach, migrujemy:
+Pora na migrację i umieszczenie przykładowych danych w bazie:
 
     rake db:migrate
+    rake db:seed
 
-i jesteśmy w miejscu w którym zakończyliśmy zabawę z Authlogic,
-ale tym razem jesteśmy na gałęzi **cancan**, a nie na *master*.
+Teraz jesteśmy w miejscu w którym zakończyliśmy zabawę z Authlogic.
+Ale tym razem jesteśmy na gałęzi **cancan**, a nie na **master**.
 
-Wykorzystamy *cancan* do dodania trzech ról do Fortunki:
+Wykorzystamy gem *CanCan* do dodania trzech ról do Fortunki:
 
 * admin — **może** wszystko
 * moderator — **może**  edytować i usuwać cytaty
@@ -95,9 +87,8 @@ Do widoku częściowego *users/_form.html.erb* dopisujemy:
       <%= hidden_field_tag "user[roles][]", "" %>
     </p>
 
-I jeszcze komentarz do kodu:
-„use of *hidden_field_tag* to workaround 
-a limitation in HTML form checkbox”.
+I jeszcze komentarz do kodu: „use of *hidden_field_tag* to workaround
+a limitation in HTML form checkbox”.
 
 
 Jak to działa? Korzystamy z wirtualnego atrybutu *roles*.
@@ -118,7 +109,8 @@ Migracja:
     rake db:migrate
 
 Dopisujemy identyfikator użytkownika w modelu *Fortune* do
-*attr_accessible*:
+*attr_accessible*, ponieważ będziemy chcieli aby admini
+i moderatorzy mogli go zmieniać:
 
     :::ruby
     attr_accessible :quotation, :user_id
@@ -127,7 +119,7 @@ Dopisujemy identyfikator użytkownika w modelu *Fortune* do
 ## Umieszczamy przykładowe dane w bazie
 
 Przykładowe dane wpiszemy w pliku *db/seeds.rb*.
-W Railsach jest specjalne zadanie *rake*, które
+W Railsach jest specjalne zadanie *rake*, które
 dane z tego pliku „przepisze” do bazy:
 
     rake db:seed  # load the seed data from db/seeds.rb
@@ -289,8 +281,8 @@ użytkownika (użyjemy listy rozwijanej), który dodał cytat.
     <% end %>
 
 Na razie każdy zalogowany użytkownik może dodawany przez siebie cytat
-przypisać innemu użytkownikowi. Później umożliwimy edycję użytkownika
-tylko adminowi i moderatorowi.
+przypisać innemu użytkownikowi. Później ograniczymy
+możliwość edycji użytkownika do admina i moderatora.
 
 Tyle przygotowań i poprawek w aplikacji. Teraz zabieramy się za
 implementację autoryzacji.
