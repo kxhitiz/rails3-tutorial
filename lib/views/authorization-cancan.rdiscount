@@ -2,6 +2,11 @@
 
 # Autoryzacja z CanCan
 
+<blockquote>
+  <p>{%= image_tag "/images/ryan-bates.png", :alt => "[Ryan Bates]" %}</p>
+  <p class="center">Ryan Bates</p>
+</blockquote>
+
 **CanCan is a simple authorization plugin that offers a lot of flexibility.**
 Zamierzamy to sprawdzić, dodając autoryzację do Fortunki z autentykacją.
 
@@ -12,11 +17,11 @@ Zamierzamy to sprawdzić, dodając autoryzację do Fortunki z autentykacją.
 
 Zaczynamy od sklonowania Fortunki z *Autentykacja z Authlogic*:
 
-    git clone git://sigma.ug.edu.pl/~wbzyl/authlogic.git my-authlogic
+    git clone git://sigma.ug.edu.pl/~wbzyl/authlogic
 
 Teraz zmieniamy katalog, czytamy plik README:
 
-    cd my-authlogic
+    cd authlogic
     less README.md
 
 i tak jak to opisano w README tworzymy gałąź *cancan*:
@@ -148,7 +153,7 @@ Każdemu użytkownikowi przypiszemy po dwa cytaty:
       :user_id => 3
     Fortune.create :quotation => "Nothing shocks me. I'm a scientist.",
       :user_id => 3
-    Fortune.create :quotation => "Science is organized knowledge. Wisdom is organized life.",
+    Fortune.create :quotation => "Science is organized knowledge.",
       :user_id => 3
     Fortune.create :quotation => "Security is a kind of death.",
       :user_id => 3
@@ -290,6 +295,10 @@ implementację autoryzacji.
 
 # Implementujemy autoryzację
 
+<blockquote>
+  {%= image_tag "/images/authorization.jpg", :alt => "[Autoryzacja]" %}
+</blockquote>
+
 Zaczynamy instalacji gemu *cancan* w Fortunce:
 
     :::ruby
@@ -359,7 +368,7 @@ Jest jeszcze jedna rzecz, o której zapomnieliśmy:
 
     :::ruby
     def create
-    @fortune.user = current_user # przypisz cytat do zalogowanego użytkownika
+      @fortune.user = current_user # przypisz cytat do zalogowanego użytkownika
 
 Teraz możemy już sprawdzić jak to działa. Logujemy się do Fortunki i
 próbujemy wyedytować jakiś cytat. Po kliknieciu w link *Edit*
