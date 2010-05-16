@@ -576,6 +576,9 @@ Zaglądamy na stronę z dokumentacją do
 
 Dodajemy *validates_presence_of* i może *validates_length_of* do Fortunki.
 
+Na koniec dodatkowa lektura –
+[Building Rails 3 custom validators](http://www.perfectline.co.uk/blog/building-ruby-on-rails-3-custom-validators).
+
 
 ## Dodajemy Basic HTTP Authentication
 
