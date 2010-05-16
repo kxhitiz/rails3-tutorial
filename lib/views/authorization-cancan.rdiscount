@@ -462,7 +462,7 @@ Autor może dodawać, edytować i usuwać swoje cytaty:
         elsif user.role? :author
           can :read, Fortune
           can :create, Fortune
-          can [:update. :destroy], Fortune, :user_id => user.id
+          can [:update, :destroy], Fortune, :user_id => user.id
         else
           can :read, Fortune         
         end  
