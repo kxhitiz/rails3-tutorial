@@ -77,3 +77,68 @@ TODO: Przykłady layoutu dla kontrolera:
 Dodatkowo, przykład prostego triku/refaktoryzacji:
 
 * korzystamy z css layout nifty helpers: content_for
+
+
+## Aktywne zakładki
+
+* [Tabbed navigation in Rails (refactored)](http://rpheath.com/posts/304-tabbed-navigation-in-rails-refactored)
+* [Selected Tab Navigation](http://railsforum.com/viewtopic.php?id=30174)
+* [TabsOnRails: Creating and managing Tabs with Ruby on Rails](http://code.simonecarletti.com/projects/tabsonrails/wiki)
+
+Plik *views/layouts/application_controller.html.erb*, dla przykładu:
+
+    :::ruby
+    navigation :home, :projects, :about, :contact, :admin
+
+Plik *helpers/application_helper.rb*:
+
+    :::ruby
+    ## TODO: sprawdzić
+    def navigation(*links)
+      content_tag :ul do
+        links.map do |name| 
+          content_tag :li, link, :class => ("active" if my_condition)
+        end
+      end
+    end
+
+gdzie *my_condition*, to np.
+
+    :::ruby
+    controller.controller_name.to_sym == link
+
+albo
+
+    :::ruby
+    controller.action_name.to_sym == link
+
+Wygodne jeśli aktywnę zakładkę można wybrać w jeden z podanych
+wyżej sposobów. Jeśli tak nie jest wtedy kod się komplikuje:
+
+    :::ruby
+    # apps/controllers/application.rb
+    class ApplicationController < ActionController::Base
+      before_filter :set_active_tab
+    protected
+      def set_active_tab
+        # will default to controller_name if @active_tab
+        # has not been set by another controller
+        @active_tab ||= self.controller_name.to_sym
+      end
+    end
+
+Teraz *@active_tab* przedfiniowujemy według potrzeb:
+
+    :::ruby
+    class Admin < ApplicationController
+      ...
+      protected
+        def set_current_tab
+          @current_tab = :admin
+        end
+    end
+
+Warunek *my_condition* teraz to:
+
+    :::ruby
+    @current_tab == link
