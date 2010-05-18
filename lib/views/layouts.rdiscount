@@ -81,64 +81,46 @@ Dodatkowo, przykład prostego triku/refaktoryzacji:
 
 ## Aktywne zakładki
 
-* [Tabbed navigation in Rails (refactored)](http://rpheath.com/posts/304-tabbed-navigation-in-rails-refactored)
+Tak ma wyglądać element z zakładkami, gdy jesteśmy na stronie *Homepage*:
+
+    :::html
+    <div id="mainMenu">
+      <ul>
+        <li class="active"><a href="/home"><span>Homepage</span></a></li>
+        <li><a href="/about"><span>About us</span></a></li>
+        <li><a href="/contact"><span>Contact</span></a></li>
+      </ul>
+    </div>
+
+Elementowi listy z *homepage* dodajemy klasę *active*.
+
+A tak chcielibyśmy, to wpisywać w *views/layouts/application.html.erb*:
+
+    :::html_rails
+    <div id="mainMenu">
+      <%= navigation ['/home', 'Homepage'], 
+                     ['/about', 'About us'], 
+                     ['/contact', 'Contact'] %>
+    </div>
+
+A tak to zakodujemy w pliku *helpers/layout_helper.rb*:
+
+    :::ruby
+    def navigation(*data)
+      content_tag :ul do
+        data.map do |link, name|
+          content_tag :li, link_to("<span>#{name}</span>", link),
+              :class => ("active" if controller.controller_name == link[1,link.length])
+        end
+      end
+    end
+
+Czasami zamiast `controller.controller_name` będzie nam lepiej pasować
+`controller.action_name`.
+
+Gotowy przykład, zob. *labs/003-Tabbed_Navigation*.
+
+Na koniec kilka linków:
+
 * [Selected Tab Navigation](http://railsforum.com/viewtopic.php?id=30174)
 * [TabsOnRails: Creating and managing Tabs with Ruby on Rails](http://code.simonecarletti.com/projects/tabsonrails/wiki)
-
-Plik *views/layouts/application_controller.html.erb*, dla przykładu:
-
-    :::ruby
-    navigation :home, :projects, :about, :contact, :admin
-
-Plik *helpers/application_helper.rb*:
-
-    :::ruby
-    ## TODO: sprawdzić
-    def navigation(*links)
-      content_tag :ul do
-        links.map do |name| 
-          content_tag :li, link, :class => ("active" if my_condition)
-        end
-      end
-    end
-
-gdzie *my_condition*, to np.
-
-    :::ruby
-    controller.controller_name.to_sym == link
-
-albo
-
-    :::ruby
-    controller.action_name.to_sym == link
-
-Wygodne jeśli aktywnę zakładkę można wybrać w jeden z podanych
-wyżej sposobów. Jeśli tak nie jest wtedy kod się komplikuje:
-
-    :::ruby
-    # apps/controllers/application.rb
-    class ApplicationController < ActionController::Base
-      before_filter :set_active_tab
-    protected
-      def set_active_tab
-        # will default to controller_name if @active_tab
-        # has not been set by another controller
-        @active_tab ||= self.controller_name.to_sym
-      end
-    end
-
-Teraz *@active_tab* przedfiniowujemy według potrzeb:
-
-    :::ruby
-    class Admin < ApplicationController
-      ...
-      protected
-        def set_current_tab
-          @current_tab = :admin
-        end
-    end
-
-Warunek *my_condition* teraz to:
-
-    :::ruby
-    @current_tab == link
