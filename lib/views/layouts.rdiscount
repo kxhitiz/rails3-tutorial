@@ -112,7 +112,7 @@ Na koniec kilka linków na ten temat:
 * [TabsOnRails: Creating and managing Tabs with Ruby on Rails](http://code.simonecarletti.com/projects/tabsonrails/wiki)
 
 
-## Zagnieżdzone layouty
+## Zagnieżdzone layouty z *content_for*
 
 W powyższym przykładzie każdy z kontrolerów:
 
