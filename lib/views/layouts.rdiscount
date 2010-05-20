@@ -66,61 +66,74 @@ A oto wygenerowany layout *application.html.erb* (po małym liftingu do html5):
     </html>
 
 
-## Layout dla kontrolera
-
-TODO: Przykłady layoutu dla kontrolera:
-
-* dodajemy controler PagesController
-* kopiujemy application.html.erb na pages.html.erb
-  i modyfikujemy
-
-Dodatkowo, przykład prostego triku/refaktoryzacji:
-
-* korzystamy z css layout nifty helpers: content_for
-
-
 ## Aktywne zakładki
 
-Tak ma wyglądać element z zakładkami, gdy jesteśmy na stronie *Homepage*:
+Dla przykładu, przyjmijmy, że na każdej stronie naszej aplikacji
+wyświetlamy trzy zakładki *Homepage*, *About us* oraz *Contact*,
+a kod elementu HTML z zakładkami, gdy jesteśmy na stronie *Homepage*
+ma wyglądać tak:
 
     :::html
     <div id="mainMenu">
       <ul>
-        <li class="active"><a href="/home"><span>Homepage</span></a></li>
-        <li><a href="/about"><span>About us</span></a></li>
-        <li><a href="/contact"><span>Contact</span></a></li>
+        <li class="active"><a href="/home">Homepage</a></li>
+        <li><a href="/about">About us</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
     </div>
 
-Elementowi listy z *homepage* dodajemy klasę *active*.
+czyli element listy *ul* z linkiem do strony na której aktualnie jesteśmy
+powinien mieć dodany atrybut **class** ustawiony na **active**.
 
-A tak chcielibyśmy, to wpisywać w *views/layouts/application.html.erb*:
+A tak chcielibyśmy, to wpisać layoucie *views/layouts/application.html.erb*:
 
     :::html_rails
     <div id="mainMenu">
-      <%= navigation ['/home', 'Homepage'], 
-                     ['/about', 'About us'], 
-                     ['/contact', 'Contact'] %>
+      <%= navigation ['/home','Homepage'],['/about','About us'],['/contact','Contact'] %>
     </div>
 
-A tak to zakodujemy w pliku *helpers/layout_helper.rb*:
+Poniższy kod, po wpisaniu w *helpers/layout_helper.rb*, realizuje takie podejście:
 
     :::ruby
     def navigation(*data)
       content_tag :ul do
         data.map do |link, name|
-          content_tag :li, link_to("<span>#{name}</span>", link),
+          content_tag :li, link_to("#{name}", link),
               :class => ("active" if controller.controller_name == link[1,link.length])
         end
       end
     end
 
-Czasami zamiast `controller.controller_name` będzie nam lepiej pasować
-`controller.action_name`.
-
 Gotowy przykład, zob. *labs/003-Tabbed_Navigation*.
 
-Na koniec kilka linków:
+Na koniec kilka linków na ten temat:
 
 * [Selected Tab Navigation](http://railsforum.com/viewtopic.php?id=30174)
 * [TabsOnRails: Creating and managing Tabs with Ruby on Rails](http://code.simonecarletti.com/projects/tabsonrails/wiki)
+
+
+## Zagnieżdzone layouty
+
+W powyższym przykładzie każdy z kontrolerów:
+
+* HomeController
+* AboutController
+* ContactController
+
+używa tego samego layoutu – *application.html.erb*.
+
+Przypuśćmy, że layouty dla kontrolerów muszą się nieco różnić,
+dla przykładu – kolorem tła.
+
+Zamiast powielenia i edycji *layouts/application.html.erb* można
+postąpić tak. Tworzymy plik *layouts/about.html.erb* o zawartości:
+
+    :::html_rails
+    <% content_for :head do %>  
+      <style>
+        #background { background-color: #956E6F; }
+      </style>
+    <% end -%> 
+    <%= render :file => 'layouts/application' %>
+
+i według tego schematu tworzymy plik *layouts/contact.html.erb*.

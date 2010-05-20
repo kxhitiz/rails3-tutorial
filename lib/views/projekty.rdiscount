@@ -2,20 +2,36 @@
 
 # Lista projektów
 
-Projekt uruchamiamy tak:
+**Uwaga:** *unicorn_rails* zastąpił *mongrel_rails*.
 
-    mongrel_rails -d -p numer_portu start
+Dlaczego i kiedy korzystamy z *unicorn_rails*:
+„Unicorn is an HTTP server for Rack applications designed to only
+serve fast clients on low-latency, high-bandwidth connections and take
+advantage of features in Unix/Unix-like kernels. Slow clients should
+only be served by placing a reverse proxy capable of fully buffering
+both the the request and response in between Unicorn and slow clients.”
+
+Co to są „fast clients” i co należy rozumieć przez „low-latency”
+oraz „high-bandwidth” wyjaśnia Tyler Bird, [Everything You Need to Know About 
+Unicorn](http://www.engineyard.com/blog/2010/everything-you-need-to-know-about-unicorn/).
+
+Naszą aplikację uruchamiamy tak (wszystkie polecenia wykonujemy w katalogu *RAILS_ROOT*):
+
+<pre>unicorn_rails -D -p <b>numer_portu</b>
+</pre>
 
 zatrzymujemy tak:
 
-    mongrel_rails stop
+    :::shell-unix-generic
+    kill -TERM $(cat $(find -name unicorn.pid))
 
 a restartujemy tak:
 
-    mongrel_rails restart
+    :::shell-unix-generic
+    kill -HUP $(cat $(find -name unicorn.pid))
 
-Wszystkie polecenia wykonujemy z katalogu 
-*RAILS_ROOT*, czyli katalogu głównego aplikacji.
+Więcej informacji o projekcie *Unicorn* znajdziemy na jego stronie domowej
+[Unicorn: Rack HTTP server for fast clients and Unix](http://unicorn.bogomips.org/README.html).
 
 
 ## Portal społecznościowy – „PPT”

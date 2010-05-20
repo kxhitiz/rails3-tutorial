@@ -46,7 +46,7 @@
 ## Laboratoria
 
 * {%= link_to "Ćwiczenia", "/exercises" %}
-* {%= link_to "Projekty 2009", "/projekty" %}
+* {%= link_to "Projekty 2010", "/projekty" %}
 
 
 ## Dokumentacja
