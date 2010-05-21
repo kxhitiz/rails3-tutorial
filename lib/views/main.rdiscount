@@ -1,10 +1,14 @@
 # Samouczek do Rails
 
+<!--
+
 ## Info
 
 [2010.5.11] Przykładową aplikację omawianą na wykładzie można sklonować stąd:
 
     git clone git://sigma.ug.edu.pl/~wbzyl/authlogic.git my-authlogic
+
+-->
 
 <blockquote>
   {%= image_tag "/images/the_thinker.jpg", :alt => "[The Thinker]" %}
@@ -15,7 +19,7 @@
 
 ## Wykłady
 
-1. {%= link_to "Rozkład jazdy", "/intro" %}
+1. {%= link_to "Zaczynamy", "/intro" %}
 1. {%= link_to "Hello Fortune", "/fortune" %}
 1. {%= link_to "Layouts", "/layouts" %}
 1. {%= link_to "I18n", "/i18n" %}

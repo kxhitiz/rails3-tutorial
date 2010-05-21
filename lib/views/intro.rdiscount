@@ -1,68 +1,16 @@
-#### {% title "Rozkład jazdy" %}
+#### {% title "Zaczynamy" %}
 
-# Wykłady i Laboratoria
+# Konfiguracja *irb* i *script/console*
 
-### 7.10.2009
+Zaczynamy od konfiguracji dwóch podstawowych narzędzi:
+interaktywnej konsoli dla języka Ruby oraz
+konsoli dla aplikacji Rails.
 
-* O zaletach „epoki żelaza” z J. Kaplan-Moss. 
-  [Snakes on the Web](http://jacobian.org/writing/snakes-on-the-web/).
-* Nieco o systemie Git na przykładzie forkowania *jBloga*.
-* Generujemy szkielet aplikacji *Fortunka*.
+Instalujemy gemy *wirble* i *hirb*:
 
-* BlueprintCSS
+    gem install wirble hirb
 
-
-### 14.10.2009
-
-* Szablony w Rails: ERB.
-* Szablon: aplikacji, kontrolera, metody.
-
-
-### 21.10.2009
-
-Wprowadzenie do języka Ruby. Trochę kodu wpisanego
-z ręki, kilka przykładów: Hanoi, biblioteki erb i erubis.
-Generowanie diagramów: [yuml](http://yuml.me/).
-
-
-### 28.10.2009
-
-Zacząć od gemu [enterpise](http://github.com/tenderlove/enterprise/).
-
-Trochę o repozytoriach gita, popełnianych błędach oraz
-o tym jak umieścić zmiany na *github.com*.
-
-Przykład: bazy danych na konsoli.
-
-Info: polecenie *rake routes*, REST. 
-
-Zacząłem budować Fortunkę.
-
-
-### 2.11.2009
-
-Skąd błąd w wygenerowanym kodzie? Dlaczego routes były „ambiguous”.
-Dlaczego poprawki musiały być takie a nie inne?
-
-Omówić tabelkę „Domyślne rusztowanie” i dalej tak jak w notatkach.
-
-
-
-### ?.??.2009
-
-Rzeczy do zrobienia we frameworkach, czyli „what sucks”
-kontynuacja J. Kaplan-Moss. 
-[Snakes on the Web](http://jacobian.org/writing/snakes-on-the-web/).
-
-
-## Konfigurujemy *irb* i *script/console*
-
-Instalujemy dwa gemy:
-
-* wirble
-* hirb
-
-W katalogu domowym tworzymy plik *.irbrc* o zawartości:
+oraz do katalogu domowego dodajemy plik *.irbrc* o zawartości:
 
     :::ruby
     require 'rubygems'
@@ -78,39 +26,3 @@ W katalogu domowym tworzymy plik *.irbrc* o zawartości:
       require 'logger'
       RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
     end
-
-
-## Najważniejsze gemy i wtyczki
-
-1. Mislav Marohnić, gem
-   [will_paginate](http://github.com/mislav/will_paginate/).
-   Most awesome pagination solution for Ruby.
-2. Ben Johnsos, gem
-   [Authlogic](http://github.com/binarylogic/authlogic/).
-   A clean, simple, and unobtrusive ruby authentication solution.
-3. Jon Yurek, gem 
-   [paperclip](http://github.com/thoughtbot/paperclip/),
-   [strona domowa](http://www.thoughtbot.com/projects/paperclip).
-   Easy file attachment management for ActiveRecord.
-4. Mike Perham, plugin
-   [Exception Notifier](http://github.com/rails/exception_notification/).
-   Exception Notifier for Rails.
-5. Jeremy Kemper, plugin
-   [Acts As List](http://github.com/rails/acts_as_list/).
-   Provides the capabilities for sorting and reordering a number of
-   objects in a list.
-
-
-## Różne
-
-1. S. Becker, [JavaScript and CSS Asset Compression 
-   for Production Rails Apps](http://github.com/sbecker/asset_packager/)
-2. R. Tomayko, [Real HTTP Caching for Ruby Web Apps](http://github.com/rtomayko/rack-cache/)
-3. R. Bates, [A collection of useful Rails generator scripts](http://github.com/ryanb/nifty-generators/)
-
-
-## TODO
-
-1. Omówić przykład: *Ale Kino*.
-2. Wyszukiwanie w bazie: 
-   Xapian + [Xapit](http://github.com/ryanb/xapit).
