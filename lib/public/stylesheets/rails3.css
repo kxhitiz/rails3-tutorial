@@ -111,14 +111,16 @@ blockquote > h3 {
 }
 
 h2 {
-  font-size: 140%;
+  font-family: "IM Fell DW Pica";
+  font-size: 145%;
   padding-bottom: 6px;
   border-bottom: 2px dotted #A00;
   color: #A00;
 }
 
 h3 {
-  font-size: 120%;
+  font-family: 'IM Fell DW Pica';
+  font-size: 135%;
   color: #A00;
 }
 

@@ -47,6 +47,16 @@
 1. {%= link_to "Ruby 1.9 w pigułce", "/ruby19" %}
 1. {%= link_to "Sprytny kod", "/slick-code" %}
 
+<blockquote>
+  <p>
+    Jeden z wykładowców powiedział mi, że człowiek
+    zaczyna używać dopiero rozumu, kiedu kończą mu się
+    wszystkie możliwości. Wcześniej korzysta tylko
+    z procedur.
+  </p>
+  <p class="author">— Robert Krool</p>
+</blockquote>
+
 ## Laboratoria
 
 * {%= link_to "Ćwiczenia", "/exercises" %}
@@ -131,6 +141,13 @@ Is Your Plugin Ready For Rails 3? sprawdź na
 * Tim Riley.
   [ryanb's complex-form-examples](git://github.com/ryanb/complex-form-examples.git)
 
+
+<blockquote>
+  <p>
+    Jeśli coś jest do pomyślenia, to jest.
+  </p>
+  <p class="author">— Stanisław Lem</p>
+</blockquote>
 
 ## Pomysły na aplikacje WWW
 
