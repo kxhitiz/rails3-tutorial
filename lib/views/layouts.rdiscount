@@ -137,3 +137,61 @@ postąpić tak. Tworzymy plik *layouts/about.html.erb* o zawartości:
     <%= render :file => 'layouts/application' %>
 
 i według tego schematu tworzymy plik *layouts/contact.html.erb*.
+
+
+## What is sitemaps and why make a good use of that?
+
+Odpowiedzi udzielił [stJhimy](http://www.stjhimy.com/posts/2).
+
+Przykładowy plik:
+
+    :::xml
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
+      <url> 
+        <loc>http://sinatra.local/rails3/</loc> 
+        <priority>1.0</priority> 
+      </url> 
+      <url> 
+        <loc>http://sinatra.local/rails3/fortunes/1</loc> 
+        <priority>1.0</priority> 
+      </url>
+    </urlset>
+
+Taki plik wygenerujemy korzystając z *XMLbuilder*:
+
+    :::ruby
+    xml.instruct!
+    xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
+
+      xml.url do
+        xml.loc "http://sinatra.local/fortunes" # wstawiamy swój adres 
+        xml.priority 1.0
+      end
+      # dodajemy wszystkie fortunki (wystarczyłby indeks)
+      @fortunes.each do |fortune|
+        xml.url do
+          xml.loc fortune_url(fortune)
+          xml.priority 1.0
+        end
+      end
+      # można dodać więcej linków, dla przykładu
+      @posts.each do |post|
+        xml.url do
+          xml.loc post_url(post)
+          xml.lastmod post.updated_at.to_date
+          xml.priority 0.61
+        end
+      end
+    end
+
+Wcześniej definiujemy `@fortunes` i dodajemy routing, np.
+
+    http://sinatra.local/fortunes/sitemap.xml
+
+Na koniec uaktywnaimy sitemap dopisując w pliku *public/robots.txt*:
+
+    Sitemap: http://sinatra.local/fortunes/sitemap.xml
+
+Albo wykonujemy ping:
+
+    www.google.com/webmasters/tools/ping?sitemap=http://sinatra.local/fortunes/sitemap.xml
