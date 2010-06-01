@@ -49,6 +49,11 @@ Daty też nie są wypisywane tak ja należy, czyli tak: 14 marca 2010.
 Poprawił to Grzesiek Kołodziejczyk i udostępnił w postaci wtyczki:
 [Polish language support for Ruby on Rails](http://github.com/grk/polish)
 
+## I18n_routing
+
+URL też czasami należy przetłumaczyć. Jak to zrobić opisano 
+w [Translate your Rails2/3 routes with ease](http://www.tricksonrails.com/2010/05/i18n_routing-translate-your-rails2-rails3-routes-with-ease/).
+
 
 ## Przykład: will paginate
 
