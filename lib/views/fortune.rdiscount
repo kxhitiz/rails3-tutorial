@@ -92,28 +92,28 @@ szablonu aplikacji Rails – katalogu *RAILS_ROOT* i jego podkatalogu
 *app*.
 
 Katalog *RAILS_ROOT*:
-    .
-    ├── app
-    ├── config
-    ├── db
-    ├── doc
-    ├── lib
-    ├── log
-    ├── public
-    ├── Rakefile
-    ├── README
-    ├── script
-    ├── test
-    ├── tmp
-    └── vendor
+
+    app
+    config
+    db
+    doc
+    lib
+    log
+    public
+    Rakefile
+    README
+    script
+    test
+    tmp
+    vendor
 
 Podkatalog *app*, katalogu głównego aplikacji Rails:
 
     app
-    ├── controllers
-    ├── helpers
-    ├── models
-    └── views
+      controllers
+      helpers
+      models
+      views
 
 
 ## Rusztowanie dla modelu *Platitude*
