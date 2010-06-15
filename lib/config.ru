@@ -1,3 +1,5 @@
+require 'rubygems'
+
 require 'rails3-tutorial'
 
 gem 'rack-codehighlighter'
